@@ -1,31 +1,26 @@
 package com.example.meetplan.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.meetplan.R;
-import com.example.meetplan.databinding.FragmentMeetupsBinding;
-import com.example.meetplan.databinding.FragmentProfileBinding;
-import com.parse.ParseUser;
+import com.example.meetplan.databinding.FragmentDetailsBinding;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link MeetupsFragment#newInstance} factory method to
+ * Use the {@link DetailsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MeetupsFragment extends Fragment {
+public class DetailsFragment extends Fragment {
 
-    FragmentMeetupsBinding binding;
+    FragmentDetailsBinding binding;
 
-    public MeetupsFragment() {
+    public DetailsFragment() {
         // Required empty public constructor
     }
 
@@ -35,11 +30,11 @@ public class MeetupsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MeetupsFragment.
+     * @return A new instance of fragment DetailsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MeetupsFragment newInstance(String param1, String param2) {
-        MeetupsFragment fragment = new MeetupsFragment();
+    public static DetailsFragment newInstance(String param1, String param2) {
+        DetailsFragment fragment = new DetailsFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -54,10 +49,9 @@ public class MeetupsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_meetups, container, false);
-        binding = FragmentMeetupsBinding.inflate(getLayoutInflater(), container, false);
+        //return inflater.inflate(R.layout.fragment_details, container, false);
+        binding = FragmentDetailsBinding.inflate(getLayoutInflater(), container, false);
         View view = binding.getRoot();
         return view;
     }
-
 }

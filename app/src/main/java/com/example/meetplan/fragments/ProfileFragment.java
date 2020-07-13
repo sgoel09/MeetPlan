@@ -15,6 +15,8 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -65,6 +67,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -90,6 +93,9 @@ public class ProfileFragment extends Fragment {
                 Glide.with(getContext()).load(file.getUrl()).circleCrop().into(binding.ivProfilePic);
             }
         });
+        ParseUser user = ParseUser.getCurrentUser();
+        binding.etUsername.setText(user.getUsername());
+        binding.etEmail.setText(user.getEmail());
 
         binding.btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,6 +119,12 @@ public class ProfileFragment extends Fragment {
                 onLaunchCamera();
             }
         });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
     }
 
     @Override

@@ -49,32 +49,9 @@ public class LoginActivity extends AppCompatActivity {
         binding.btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i(TAG, "onClick signup button");
-                String username = binding.etUsername.getText().toString();
-                String password = binding.etPassword.getText().toString();
-                signupUser(username, password);
+                goSignupActivity();
             }
         });
-    }
-
-    private void signupUser(String username, String password) {
-        ParseUser user = new ParseUser();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.signUpInBackground(new SignUpCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Issue with signup", e);
-                    return;
-                }
-                goMainActivity();
-                Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_SHORT).show();
-            }
-        });
-        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.defaultprofilepic);
-        user.put("profilepic", convertToParseFile(imageBitmap));
-        user.saveInBackground();
     }
 
     private void loginUser(String username, String password) {
@@ -98,11 +75,8 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    private ParseFile convertToParseFile(Bitmap imageBitmap) {
-        ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
-        imageBitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
-        byte[] imageByte = byteArrayOutputStream.toByteArray();
-        ParseFile parseFile = new ParseFile("image_file.png",imageByte);
-        return parseFile;
+    private void goSignupActivity() {
+        Intent i = new Intent(this, SignupActivity.class);
+        startActivity(i);
     }
 }
