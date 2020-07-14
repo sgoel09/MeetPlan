@@ -50,7 +50,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:background="#77CF7A"
-            android:text="signup"
+            android:text="@string/signup"
             android:textColor="#FFFFFF" />
 
     </RelativeLayout>

@@ -23,6 +23,8 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     final FragmentManager fragmentManager = getSupportFragmentManager();
@@ -70,8 +72,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Logout of the account
         if (item.getItemId() == R.id.action_compose) {
+            ArrayList<String> memebers = new ArrayList<>();
+            memebers.add(ParseUser.getCurrentUser().getUsername());
             Meetup meetup = new Meetup();
             meetup.setName("New Meetup");
+            meetup.setMembers(memebers);
             meetup.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {

@@ -39,6 +39,11 @@ public class MeetupAdapter extends RecyclerView.Adapter<MeetupAdapter.ViewHolder
         return meetups.size();
     }
 
+    public void updateData(ImmutableList<Meetup> meetups) {
+        this.meetups = meetups;
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ItemMeetupBinding binding;
@@ -50,7 +55,8 @@ public class MeetupAdapter extends RecyclerView.Adapter<MeetupAdapter.ViewHolder
         }
 
         public void bind(final Meetup meetup) {
-            
+            binding.tvTitle.setText(meetup.getName());
+            binding.tvDescription.setText(meetup.getDescription());
         }
     }
 }

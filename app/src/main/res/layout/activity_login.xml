@@ -44,20 +44,20 @@
             android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:background="#45A5F1"
-            android:textColor="#FFFFFF"
-            android:text="Login" />
+            android:text="@string/login"
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/btnSignup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/btnLogin"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
             android:background="#77CF7A"
-            android:textColor="#FFFFFF"
-            android:text="signup" />
+            android:text="@string/signup"
+            android:textColor="#FFFFFF" />
 
     </RelativeLayout>
 

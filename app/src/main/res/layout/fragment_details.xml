@@ -13,7 +13,7 @@
         android:layout_alignParentEnd="false"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@id/btnEdit"
-        android:text="Submit" />
+        android:text="@string/submit" />
 
     <TextView
         android:id="@+id/tvTimeLabel"
@@ -97,7 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:text="Edit" />
+        android:text="@string/edit" />
 
     <TextView
         android:id="@+id/tvTitle"

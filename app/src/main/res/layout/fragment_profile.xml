@@ -62,7 +62,7 @@
         android:layout_height="48dp"
         android:layout_marginLeft="90dp"
         android:layout_toRightOf="@id/btnChoose"
-        android:text="logout" />
+        android:text="@string/logout" />
 
     <View
         android:id="@+id/divider"
@@ -98,7 +98,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvEmail"
         android:layout_alignParentRight="true"
-        android:text="Submit" />
+        android:text="@string/submit" />
 
     <TextView
         android:id="@+id/tvLabel"
