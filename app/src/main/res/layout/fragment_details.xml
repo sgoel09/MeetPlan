@@ -6,11 +6,107 @@
     android:layout_height="match_parent"
     tools:context=".fragments.DetailsFragment">
 
-
-    <TextView
-        android:id="@+id/tvName"
+    <Button
+        android:id="@+id/btnSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Meetup Name" />
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@id/btnEdit"
+        android:text="Submit" />
+
+    <TextView
+        android:id="@+id/tvTimeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="130dp"
+        android:text="Time:" />
+
+    <TextView
+        android:id="@+id/tvDateLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="90dp"
+        android:text="Date:" />
+
+    <TextView
+        android:id="@+id/tvDescriptionLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="50dp"
+        android:text="Description:" />
+
+    <TextView
+        android:id="@+id/tvLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Meetup Details" />
+
+    <EditText
+        android:id="@+id/etDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:layout_marginTop="30dp"
+        android:layout_toRightOf="@id/tvDescriptionLabel" />
+
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="50dp"
+        android:layout_toRightOf="@id/tvDescriptionLabel"
+        tools:text="Sample Title" />
+
+    <TextView
+        android:id="@+id/tvTitleLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Title:" />
+
+    <EditText
+        android:id="@+id/etTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:layout_marginRight="5dp"
+        android:layout_toRightOf="@id/tvTitleLabel" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/tvLabel"
+        android:background="?android:attr/listDivider" />
+
+    <Button
+        android:id="@+id/btnEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:text="Edit" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/tvTitleLabel"
+        tools:text="Sample Title" />
 
 </RelativeLayout>

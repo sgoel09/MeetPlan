@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class Meetup extends ParseObject {
 
     public static final String KEY_NAME = "name";
+    public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_MEMBERS = "members";
 
 
@@ -20,6 +21,14 @@ public class Meetup extends ParseObject {
 
     public void setName(String name) {
         put(KEY_NAME, name);
+    }
+
+    public String getDescription() {
+        return getString(KEY_DESCRIPTION);
+    }
+
+    public void setDescription(String description) {
+        put(KEY_DESCRIPTION, description);
     }
 
     public ArrayList<String> getMembers() {

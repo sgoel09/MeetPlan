@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,11 +19,14 @@ import com.example.meetplan.fragments.DetailsFragment;
 import com.example.meetplan.fragments.MeetupsFragment;
 import com.example.meetplan.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 public class MainActivity extends AppCompatActivity {
 
     final FragmentManager fragmentManager = getSupportFragmentManager();
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,15 +70,22 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Logout of the account
         if (item.getItemId() == R.id.action_compose) {
-            createNewMeetup();
-            Fragment fragment = new DetailsFragment();
+            Meetup meetup = new Meetup();
+            meetup.setName("New Meetup");
+            meetup.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e != null) {
+                        Log.e(TAG, "Error while saving", e);
+                        Toast.makeText(MainActivity.this, "Error while saving!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    Log.i(TAG, "Meetup was saved successfully");
+                }
+            });
+            Fragment fragment = DetailsFragment.newInstance(meetup);
             fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    //TODO: create new meetup page
-    private void createNewMeetup() {
-
     }
 }
