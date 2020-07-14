@@ -17,4 +17,19 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvTitle"
         tools:text="This is a description of meetup" />
+
+    <Button
+        android:id="@+id/btnAccept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@+id/btnDecline"
+        android:text="accept" />
+
+    <Button
+        android:id="@+id/btnDecline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="decline" />
 </RelativeLayout>

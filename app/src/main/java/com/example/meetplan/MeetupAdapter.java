@@ -13,15 +13,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.meetplan.databinding.ItemMeetupBinding;
 import com.example.meetplan.fragments.DetailsFragment;
 import com.google.common.collect.ImmutableList;
+import com.parse.ParseUser;
+
+import java.util.ArrayList;
 
 public class MeetupAdapter extends RecyclerView.Adapter<MeetupAdapter.ViewHolder> {
 
     private Activity context;
     private ImmutableList<Meetup> meetups;
+    private Boolean invited;
 
-    public MeetupAdapter(Activity context,  ImmutableList<Meetup> meetups) {
+    public MeetupAdapter(Activity context,  ImmutableList<Meetup> meetups, Boolean invited) {
         this.context = context;
         this.meetups = meetups;
+        this.invited = invited;
     }
 
     @NonNull
@@ -73,6 +78,38 @@ public class MeetupAdapter extends RecyclerView.Adapter<MeetupAdapter.ViewHolder
         public void bind(final Meetup meetup) {
             binding.tvTitle.setText(meetup.getName());
             binding.tvDescription.setText(meetup.getDescription());
+            if (invited) {
+                binding.btnAccept.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Meetup meetup = meetups.get(getAdapterPosition());
+                        respondInvite(meetup,true);
+                    }
+                });
+                binding.btnDecline.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Meetup meetup = meetups.get(getAdapterPosition());
+                        respondInvite(meetup, false);
+                    }
+                });
+            } else {
+                binding.btnAccept.setVisibility(View.GONE);
+                binding.btnDecline.setVisibility(View.GONE);
+            }
+        }
+
+        private void respondInvite(Meetup meetup, boolean accepted) {
+            ArrayList<String> invites = meetup.getInvites();
+            invites.remove(ParseUser.getCurrentUser().getUsername());
+            meetup.setInvites(invites);
+            if (accepted) {
+                ArrayList<String> members = meetup.getMembers();
+                members.add(ParseUser.getCurrentUser().getUsername());
+                meetup.setMembers(members);
+            }
+            meetup.saveInBackground();
+            updateData(meetups);
         }
     }
 }

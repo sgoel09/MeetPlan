@@ -79,14 +79,14 @@ public class MeetupsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         acceptedLayoutManager = new LinearLayoutManager(getContext());
         acceptedMeetups = ImmutableList.of();
-        acceptedAdapter = new MeetupAdapter((Activity) getContext(), acceptedMeetups);
+        acceptedAdapter = new MeetupAdapter((Activity) getContext(), acceptedMeetups, false);
         binding.rvMeetups.setAdapter(acceptedAdapter);
         binding.rvMeetups.setLayoutManager(acceptedLayoutManager);
         queryAcceptedMeetups();
 
         invitedLayoutManager = new LinearLayoutManager(getContext());
         invitedMeetups = ImmutableList.of();
-        invitedAdapter = new MeetupAdapter((Activity) getContext(), invitedMeetups);
+        invitedAdapter = new MeetupAdapter((Activity) getContext(), invitedMeetups, true);
         binding.rvInvited.setAdapter(invitedAdapter);
         binding.rvInvited.setLayoutManager(invitedLayoutManager);
         queryInvitedMeetups();
