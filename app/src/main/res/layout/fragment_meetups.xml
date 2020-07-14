@@ -6,15 +6,28 @@
     tools:context=".fragments.MeetupsFragment">
 
     <TextView
-        android:id="@+id/tvMeetupsLabel"
+        android:id="@+id/tvAcceptedLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/rvInvited"
         android:text="Upcoming meetups" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMeetups"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/tvMeetupsLabel" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvAcceptedLabel" />
+
+    <TextView
+        android:id="@+id/tvInvitedLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Invited Meetups" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvInvited"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvInvitedLabel" />
 
 </RelativeLayout>

@@ -39,9 +39,13 @@ public class MeetupsFragment extends Fragment {
 
     private static final String KEY_MEMBERS = "members";
     private static final String TAG = "MeetupsFragment";
-    private LinearLayoutManager layoutManager;
-    protected MeetupAdapter adapter;
-    private ImmutableList<Meetup> allMeetups;
+    private static final String KEY_INVITED = "invites";
+    private LinearLayoutManager acceptedLayoutManager;
+    private LinearLayoutManager invitedLayoutManager;
+    private MeetupAdapter acceptedAdapter;
+    private ImmutableList<Meetup> acceptedMeetups;
+    private MeetupAdapter invitedAdapter;
+    private ImmutableList<Meetup> invitedMeetups;
     FragmentMeetupsBinding binding;
 
     public MeetupsFragment() {
@@ -73,15 +77,41 @@ public class MeetupsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        allMeetups = ImmutableList.of();
-        adapter = new MeetupAdapter((Activity) getContext(), allMeetups);
-        binding.rvMeetups.setAdapter(adapter);
-        layoutManager = new LinearLayoutManager(getContext());
-        binding.rvMeetups.setLayoutManager(layoutManager);
-        queryMeetups();
+        acceptedLayoutManager = new LinearLayoutManager(getContext());
+        acceptedMeetups = ImmutableList.of();
+        acceptedAdapter = new MeetupAdapter((Activity) getContext(), acceptedMeetups);
+        binding.rvMeetups.setAdapter(acceptedAdapter);
+        binding.rvMeetups.setLayoutManager(acceptedLayoutManager);
+        queryAcceptedMeetups();
+
+        invitedLayoutManager = new LinearLayoutManager(getContext());
+        invitedMeetups = ImmutableList.of();
+        invitedAdapter = new MeetupAdapter((Activity) getContext(), invitedMeetups);
+        binding.rvInvited.setAdapter(invitedAdapter);
+        binding.rvInvited.setLayoutManager(invitedLayoutManager);
+        queryInvitedMeetups();
     }
 
-    private void queryMeetups() {
+    private void queryInvitedMeetups() {
+        ParseQuery<Meetup> query = ParseQuery.getQuery(Meetup.class);
+        query.whereContains(KEY_INVITED, ParseUser.getCurrentUser().getUsername());
+        query.findInBackground(new FindCallback<Meetup>() {
+            @Override
+            public void done(List<Meetup> meetups, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting posts", e);
+                    return;
+                }
+                for (Meetup meetup : meetups) {
+                    Log.i(TAG, "Meetup: " + meetup.getName());
+                }
+                invitedMeetups = ImmutableList.<Meetup>builder().addAll(meetups).build();
+                invitedAdapter.updateData(invitedMeetups);
+            }
+        });
+    }
+
+    private void queryAcceptedMeetups() {
         ParseQuery<Meetup> query = ParseQuery.getQuery(Meetup.class);
         query.whereContains(KEY_MEMBERS, ParseUser.getCurrentUser().getUsername());
         query.findInBackground(new FindCallback<Meetup>() {
@@ -94,8 +124,8 @@ public class MeetupsFragment extends Fragment {
                 for (Meetup meetup : meetups) {
                     Log.i(TAG, "Meetup: " + meetup.getName());
                 }
-                allMeetups = ImmutableList.<Meetup>builder().addAll(meetups).build();
-                adapter.updateData(allMeetups);
+                acceptedMeetups = ImmutableList.<Meetup>builder().addAll(meetups).build();
+                acceptedAdapter.updateData(acceptedMeetups);
             }
         });
     }

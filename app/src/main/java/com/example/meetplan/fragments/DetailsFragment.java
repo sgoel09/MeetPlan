@@ -14,6 +14,8 @@ import com.example.meetplan.Meetup;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentDetailsBinding;
 
+import java.util.ArrayList;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link DetailsFragment#newInstance} factory method to
@@ -69,6 +71,20 @@ public class DetailsFragment extends Fragment {
                 changeToView();
             }
         });
+        binding.btnInvite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String invitee = binding.etInvites.getText().toString();
+                inviteMember(invitee);
+            }
+        });
+    }
+
+    private void inviteMember(String invitee) {
+        ArrayList<String> invites = new ArrayList<>();
+        invites.add(invitee);
+        meetup.setInvites(invites);
+        meetup.saveInBackground();
     }
 
     private void changeToEdit() {

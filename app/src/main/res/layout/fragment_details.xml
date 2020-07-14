@@ -109,4 +109,30 @@
         android:layout_toRightOf="@id/tvTitleLabel"
         tools:text="Sample Title" />
 
+    <TextView
+        android:id="@+id/tvMembersLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="170dp"
+        android:text="Members: " />
+
+    <EditText
+        android:id="@+id/etInvites"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:layout_marginTop="150dp"
+        android:layout_toRightOf="@id/tvMembersLabel" />
+
+    <Button
+        android:id="@+id/btnInvite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:layout_marginTop="150dp"
+        android:layout_toRightOf="@id/etInvites"
+        android:text="Invite" />
+
 </RelativeLayout>
