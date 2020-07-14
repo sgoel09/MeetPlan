@@ -81,4 +81,11 @@
         android:layout_toRightOf="@id/tvEmail"
         tools:text="shefaligoel@gmail.com" />
 
+    <Button
+        android:id="@+id/btnChangeInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvEmail"
+        android:text="Submit" />
+
 </RelativeLayout>

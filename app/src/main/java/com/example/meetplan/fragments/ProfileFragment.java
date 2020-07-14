@@ -119,6 +119,22 @@ public class ProfileFragment extends Fragment {
                 onLaunchCamera();
             }
         });
+
+        binding.btnChangeInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setUserInfo();
+            }
+        });
+    }
+
+    private void setUserInfo() {
+        String username = binding.etUsername.getText().toString();
+        String email = binding.etEmail.getText().toString();
+        ParseUser user = ParseUser.getCurrentUser();
+        user.setUsername(username);
+        user.setEmail(email);
+        user.saveInBackground();
     }
 
     @Override
@@ -194,4 +210,19 @@ public class ProfileFragment extends Fragment {
         intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
         startActivityForResult(intent, GALLERY_REQUEST_CODE);
     }
+
+//    @Override
+//    public void onClick(View view) {
+//        switch(view.getId()) {
+//            case R.id.btnChoose:
+//                pickFromGallery();
+//            case R.id.btnTake:
+//                onLaunchCamera();
+//            case R.id.btnLogout:
+//                ParseUser.logOut();
+//                Intent intent = new Intent(getContext(), LoginActivity.class);
+//                startActivity(intent);
+//                break;
+//        }
+//    }
 }
