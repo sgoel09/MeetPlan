@@ -6,15 +6,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.meetplan.Meetup;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentDetailsBinding;
+import com.google.common.collect.ImmutableList;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +31,7 @@ import java.util.ArrayList;
  */
 public class DetailsFragment extends Fragment {
 
+    private static final String TAG = "DetailsFragment";
     FragmentDetailsBinding binding;
     Meetup meetup;
 
@@ -80,13 +89,6 @@ public class DetailsFragment extends Fragment {
         });
     }
 
-    private void inviteMember(String invitee) {
-        ArrayList<String> invites = new ArrayList<>();
-        invites.add(invitee);
-        meetup.setInvites(invites);
-        meetup.saveInBackground();
-    }
-
     private void changeToEdit() {
         binding.tvTitle.setVisibility(View.GONE);
         binding.tvDescription.setVisibility(View.GONE);
@@ -111,5 +113,31 @@ public class DetailsFragment extends Fragment {
         meetup.setName(title);
         meetup.setDescription(description);
         meetup.saveInBackground();
+    }
+
+    private void inviteMember(final String invitee) {
+        final Boolean[] exists = {false};
+        ParseQuery<ParseUser> query = ParseQuery.getQuery(ParseUser.class);
+        query.findInBackground(new FindCallback<ParseUser>() {
+            @Override
+            public void done(List<ParseUser> users, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting users", e);
+                    return;
+                }
+                for (ParseUser user : users) {
+                    if (user.getUsername().equals(invitee)) {
+                        exists[0] = true;
+                        ArrayList<String> invites = new ArrayList<>();
+                        invites.add(invitee);
+                        meetup.setInvites(invites);
+                        meetup.saveInBackground();
+                        Toast.makeText(getContext(), "User invited!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                Toast.makeText(getContext(), "Username does not exist", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
