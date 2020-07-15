@@ -45,7 +45,6 @@ public class DetailsFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     public static DetailsFragment newInstance(Meetup meetup) {
         DetailsFragment fragment = new DetailsFragment();
         Bundle args = new Bundle();

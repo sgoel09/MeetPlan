@@ -77,13 +77,20 @@ public class MeetupsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setUpAcceptedAdapter();
+        setUpInvitedAdapter();
+    }
+
+    private void setUpAcceptedAdapter() {
         acceptedLayoutManager = new LinearLayoutManager(getContext());
         acceptedMeetups = ImmutableList.of();
         acceptedAdapter = new MeetupAdapter((Activity) getContext(), acceptedMeetups, false);
         binding.rvMeetups.setAdapter(acceptedAdapter);
         binding.rvMeetups.setLayoutManager(acceptedLayoutManager);
         queryAcceptedMeetups();
+    }
 
+    private void setUpInvitedAdapter() {
         invitedLayoutManager = new LinearLayoutManager(getContext());
         invitedMeetups = ImmutableList.of();
         invitedAdapter = new MeetupAdapter((Activity) getContext(), invitedMeetups, true);

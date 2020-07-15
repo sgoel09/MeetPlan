@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.meetplan.databinding.ItemMeetupBinding;
 import com.example.meetplan.fragments.DetailsFragment;
+import com.example.meetplan.fragments.MeetupsFragment;
 import com.google.common.collect.ImmutableList;
 import com.parse.ParseUser;
 
@@ -84,6 +85,8 @@ public class MeetupAdapter extends RecyclerView.Adapter<MeetupAdapter.ViewHolder
                     public void onClick(View view) {
                         Meetup meetup = meetups.get(getAdapterPosition());
                         respondInvite(meetup,true);
+                        Fragment fragment = new MeetupsFragment();
+                        ((MainActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
                     }
                 });
                 binding.btnDecline.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +94,8 @@ public class MeetupAdapter extends RecyclerView.Adapter<MeetupAdapter.ViewHolder
                     public void onClick(View view) {
                         Meetup meetup = meetups.get(getAdapterPosition());
                         respondInvite(meetup, false);
+                        Fragment fragment = new MeetupsFragment();
+                        ((MainActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
                     }
                 });
             } else {
