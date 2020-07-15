@@ -4,14 +4,18 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
+import com.example.meetplan.DatePickerFragment;
+import com.example.meetplan.MainActivity;
 import com.example.meetplan.Meetup;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentDetailsBinding;
@@ -22,6 +26,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -85,6 +90,13 @@ public class DetailsFragment extends Fragment {
             public void onClick(View view) {
                 String invitee = binding.etInvites.getText().toString();
                 inviteMember(invitee);
+            }
+        });
+        binding.btnDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment newFragment = new DatePickerFragment();
+                newFragment.show(((MainActivity) getContext()).getSupportFragmentManager(), "datePicker");
             }
         });
     }
