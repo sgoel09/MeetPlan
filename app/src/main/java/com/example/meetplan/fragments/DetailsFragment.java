@@ -18,6 +18,7 @@ import com.example.meetplan.DatePickerFragment;
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.Meetup;
 import com.example.meetplan.R;
+import com.example.meetplan.TimePickerFragment;
 import com.example.meetplan.databinding.FragmentDetailsBinding;
 import com.google.common.collect.ImmutableList;
 import com.parse.FindCallback;
@@ -25,6 +26,7 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -73,6 +75,7 @@ public class DetailsFragment extends Fragment {
         meetup = getArguments().getParcelable("meetup");
         changeToView();
         displayMembers();
+        setDateTime();
         binding.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,13 +103,24 @@ public class DetailsFragment extends Fragment {
                 newFragment.show(((MainActivity) getContext()).getSupportFragmentManager(), "datePicker");
             }
         });
+        binding.btnTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TimePickerFragment newFragment = TimePickerFragment.newInstance(meetup);
+                newFragment.show(((MainActivity) getContext()).getSupportFragmentManager(), "timePicker");
+            }
+        });
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+    private void setDateTime() {
         if (meetup.getDate() != null) {
-            binding.tvDate.setText(meetup.getDate().toString());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EE, MMM F, y");
+            String dateFormatted = dateFormat.format(meetup.getDate());
+            binding.tvDate.setText(dateFormatted);
+
+            SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
+            String timeFormatted = timeFormat.format(meetup.getDate());
+            binding.tvTime.setText(timeFormatted);
         }
     }
 

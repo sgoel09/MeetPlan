@@ -7,6 +7,16 @@
     tools:context=".fragments.DetailsFragment">
 
     <Button
+        android:id="@+id/btnTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:layout_marginLeft="224dp"
+        android:layout_marginTop="117dp"
+        android:layout_toRightOf="@id/tvDateLabel"
+        android:text="time" />
+
+    <Button
         android:id="@+id/btnSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -180,5 +190,15 @@
         android:layout_marginTop="20dp"
         android:layout_toRightOf="@id/tvInvitedLabel"
         tools:text="shefali, test, ..." />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:layout_marginTop="140dp"
+        android:layout_toRightOf="@id/tvTimeLabel"
+        android:text="TextView"
+        tools:text="1:00 PM to 3:00 PM" />
 
 </RelativeLayout>
