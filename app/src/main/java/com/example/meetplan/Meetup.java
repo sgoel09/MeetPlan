@@ -4,6 +4,7 @@ import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 @ParseClassName("Meetup")
 public class Meetup extends ParseObject {
@@ -12,6 +13,7 @@ public class Meetup extends ParseObject {
     public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_MEMBERS = "members";
     public static final String KEY_INVITES = "invites";
+    public static final String KEY_DATE = "date";
 
 
     public Meetup() {}
@@ -31,6 +33,10 @@ public class Meetup extends ParseObject {
     public void setDescription(String description) {
         put(KEY_DESCRIPTION, description);
     }
+
+    public Date getDate() { return getDate(KEY_DATE); }
+
+    public void setDate(Date date) { put(KEY_DATE, date); }
 
     public ArrayList<String> getMembers() {
         return (ArrayList<String>) get(KEY_MEMBERS);

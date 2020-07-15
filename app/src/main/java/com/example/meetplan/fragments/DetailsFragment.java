@@ -27,6 +27,7 @@ import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -95,10 +96,20 @@ public class DetailsFragment extends Fragment {
         binding.btnDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment newFragment = new DatePickerFragment();
+                //DialogFragment newFragment = new DatePickerFragment();
+                DatePickerFragment newFragment = DatePickerFragment.newInstance(meetup);
                 newFragment.show(((MainActivity) getContext()).getSupportFragmentManager(), "datePicker");
+                //((MainActivity) getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, newFragment).commit();
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (meetup.getDate() != null) {
+            binding.tvDate.setText(meetup.getDate().toString());
+        }
     }
 
     private void changeToEdit() {
@@ -151,5 +162,9 @@ public class DetailsFragment extends Fragment {
                 Toast.makeText(getContext(), "Username does not exist", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void setDate(Calendar c) {
+        binding.tvDate.setText(c.getTime().toString());
     }
 }
