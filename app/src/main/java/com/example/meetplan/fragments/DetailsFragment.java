@@ -73,6 +73,7 @@ public class DetailsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         meetup = getArguments().getParcelable("meetup");
         changeToView();
+        displayMembers();
         binding.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,10 +97,8 @@ public class DetailsFragment extends Fragment {
         binding.btnDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //DialogFragment newFragment = new DatePickerFragment();
                 DatePickerFragment newFragment = DatePickerFragment.newInstance(meetup);
                 newFragment.show(((MainActivity) getContext()).getSupportFragmentManager(), "datePicker");
-                //((MainActivity) getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, newFragment).commit();
             }
         });
     }
@@ -138,6 +137,31 @@ public class DetailsFragment extends Fragment {
         meetup.saveInBackground();
     }
 
+    private void displayMembers() {
+        ArrayList<String> members = meetup.getMembers();
+        ArrayList<String> invites = meetup.getInvites();
+        String allMembers = "";
+        for (String username : members) {
+            if (!members.get(members.size() - 1).equals(username)) {
+                allMembers += String.format("%s; ", username);
+            } else {
+                allMembers += username;
+            }
+        }
+        String allInvites = "";
+        if (invites != null || invites.size() != 0) {
+            for (String username : invites) {
+                if (!invites.get(invites.size() - 1).equals(username)) {
+                    allInvites += String.format("%s; ", username);
+                } else {
+                    allInvites += username;
+                }
+            }
+        }
+        binding.tvMembers.setText(allMembers);
+        binding.tvInvites.setText(allInvites);
+    }
+
     private void inviteMember(final String invitee) {
         final Boolean[] exists = {false};
         ParseQuery<ParseUser> query = ParseQuery.getQuery(ParseUser.class);
@@ -150,6 +174,13 @@ public class DetailsFragment extends Fragment {
                 }
                 for (ParseUser user : users) {
                     if (user.getUsername().equals(invitee)) {
+                        if (meetup.getMembers().contains(user.getUsername())) {
+                            Toast.makeText(getContext(), "User is already a member", Toast.LENGTH_SHORT).show();
+                            return;
+                        } else if (meetup.getMembers().contains(user.getUsername())) {
+                            Toast.makeText(getContext(), "User is already invited", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         exists[0] = true;
                         ArrayList<String> invites = new ArrayList<>();
                         invites.add(invitee);
