@@ -1,17 +1,12 @@
 package com.example.meetplan;
 
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.TimePicker;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-
-import com.example.meetplan.fragments.DetailsFragment;
 
 import java.util.Calendar;
 import java.util.Date;

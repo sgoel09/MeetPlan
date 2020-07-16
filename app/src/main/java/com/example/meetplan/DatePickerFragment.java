@@ -8,9 +8,6 @@ import android.widget.DatePicker;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-import com.example.meetplan.fragments.DetailsFragment;
-import com.example.meetplan.fragments.MeetupsFragment;
-
 import java.util.Calendar;
 import java.util.Date;
 

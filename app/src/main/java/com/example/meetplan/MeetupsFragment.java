@@ -1,7 +1,6 @@
-package com.example.meetplan.fragments;
+package com.example.meetplan;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,22 +10,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.meetplan.Meetup;
-import com.example.meetplan.MeetupAdapter;
-import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentMeetupsBinding;
-import com.example.meetplan.databinding.FragmentProfileBinding;
 import com.google.common.collect.ImmutableList;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 import java.util.List;
 

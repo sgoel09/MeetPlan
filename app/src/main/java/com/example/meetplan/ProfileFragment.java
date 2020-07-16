@@ -1,4 +1,4 @@
-package com.example.meetplan.fragments;
+package com.example.meetplan;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -22,8 +22,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.meetplan.LoginActivity;
-import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentProfileBinding;
 import com.parse.FindCallback;
 import com.parse.ParseException;

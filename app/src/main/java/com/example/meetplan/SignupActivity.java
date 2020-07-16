@@ -22,25 +22,20 @@ import java.io.ByteArrayOutputStream;
 public class SignupActivity extends AppCompatActivity {
 
     private static final String TAG = "SignupActivity";
+    private static final String KEY_PROFILE_PIC = "profilepic";
+    private SignupClickListener signupClickListener;
+    private SignupCallBack signupCallBack;
+    ActivitySignupBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_signup);
-        final ActivitySignupBinding binding = ActivitySignupBinding.inflate(getLayoutInflater());
+        binding = ActivitySignupBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
-        binding.btnSignup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String username = binding.etUsername.getText().toString();
-                String email = binding.etEmail.getText().toString();
-                String password = binding.etPassword.getText().toString();
-                signupUser(username, email, password);
-            }
-        });
-
+        signupClickListener = new SignupClickListener();
+        binding.btnSignup.setOnClickListener(signupClickListener);
     }
 
     private void signupUser(String username, String email, String password) {
@@ -48,19 +43,10 @@ public class SignupActivity extends AppCompatActivity {
         user.setUsername(username);
         user.setPassword(password);
         user.setEmail(email);
-        user.signUpInBackground(new SignUpCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Issue with signup", e);
-                    return;
-                }
-                goMainActivity();
-                Toast.makeText(SignupActivity.this, "Success", Toast.LENGTH_SHORT).show();
-            }
-        });
+        signupCallBack = new SignupCallBack();
+        user.signUpInBackground(signupCallBack);
         Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.defaultprofilepic);
-        user.put("profilepic", convertToParseFile(imageBitmap));
+        user.put(KEY_PROFILE_PIC, convertToParseFile(imageBitmap));
         user.saveInBackground();
     }
 
@@ -76,5 +62,27 @@ public class SignupActivity extends AppCompatActivity {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
         finish();
+    }
+
+    private class SignupClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            String username = binding.etUsername.getText().toString();
+            String email = binding.etEmail.getText().toString();
+            String password = binding.etPassword.getText().toString();
+            signupUser(username, email, password);
+        }
+    }
+
+    private class SignupCallBack implements SignUpCallback {
+        @Override
+        public void done(ParseException e) {
+            if (e != null) {
+                Log.e(TAG, "Issue with signup", e);
+                return;
+            }
+            goMainActivity();
+            Toast.makeText(SignupActivity.this, "Success", Toast.LENGTH_SHORT).show();
+        }
     }
 }

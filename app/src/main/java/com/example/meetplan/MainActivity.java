@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -13,11 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.meetplan.databinding.ActivityLoginBinding;
 import com.example.meetplan.databinding.ActivityMainBinding;
-import com.example.meetplan.fragments.DetailsFragment;
-import com.example.meetplan.fragments.MeetupsFragment;
-import com.example.meetplan.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -33,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
         final ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
@@ -57,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        // Set default selection
         binding.bottomNavigation.setSelectedItemId(R.id.action_home);
     }
 
@@ -67,10 +60,8 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    /** Start the login activity when the user logs out. */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Logout of the account
         if (item.getItemId() == R.id.action_compose) {
             ArrayList<String> memebers = new ArrayList<>();
             memebers.add(ParseUser.getCurrentUser().getUsername());
