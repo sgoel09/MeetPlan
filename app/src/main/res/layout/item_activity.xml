@@ -15,6 +15,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvName"
-        android:linksClickable="true"
-        tools:text="https://www.......com" />
+        android:text="See on website" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/tvName"
+        tools:text="2021-03-16" />
 </RelativeLayout>

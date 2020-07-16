@@ -13,13 +13,14 @@ public class Event {
     private String name;
     private String id;
     private String url;
-    private Date date;
+    private String date;
     //TODO: venue and image
 
     public Event(JSONObject jsonObject) throws JSONException {
         name = jsonObject.getString("name");
         id = jsonObject.getString("id");
         url = jsonObject.getString("url");
+        date = jsonObject.getJSONObject("dates").getJSONObject("start").getString("localDate");
     }
 
     public static List<Event> fromJsonArray(JSONArray eventJsonArray) throws JSONException {
@@ -36,5 +37,9 @@ public class Event {
 
     public String getUrl() {
         return url;
+    }
+
+    public String getDate() {
+        return date;
     }
 }
