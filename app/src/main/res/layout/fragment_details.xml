@@ -11,8 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/divider"
-        android:layout_marginLeft="224dp"
-        android:layout_marginTop="117dp"
+        android:layout_marginLeft="274dp"
+        android:layout_marginTop="131dp"
         android:layout_toRightOf="@id/tvDateLabel"
         android:text="time" />
 
@@ -133,7 +133,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/divider"
-        android:layout_marginTop="180dp"
+        android:layout_marginLeft="198dp"
+        android:layout_marginTop="193dp"
         android:layout_toRightOf="@id/tvMembersLabel" />
 
     <Button
@@ -141,7 +142,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/divider"
-        android:layout_marginTop="180dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="201dp"
         android:layout_toRightOf="@id/etInvites"
         android:text="Invite" />
 
@@ -150,7 +152,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/divider"
-        android:layout_marginTop="90dp"
+        android:layout_marginLeft="274dp"
+        android:layout_marginTop="75dp"
         android:layout_toRightOf="@id/tvDateLabel"
         android:text="choose" />
 
@@ -159,8 +162,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/divider"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="107dp"
+        android:layout_marginStart="-347dp"
+        android:layout_marginTop="94dp"
         android:layout_toEndOf="@+id/btnDate"
         tools:text="Fri Jun 24" />
 
@@ -187,7 +190,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvInvitedLabel"
-        android:layout_marginTop="20dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="-22dp"
         android:layout_toRightOf="@id/tvInvitedLabel"
         tools:text="shefali, test, ..." />
 
@@ -196,9 +200,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/divider"
-        android:layout_marginTop="140dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="131dp"
         android:layout_toRightOf="@id/tvTimeLabel"
         android:text="TextView"
         tools:text="1:00 PM to 3:00 PM" />
+
+    <Button
+        android:id="@+id/btnBrowse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:layout_marginTop="260dp"
+        android:text="browse" />
 
 </RelativeLayout>

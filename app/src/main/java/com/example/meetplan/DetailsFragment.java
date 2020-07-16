@@ -85,6 +85,14 @@ public class DetailsFragment extends Fragment {
 
         inviteClickListener = new InviteClickListener((MainActivity) getContext(), binding, meetup);
         binding.btnInvite.setOnClickListener(inviteClickListener);
+
+        binding.btnBrowse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new BrowseFragment();
+                ((MainActivity) getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+            }
+        });
     }
 
     private void setDateTime() {
