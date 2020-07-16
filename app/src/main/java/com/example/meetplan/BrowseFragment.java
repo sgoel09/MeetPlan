@@ -75,13 +75,13 @@ public class BrowseFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String city = binding.etBrowse.getText().toString();
-                String url = BASE_URL + "&city=" + city;
+                String url = BASE_URL + getString(R.string.api_key) + "&city=" + city;
                 populateEvents(url);
             }
         });
 
     }
-    
+
     private void populateEvents(String url) {
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(url, new JsonHttpResponseHandler() {
