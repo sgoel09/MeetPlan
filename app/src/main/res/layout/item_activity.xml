@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
@@ -14,7 +15,7 @@
         android:id="@+id/tvUrl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvName"
+        android:layout_below="@id/ivImage"
         android:text="See on website" />
 
     <TextView
@@ -24,4 +25,25 @@
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/tvName"
         tools:text="2021-03-16" />
+
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvName"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvVenue"
+        tools:text="16828 NW Madrone St, Portland, OR 97229" />
+
+    <TextView
+        android:id="@+id/tvVenue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvUrl"
+        tools:text="Keller Auditorium" />
 </RelativeLayout>

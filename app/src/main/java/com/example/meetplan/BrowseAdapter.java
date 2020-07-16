@@ -3,25 +3,15 @@ package com.example.meetplan;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.meetplan.databinding.ItemActivityBinding;
-import com.example.meetplan.databinding.ItemMeetupBinding;
-import com.example.meetplan.details.DetailsFragment;
-import com.example.meetplan.meetups.MeetupAdapter;
-import com.example.meetplan.meetups.MeetupsFragment;
 import com.example.meetplan.models.Event;
-import com.example.meetplan.models.Meetup;
 import com.google.common.collect.ImmutableList;
-import com.parse.ParseUser;
-
-import java.util.ArrayList;
 
 public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder> {
 
@@ -70,6 +60,8 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
         public void bind(final Event event) {
             binding.tvName.setText(event.getName());
             binding.tvDate.setText(event.getDate());
+            binding.tvAddress.setText(event.getVenue().getFullAddress());
+            binding.tvVenue.setText(event.getVenue().getName());
             binding.tvUrl.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
