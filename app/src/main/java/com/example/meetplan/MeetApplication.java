@@ -2,6 +2,7 @@ package com.example.meetplan;
 
 import android.app.Application;
 
+import com.example.meetplan.models.Meetup;
 import com.parse.Parse;
 import com.parse.ParseObject;
 

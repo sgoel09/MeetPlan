@@ -1,19 +1,13 @@
-package com.example.meetplan;
+package com.example.meetplan.details;
 
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.meetplan.databinding.FragmentDetailsBinding;
-import com.parse.FindCallback;
-import com.parse.ParseException;
+import com.example.meetplan.models.Meetup;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class InviteClickListener implements View.OnClickListener {
 

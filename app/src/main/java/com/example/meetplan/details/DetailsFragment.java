@@ -1,4 +1,4 @@
-package com.example.meetplan;
+package com.example.meetplan.details;
 
 import android.os.Bundle;
 
@@ -6,21 +6,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
+import com.example.meetplan.BrowseFragment;
+import com.example.meetplan.MainActivity;
+import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentDetailsBinding;
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
+import com.example.meetplan.models.Meetup;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.

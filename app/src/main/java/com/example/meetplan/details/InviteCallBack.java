@@ -1,4 +1,4 @@
-package com.example.meetplan;
+package com.example.meetplan.details;
 
 import android.util.Log;
 import android.widget.Toast;
@@ -6,6 +6,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.meetplan.databinding.FragmentDetailsBinding;
+import com.example.meetplan.models.Meetup;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;

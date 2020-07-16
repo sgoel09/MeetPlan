@@ -1,8 +1,9 @@
-package com.example.meetplan;
+package com.example.meetplan.details;
 
 import android.view.View;
 
 import com.example.meetplan.databinding.FragmentDetailsBinding;
+import com.example.meetplan.models.Meetup;
 
 public class EditDetailsClickListener implements View.OnClickListener {
 

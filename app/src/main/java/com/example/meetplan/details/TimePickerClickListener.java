@@ -1,8 +1,10 @@
-package com.example.meetplan;
+package com.example.meetplan.details;
 
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.meetplan.models.Meetup;
 
 public class TimePickerClickListener implements View.OnClickListener {
 

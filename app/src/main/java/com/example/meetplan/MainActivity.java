@@ -13,6 +13,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.meetplan.databinding.ActivityMainBinding;
+import com.example.meetplan.details.DetailsFragment;
+import com.example.meetplan.meetups.MeetupsFragment;
+import com.example.meetplan.models.Meetup;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.ParseException;
 import com.parse.ParseUser;

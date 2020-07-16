@@ -1,10 +1,12 @@
 package com.example.meetplan;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +17,10 @@ import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.meetplan.databinding.FragmentBrowseBinding;
 import com.example.meetplan.databinding.FragmentDetailsBinding;
+import com.example.meetplan.meetups.MeetupAdapter;
+import com.example.meetplan.models.Event;
+import com.example.meetplan.models.Meetup;
+import com.google.common.collect.ImmutableList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,20 +40,15 @@ public class BrowseFragment extends Fragment {
 
     private static final String BASE_URL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=";
     private static final String TAG = "BrowseFragment";
+    private ImmutableList<Event> events;
+    private LinearLayoutManager layoutManager;
+    private BrowseAdapter adapter;
     FragmentBrowseBinding binding;
 
     public BrowseFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment BrowseFragment.
-     */
     public static BrowseFragment newInstance(String param1, String param2) {
         BrowseFragment fragment = new BrowseFragment();
         Bundle args = new Bundle();
@@ -80,6 +81,12 @@ public class BrowseFragment extends Fragment {
             }
         });
 
+        layoutManager = new LinearLayoutManager(getContext());
+        events = ImmutableList.of();
+        adapter = new BrowseAdapter((Activity) getContext(), events);
+        binding.rvItems.setAdapter(adapter);
+        binding.rvItems.setLayoutManager(layoutManager);
+
     }
 
     private void populateEvents(String url) {
@@ -91,6 +98,10 @@ public class BrowseFragment extends Fragment {
                 JSONObject jsonObject = json.jsonObject;
                 try {
                     JSONArray embedded = jsonObject.getJSONObject("_embedded").getJSONArray("events");
+                    events = ImmutableList.of();
+                    events = ImmutableList.<Event>builder().addAll(Event.fromJsonArray(embedded)).build();;
+                    Log.i(TAG, "parsed");
+                    adapter.updateData(events);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

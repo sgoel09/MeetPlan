@@ -1,4 +1,4 @@
-package com.example.meetplan;
+package com.example.meetplan.meetups;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.meetplan.databinding.FragmentMeetupsBinding;
+import com.example.meetplan.models.Meetup;
 import com.google.common.collect.ImmutableList;
 import com.parse.FindCallback;
 import com.parse.ParseException;

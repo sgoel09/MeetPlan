@@ -1,4 +1,4 @@
-package com.example.meetplan;
+package com.example.meetplan.meetups;
 
 import android.app.Activity;
 import android.util.Log;
@@ -9,7 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.meetplan.MainActivity;
+import com.example.meetplan.R;
 import com.example.meetplan.databinding.ItemMeetupBinding;
+import com.example.meetplan.details.DetailsFragment;
+import com.example.meetplan.models.Meetup;
 import com.google.common.collect.ImmutableList;
 import com.parse.ParseUser;
 

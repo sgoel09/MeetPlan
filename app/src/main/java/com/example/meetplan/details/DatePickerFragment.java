@@ -1,4 +1,4 @@
-package com.example.meetplan;
+package com.example.meetplan.details;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -7,6 +7,10 @@ import android.widget.DatePicker;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+
+import com.example.meetplan.MainActivity;
+import com.example.meetplan.R;
+import com.example.meetplan.models.Meetup;
 
 import java.util.Calendar;
 import java.util.Date;
