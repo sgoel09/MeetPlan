@@ -13,6 +13,13 @@ import android.view.ViewGroup;
 
 import com.example.meetplan.databinding.FragmentBrowseBinding;
 import com.example.meetplan.databinding.FragmentRestaurantBinding;
+import com.example.meetplan.models.Event;
+import com.example.meetplan.models.Restaurant;
+import com.google.common.collect.ImmutableList;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -31,6 +38,7 @@ public class RestaurantFragment extends Fragment {
 
     private static final String TAG = "RestaurantFragment";
     private static final String RESTAURANT_BASE_URL = "https://api.yelp.com/v3/businesses/search?";
+    private ImmutableList<Restaurant> restaurants;
     FragmentRestaurantBinding binding;
 
     public RestaurantFragment() {
@@ -72,7 +80,7 @@ public class RestaurantFragment extends Fragment {
 
     private void populateRestaurants(String url) {
         OkHttpClient client = new OkHttpClient();
-        String value = "Bearer" + getString(R.string.yelp_api_key);
+        String value = "Bearer " + getString(R.string.yelp_api_key);
         Request request = new Request.Builder().url(url).header("Authorization", value).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -84,10 +92,24 @@ public class RestaurantFragment extends Fragment {
             public void onResponse(Call call, Response response) throws IOException {
                 Log.i(TAG, "onResponse");
                 final String myResponse = response.body().string();
-                int i = 0;
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject = new JSONObject(myResponse);
+                } catch (JSONException e) {
+                    Log.i(TAG, "onFailure");
+                }
+                final JSONObject finalJsonObject = jsonObject;
                 ((MainActivity) getContext()).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        try {
+                            JSONArray businesses = finalJsonObject.getJSONArray("businesses");
+                            restaurants = ImmutableList.of();
+                            restaurants = ImmutableList.<Restaurant>builder().addAll(Restaurant.fromJsonArray(businesses)).build();;
+                            Log.i(TAG, "parsed");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
             }
