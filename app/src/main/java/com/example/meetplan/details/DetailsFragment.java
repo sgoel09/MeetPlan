@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.meetplan.BrowseFragment;
+import com.example.meetplan.EventFragment;
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentDetailsBinding;
@@ -86,7 +86,7 @@ public class DetailsFragment extends Fragment {
         binding.btnBrowse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment = new BrowseFragment();
+                Fragment fragment = new EventFragment();
                 ((MainActivity) getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
             }
         });

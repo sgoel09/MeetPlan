@@ -13,8 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.codepath.asynchttpclient.AsyncHttpClient;
-import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.meetplan.databinding.FragmentBrowseBinding;
 import com.example.meetplan.models.Event;
 import com.google.common.collect.ImmutableList;
@@ -27,31 +25,30 @@ import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.Headers;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link BrowseFragment#newInstance} factory method to
+ * Use the {@link EventFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BrowseFragment extends Fragment {
+public class EventFragment extends Fragment {
 
-    private static final String BASE_URL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=";
+    private static final String EVENT_BASE_URL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=";
     private static final String TAG = "BrowseFragment";
     private ImmutableList<Event> events;
     private LinearLayoutManager layoutManager;
     private BrowseAdapter adapter;
     FragmentBrowseBinding binding;
 
-    public BrowseFragment() {
+    public EventFragment() {
         // Required empty public constructor
     }
 
-    public static BrowseFragment newInstance(String param1, String param2) {
-        BrowseFragment fragment = new BrowseFragment();
+    public static EventFragment newInstance(String param1, String param2) {
+        EventFragment fragment = new EventFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -77,8 +74,16 @@ public class BrowseFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String city = binding.etBrowse.getText().toString();
-                String url = BASE_URL + getString(R.string.api_key) + "&city=" + city;
+                String url = EVENT_BASE_URL + getString(R.string.tm_api_key) + "&city=" + city;
                 populateEvents(url);
+            }
+        });
+
+        binding.btnRestaurantNavigate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new RestaurantFragment();
+                ((MainActivity) getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
             }
         });
 

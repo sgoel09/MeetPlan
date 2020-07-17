@@ -26,9 +26,8 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemActivityBinding binding = ItemActivityBinding.inflate(context.getLayoutInflater());
-        View view = binding.getRoot();
-        return new ViewHolder(view, binding);
+        ItemActivityBinding binding = ItemActivityBinding.inflate(context.getLayoutInflater(), parent, false);
+        return new ViewHolder(binding);
     }
 
     @Override
@@ -51,9 +50,8 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
 
         ItemActivityBinding binding;
 
-        public ViewHolder(@NonNull View itemView, ItemActivityBinding bind) {
-            super(itemView);
-            bind.getRoot();
+        public ViewHolder(ItemActivityBinding bind) {
+            super(bind.getRoot());
             binding = bind;
         }
 
