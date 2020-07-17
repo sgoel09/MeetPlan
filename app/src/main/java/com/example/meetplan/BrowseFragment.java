@@ -23,7 +23,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.Headers;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -84,26 +91,39 @@ public class BrowseFragment extends Fragment {
     }
 
     private void populateEvents(String url) {
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.get(url, new JsonHttpResponseHandler() {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(url).build();
+        client.newCall(request).enqueue(new Callback() {
             @Override
-            public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.d(TAG, "onSuccess");
-                JSONObject jsonObject = json.jsonObject;
-                try {
-                    JSONArray embedded = jsonObject.getJSONObject("_embedded").getJSONArray("events");
-                    events = ImmutableList.of();
-                    events = ImmutableList.<Event>builder().addAll(Event.fromJsonArray(embedded)).build();;
-                    Log.i(TAG, "parsed");
-                    adapter.updateData(events);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
+            public void onFailure(Call call, IOException e) {
+                call.cancel();
             }
+
             @Override
-            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Log.d(TAG, "onFailure");
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.i(TAG, "onResponse");
+                final String myResponse = response.body().string();
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject = new JSONObject(myResponse);
+                } catch (JSONException e) {
+                    Log.i(TAG, "onFailure");
+                }
+                final JSONObject finalJsonObject = jsonObject;
+                ((MainActivity) getContext()).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            JSONArray embedded = finalJsonObject.getJSONObject("_embedded").getJSONArray("events");
+                            events = ImmutableList.of();
+                            events = ImmutableList.<Event>builder().addAll(Event.fromJsonArray(embedded)).build();;
+                            Log.i(TAG, "parsed");
+                            adapter.updateData(events);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
         });
     }
