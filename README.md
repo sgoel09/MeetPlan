@@ -1,3 +1,6 @@
+Original App Design Project - README
+===
+
 # Meet Plan
 
 ## Table of Contents
@@ -28,21 +31,30 @@ This app is designed to easily create and organize meetups among friends from st
 * Be able to sign up for an account
 * Login into an existing account
 * Logout of an account
-* Users can add a picture to their profile
+* Users can launch and use camera to add a picture to their profile
 * Create a new meetup
-* Invite other memebers to the meetup
-* Pick a time for the meetup
-* Propose an activity by browsing and selecting from different categories - restaurants, parks, events, and movies.
-* Include a pinch gesture for exploring places on a map
 * View meetups that user is part of
-* Accept meetup that user is invited to attend
-* Allow members to enter shared expenses
+* View meetups the user is invited to attend
+* Pick a date for the meetup
+* Propose a restaurant to meet at by browsing different restaurants (pulled through an API)
+* Include a double tap gesture to select restaurant
+* Implement the material design library to add visual polish
+* Animate images to scale to different sizes
 
 **Optional Nice-to-have Stories**
-
+* Pick a time for the meetup
+* Browse and select from different categories of activities - restaurants, parks, events, or movies
+* Invite other memebers to the meetup
+* Accept/decline meetups that user is invited to attend
+* View meetups that have completed
+* Include a details page for each activity to see more information (such as address, rating, phone etc.)
+* Implement unit testing for some features
+* Use Google Maps to see location of activity on map
+* Allow members to enter expenses
+* Create a shared expenses method for users
+* Picture gallery where members can upload pictures and shared with the rest of the group
 * Have a poll to determine best time to meet
-* Browse different transportation options (i.e. bus and train schedules)
-* Picture gallery where members can upload/take pictures and shared with the rest of the group
+* Browse transportation options (i.e. bus and train schedules)
 * Receive notification when scheduled time is nearing
 * Users can change settings of their profile
 
@@ -55,6 +67,7 @@ This app is designed to easily create and organize meetups among friends from st
 * List of meetups
    * View meetups that user is part of
    * Accept meetup that user is invited to attend
+   * View meetups that have finished
    * Create a new meetup
 * Meetup details
    * Invite other memebers to the meetup
@@ -99,7 +112,8 @@ This app is designed to easily create and organize meetups among friends from st
 ## Wireframes
 
 ### Digital Wireframes & Mockups
-![](https://i.imgur.com/YFZuV17.png)
+![](https://i.imgur.com/2vRtETc.png)
+
 
 
 ### Interactive Prototype
@@ -115,8 +129,7 @@ https://www.figma.com/file/wbtXcnmbOgcEc8YFaXuypk/FBU-App-Design?node-id=0%3A1
 |username |String|Username used to log into an account|
 |password|String|Password used to log into an account|
 |name|String|Name of the individual to be displayed to other memebers in the group|
-|invites|Array|List of meetups that the user has been invited to the meetup but have not responded|
-|meetups|Array|List of meetups that the user has accepted|
+|email|String|Email address of the user|
 |createdAt|Date|Date of user creation|
 |updatedAt|Date|Date of last update to the user|
 
@@ -124,9 +137,57 @@ https://www.figma.com/file/wbtXcnmbOgcEc8YFaXuypk/FBU-App-Design?node-id=0%3A1
 | Property | Type | Description |
 |----------|------|-------------|
 |objectId|String|Unique identifier of the meetup that this group represents|
-|time|Date|Scheduled time for the meetup|
+|name|String|Title of the meetup|
+|description|String|Brief overview about the meetup|
+|invites|Array|List of invitees that have not yet responded|
+|time|Date|Scheduled date and time for the meetup|
 |location|String|Place where meetup will occur|
 |members|Array|List of members that have accepted the meetup|
-|Password|String|Password used to log into an account|
+|invites|Array|List of invitees that have not yet responded|
 |createdAt|Date|Date of meetup creation|
 |updatedAt|Date|Date of last update to the meetup|
+
+### Networking
+* Login
+   * (Read/GET) Query user to log into the account
+* Signup
+   * (Create/POST) Publish new user to database
+* Home (List of meetups)
+   * (Read/GET) Query all meetups that the user has been invited to
+   * (Read/GET) Query all meetups that the user has accepted
+* Meetup details
+   * (Read/GET) Query the scheduled time for the meetup (if set)
+   * (Read/GET) Query the location for the meetup (if set)
+   * (Read/GET) Query all members in the meetup
+   * (Create/POST) Publish members to the meetup
+* Browse activity
+   *  (Read/GET) Query restarants to display
+   *  (Read/GET) Query local events to display
+#### Parse Network Requests
+Signup
+
+    user.signUpInBackground(new SignUpCallback
+        @Override
+        public void done(ParseUser user, ParseException e) { 
+        if (e != null) {
+            return;
+        }
+    });
+
+Save
+
+              
+    ParseQuery<ParseUser> query = ParseQuery.getQuery(ParseUser.class);
+    query.findInBackground(new FindCallBack<ParseUser> {
+        @Override
+        public void done(List<ParseUser> users, ParseException e) { 
+        if (e != null) {
+            return;
+        }
+    });
+
+#### API Endpoints
+* Ticket Master
+    * discovery/v2/events: finds events that are filtered based on parameters given (such as location, date, etc.)
+* Yelp
+    * /businesses/search: finds businesses that are filtered based on parameters given (such as location, name, etc.)
