@@ -1,4 +1,4 @@
-package com.example.meetplan;
+package com.example.meetplan.events;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,6 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.meetplan.MainActivity;
+import com.example.meetplan.R;
+import com.example.meetplan.RestaurantFragment;
 import com.example.meetplan.databinding.FragmentBrowseBinding;
 import com.example.meetplan.models.Event;
 import com.google.common.collect.ImmutableList;
@@ -40,7 +43,7 @@ public class EventFragment extends Fragment {
     private static final String TAG = "BrowseFragment";
     private ImmutableList<Event> events;
     private LinearLayoutManager layoutManager;
-    private BrowseAdapter adapter;
+    private EventAdapter adapter;
     FragmentBrowseBinding binding;
 
     public EventFragment() {
@@ -89,10 +92,9 @@ public class EventFragment extends Fragment {
 
         layoutManager = new LinearLayoutManager(getContext());
         events = ImmutableList.of();
-        adapter = new BrowseAdapter((Activity) getContext(), events);
+        adapter = new EventAdapter((Activity) getContext(), events);
         binding.rvItems.setAdapter(adapter);
         binding.rvItems.setLayoutManager(layoutManager);
-
     }
 
     private void populateEvents(String url) {

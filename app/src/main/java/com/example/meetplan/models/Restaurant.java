@@ -30,4 +30,16 @@ public class Restaurant {
         }
         return restaurants;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
 }

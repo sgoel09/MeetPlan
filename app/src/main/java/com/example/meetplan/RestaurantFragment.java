@@ -1,10 +1,12 @@
 package com.example.meetplan;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.example.meetplan.databinding.FragmentBrowseBinding;
 import com.example.meetplan.databinding.FragmentRestaurantBinding;
+import com.example.meetplan.events.EventAdapter;
 import com.example.meetplan.models.Event;
 import com.example.meetplan.models.Restaurant;
 import com.google.common.collect.ImmutableList;
@@ -39,6 +42,8 @@ public class RestaurantFragment extends Fragment {
     private static final String TAG = "RestaurantFragment";
     private static final String RESTAURANT_BASE_URL = "https://api.yelp.com/v3/businesses/search?";
     private ImmutableList<Restaurant> restaurants;
+    private LinearLayoutManager layoutManager;
+    private RestaurantAdapter adapter;
     FragmentRestaurantBinding binding;
 
     public RestaurantFragment() {
@@ -76,6 +81,12 @@ public class RestaurantFragment extends Fragment {
                 populateRestaurants(url);
             }
         });
+
+        layoutManager = new LinearLayoutManager(getContext());
+        restaurants = ImmutableList.of();
+        adapter = new RestaurantAdapter((Activity) getContext(), restaurants);
+        binding.rvRestaurants.setAdapter(adapter);
+        binding.rvRestaurants.setLayoutManager(layoutManager);
     }
 
     private void populateRestaurants(String url) {
@@ -107,6 +118,7 @@ public class RestaurantFragment extends Fragment {
                             restaurants = ImmutableList.of();
                             restaurants = ImmutableList.<Restaurant>builder().addAll(Restaurant.fromJsonArray(businesses)).build();;
                             Log.i(TAG, "parsed");
+                            adapter.updateData(restaurants);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

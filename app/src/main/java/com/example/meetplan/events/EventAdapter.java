@@ -1,4 +1,4 @@
-package com.example.meetplan;
+package com.example.meetplan.events;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,16 +9,17 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.meetplan.MainActivity;
 import com.example.meetplan.databinding.ItemActivityBinding;
 import com.example.meetplan.models.Event;
 import com.google.common.collect.ImmutableList;
 
-public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder> {
+public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
 
     private Activity context;
     private ImmutableList<Event> events;
 
-    public BrowseAdapter(Activity context,  ImmutableList<Event> events) {
+    public EventAdapter(Activity context, ImmutableList<Event> events) {
         this.context = context;
         this.events = events;
     }
