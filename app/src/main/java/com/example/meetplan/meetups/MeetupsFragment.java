@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.meetplan.MainActivity;
 import com.example.meetplan.databinding.FragmentMeetupsBinding;
 import com.example.meetplan.models.Meetup;
 import com.google.common.collect.ImmutableList;
@@ -39,6 +40,7 @@ public class MeetupsFragment extends Fragment {
     private ImmutableList<Meetup> acceptedMeetups;
     private MeetupAdapter invitedAdapter;
     private ImmutableList<Meetup> invitedMeetups;
+    private NewClickListener newClickListener;
     FragmentMeetupsBinding binding;
 
     public MeetupsFragment() {
@@ -72,6 +74,8 @@ public class MeetupsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setUpAcceptedAdapter();
         setUpInvitedAdapter();
+        newClickListener = new NewClickListener((MainActivity) getContext());
+        binding.btnNew.setOnClickListener(newClickListener);
     }
 
     private void setUpAcceptedAdapter() {
@@ -107,6 +111,11 @@ public class MeetupsFragment extends Fragment {
                 }
                 invitedMeetups = ImmutableList.<Meetup>builder().addAll(meetups).build();
                 invitedAdapter.updateData(invitedMeetups);
+                if (invitedMeetups.isEmpty()) {
+                    binding.tvInvitedLabel.setVisibility(View.GONE);
+                } else {
+                    binding.tvInvitedLabel.setVisibility(View.VISIBLE);
+                }
             }
         });
     }

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".meetups.MeetupsFragment">
 
     <TextView
@@ -10,7 +11,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/rvInvited"
-        android:text="Upcoming meetups" />
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="Upcoming meetups"
+        android:textColor="#000000"
+        android:textSize="20sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMeetups"
@@ -22,12 +29,54 @@
         android:id="@+id/tvInvitedLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Invited Meetups" />
+        android:layout_below="@id/tvYourLabel"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="Invited Meetups"
+        android:textColor="#000000"
+        android:textSize="20sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvInvited"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvInvitedLabel" />
+
+    <TextView
+        android:id="@+id/tvYourLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/titillium_web"
+        android:text="Your Meetups"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="normal|bold" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/tvYourLabel"
+        android:background="#ED7F7F" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnNew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#ED7F7F"
+        android:contentDescription="@string/submit"
+        android:src="@drawable/ic_baseline_add" />
 
 </RelativeLayout>

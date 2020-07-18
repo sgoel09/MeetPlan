@@ -34,6 +34,8 @@ public class SignupActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        getSupportActionBar().hide();
+
         signupClickListener = new SignupClickListener();
         binding.btnSignup.setOnClickListener(signupClickListener);
     }

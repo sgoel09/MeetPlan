@@ -1,6 +1,7 @@
 package com.example.meetplan.meetups;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +81,13 @@ public class MeetupAdapter extends RecyclerView.Adapter<MeetupAdapter.ViewHolder
         public void bind(final Meetup meetup) {
             binding.tvTitle.setText(meetup.getName());
             binding.tvDescription.setText(meetup.getDescription());
+            if (meetup.getDescription() == null || meetup.getDescription().equals("")) {
+                binding.tvDescription.setText("No description");
+                binding.tvDescription.setTypeface(null, Typeface.ITALIC);
+            }
+            if (meetup.getDate() != null) {
+                binding.tvDate.setText(Meetup.getDateFormatted(meetup));
+            }
             if (invited) {
                 binding.btnAccept.setOnClickListener(new View.OnClickListener() {
                     @Override

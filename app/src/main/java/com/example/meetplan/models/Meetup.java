@@ -3,6 +3,7 @@ package com.example.meetplan.models;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -52,5 +53,17 @@ public class Meetup extends ParseObject {
 
     public void setInvites(ArrayList<String> invites) {
         put(KEY_INVITES, invites);
+    }
+
+    public static String getDateFormatted(Meetup meetup) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EE, MMM d, y");
+        String dateFormatted = dateFormat.format(meetup.getDate());
+        return dateFormatted;
+    }
+
+    public static String getTimeFormatted(Meetup meetup) {
+        SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
+        String timeFormatted = timeFormat.format(meetup.getDate());
+        return timeFormatted;
     }
 }
