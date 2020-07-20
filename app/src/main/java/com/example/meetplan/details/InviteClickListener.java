@@ -27,6 +27,7 @@ public class InviteClickListener implements View.OnClickListener {
     public void onClick(View view) {
         String invitee = binding.etInvites.getText().toString();
         inviteMember(invitee);
+        binding.etInvites.setText("");
     }
 
     private void inviteMember(final String invitee) {

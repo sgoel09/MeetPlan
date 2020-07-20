@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     private NavHeaderBinding navHeaderBinding;
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
-    private NavigationView nv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +55,11 @@ public class MainActivity extends AppCompatActivity {
         t = new ActionBarDrawerToggle(this, dl, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
         dl.addDrawerListener(t);
-        t.syncState();
 
+        setSupportActionBar(binding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        t.syncState();
 
         fragmentManager.beginTransaction().replace(R.id.flContainer, new MeetupsFragment()).commit();
 
@@ -90,32 +91,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_compose, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_compose) {
-            ArrayList<String> memebers = new ArrayList<>();
-            memebers.add(ParseUser.getCurrentUser().getUsername());
-            Meetup meetup = new Meetup();
-            meetup.setName("New Meetup");
-            meetup.setMembers(memebers);
-            meetup.saveInBackground(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
-                    if (e != null) {
-                        Log.e(TAG, "Error while saving", e);
-                        Toast.makeText(MainActivity.this, "Error while saving!", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    Log.i(TAG, "Meetup was saved successfully");
-                }
-            });
-            Fragment fragment = DetailsFragment.newInstance(meetup);
-            fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
-        }
         if(t.onOptionsItemSelected(item))
             return true;
         return super.onOptionsItemSelected(item);
