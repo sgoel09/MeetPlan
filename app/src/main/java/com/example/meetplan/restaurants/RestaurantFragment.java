@@ -19,6 +19,8 @@ import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentRestaurantBinding;
 import com.example.meetplan.models.Restaurant;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.common.collect.ImmutableList;
 
 import org.json.JSONArray;
@@ -104,6 +106,7 @@ public class RestaurantFragment extends Fragment {
             @Override
             public void onFailure(Call call, IOException e) {
                 call.cancel();
+                Snackbar.make(binding.getRoot(), "Could not retrieve restaurant data", BaseTransientBottomBar.LENGTH_SHORT).show();
             }
 
             @Override

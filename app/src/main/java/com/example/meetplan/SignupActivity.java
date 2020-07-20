@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.example.meetplan.databinding.ActivityLoginBinding;
 import com.example.meetplan.databinding.ActivitySignupBinding;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -84,7 +86,8 @@ public class SignupActivity extends AppCompatActivity {
                 return;
             }
             goMainActivity();
-            Toast.makeText(SignupActivity.this, "Success", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(SignupActivity.this, "Success", Toast.LENGTH_SHORT).show();
+            Snackbar.make(binding.getRoot(), "Success", BaseTransientBottomBar.LENGTH_SHORT).show();
         }
     }
 }

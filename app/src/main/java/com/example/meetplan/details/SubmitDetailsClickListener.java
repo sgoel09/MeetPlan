@@ -4,6 +4,8 @@ import android.view.View;
 
 import com.example.meetplan.databinding.FragmentDetailsBinding;
 import com.example.meetplan.models.Meetup;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 public class SubmitDetailsClickListener implements View.OnClickListener {
 
@@ -19,6 +21,7 @@ public class SubmitDetailsClickListener implements View.OnClickListener {
     public void onClick(View view) {
         saveMeetupInfo();
         changeToView();
+        Snackbar.make(binding.getRoot(), "Changes saved", Snackbar.LENGTH_SHORT).show();
     }
 
     private void saveMeetupInfo() {

@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.meetplan.databinding.FragmentDetailsBinding;
 import com.example.meetplan.models.Meetup;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -32,28 +34,28 @@ public class InviteCallBack implements FindCallback<ParseUser> {
     @Override
     public void done(List<ParseUser> users, ParseException e) {
         if (e != null) {
-            Log.e(TAG, "Issue with getting users", e);
+            Snackbar.make(binding.getRoot(), "Issue with fetching users", BaseTransientBottomBar.LENGTH_SHORT).show();
             return;
         }
         for (ParseUser user : users) {
             if (user.getUsername().equals(invitee)) {
                 if (meetup.getMembers().contains(user.getUsername())) {
-                    Toast.makeText(activity, "User is already a member", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(binding.getRoot(), "User is already a member", BaseTransientBottomBar.LENGTH_SHORT).show();
                     return;
                 } else if (meetup.getMembers().contains(user.getUsername())) {
-                    Toast.makeText(activity, "User is already invited", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(binding.getRoot(), "User is already invited", BaseTransientBottomBar.LENGTH_SHORT).show();
                     return;
                 }
                 ArrayList<String> invites = meetup.getInvites();
                 invites.add(invitee);
                 meetup.setInvites(invites);
                 meetup.saveInBackground();
-                Toast.makeText(activity, "User invited!", Toast.LENGTH_SHORT).show();
+                Snackbar.make(binding.getRoot(), "User invited!", BaseTransientBottomBar.LENGTH_SHORT).show();
                 displayMembers();
                 return;
             }
         }
-        Toast.makeText(activity, "Username does not exist", Toast.LENGTH_SHORT).show();
+        Snackbar.make(binding.getRoot(), "User does not exist", BaseTransientBottomBar.LENGTH_SHORT).show();
     }
 
     private void displayMembers() {
