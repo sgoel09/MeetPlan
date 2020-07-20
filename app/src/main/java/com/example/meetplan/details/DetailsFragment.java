@@ -111,6 +111,11 @@ public class DetailsFragment extends Fragment {
         binding.etDescription.setVisibility(View.GONE);
         binding.tvTitle.setText(meetup.getName());
         binding.tvDescription.setText(meetup.getDescription());
+        binding.btnInvite.setVisibility(View.GONE);
+        binding.btnDate.setVisibility(View.GONE);
+        binding.btnTime.setVisibility(View.GONE);
+        binding.btnEdit.setVisibility(View.VISIBLE);
+        binding.btnSubmit.setVisibility(View.GONE);
     }
 
     private void displayMembers() {

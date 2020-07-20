@@ -87,6 +87,9 @@ public class MeetupAdapter extends RecyclerView.Adapter<MeetupAdapter.ViewHolder
             }
             if (meetup.getDate() != null) {
                 binding.tvDate.setText(Meetup.getDateFormatted(meetup));
+                binding.tvDot.setVisibility(View.VISIBLE);
+            } else {
+                binding.tvDot.setVisibility(View.GONE);
             }
             if (invited) {
                 binding.btnAccept.setOnClickListener(new View.OnClickListener() {

@@ -27,15 +27,16 @@
 
     <ImageView
         android:id="@+id/btnAccept"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginRight="10dp"
         android:layout_toLeftOf="@id/btnDecline"
         app:srcCompat="@drawable/ic_baseline_check" />
 
     <ImageView
         android:id="@+id/btnDecline"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_alignParentEnd="true"
         app:srcCompat="@drawable/ic_baseline_clear" />
 
@@ -43,8 +44,19 @@
         android:id="@+id/tvDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvDescription"
-        android:layout_alignParentLeft="true"
+        android:layout_below="@id/tvTitle"
+        android:layout_toRightOf="@id/tvDescription"
         android:layout_marginLeft="20dp"
+        android:fontFamily="@font/catamaran"
         tools:text="Fri, July 17" />
+
+    <TextView
+        android:id="@+id/tvDot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTitle"
+        android:layout_marginLeft="6dp"
+        android:layout_toRightOf="@id/tvDescription"
+        android:text="•"
+        android:textSize="20dp" />
 </RelativeLayout>

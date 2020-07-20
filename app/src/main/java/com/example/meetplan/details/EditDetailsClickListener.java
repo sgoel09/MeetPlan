@@ -27,5 +27,10 @@ public class EditDetailsClickListener implements View.OnClickListener {
         binding.etDescription.setVisibility(View.VISIBLE);
         binding.etTitle.setText(meetup.getName());
         binding.etDescription.setText(meetup.getDescription());
+        binding.btnInvite.setVisibility(View.VISIBLE);
+        binding.btnDate.setVisibility(View.VISIBLE);
+        binding.btnTime.setVisibility(View.VISIBLE);
+        binding.btnEdit.setVisibility(View.GONE);
+        binding.btnSubmit.setVisibility(View.VISIBLE);
     }
 }

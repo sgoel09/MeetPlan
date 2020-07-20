@@ -20,9 +20,8 @@
         android:id="@+id/btnSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="false"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@id/btnEdit"
         android:text="@string/submit" />
 
     <TextView
@@ -56,8 +55,15 @@
         android:id="@+id/tvLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="Meetup Details" />
+        android:text="Meetup Details"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/titillium_web"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="normal|bold"/>
 
     <EditText
         android:id="@+id/etDescription"
@@ -99,7 +105,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/tvLabel"
-        android:background="?android:attr/listDivider" />
+        android:background="#ED7F7F" />
 
     <Button
         android:id="@+id/btnEdit"

@@ -99,6 +99,7 @@ public class MeetupsFragment extends Fragment {
     private void queryInvitedMeetups() {
         ParseQuery<Meetup> query = ParseQuery.getQuery(Meetup.class);
         query.whereContains(KEY_INVITED, ParseUser.getCurrentUser().getUsername());
+        query.orderByAscending("date");
         query.findInBackground(new FindCallback<Meetup>() {
             @Override
             public void done(List<Meetup> meetups, ParseException e) {
@@ -123,6 +124,7 @@ public class MeetupsFragment extends Fragment {
     private void queryAcceptedMeetups() {
         ParseQuery<Meetup> query = ParseQuery.getQuery(Meetup.class);
         query.whereContains(KEY_MEMBERS, ParseUser.getCurrentUser().getUsername());
+        query.orderByAscending("date");
         query.findInBackground(new FindCallback<Meetup>() {
             @Override
             public void done(List<Meetup> meetups, ParseException e) {
