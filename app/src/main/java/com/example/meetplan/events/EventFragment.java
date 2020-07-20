@@ -6,16 +6,18 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
-import com.example.meetplan.RestaurantFragment;
+import com.example.meetplan.restaurants.RestaurantFragment;
 import com.example.meetplan.databinding.FragmentBrowseBinding;
 import com.example.meetplan.models.Event;
 import com.google.common.collect.ImmutableList;
@@ -42,7 +44,7 @@ public class EventFragment extends Fragment {
     private static final String EVENT_BASE_URL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=";
     private static final String TAG = "BrowseFragment";
     private ImmutableList<Event> events;
-    private LinearLayoutManager layoutManager;
+    private GridLayoutManager gridLayoutManager;
     private EventAdapter adapter;
     FragmentBrowseBinding binding;
 
@@ -73,12 +75,17 @@ public class EventFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        binding.btnSearch.setOnClickListener(new View.OnClickListener() {
+        binding.svEvents.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onClick(View view) {
-                String city = binding.etBrowse.getText().toString();
-                String url = EVENT_BASE_URL + getString(R.string.tm_api_key) + "&city=" + city;
+            public boolean onQueryTextSubmit(String s) {
+                String url = EVENT_BASE_URL + getString(R.string.tm_api_key) + "&city=" + s;
                 populateEvents(url);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
             }
         });
 
@@ -90,11 +97,11 @@ public class EventFragment extends Fragment {
             }
         });
 
-        layoutManager = new LinearLayoutManager(getContext());
+        gridLayoutManager = new GridLayoutManager(getContext(), 2);
         events = ImmutableList.of();
         adapter = new EventAdapter((Activity) getContext(), events);
         binding.rvItems.setAdapter(adapter);
-        binding.rvItems.setLayoutManager(layoutManager);
+        binding.rvItems.setLayoutManager(gridLayoutManager);
     }
 
     private void populateEvents(String url) {

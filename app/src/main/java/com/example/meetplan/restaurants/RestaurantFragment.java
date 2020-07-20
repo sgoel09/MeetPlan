@@ -1,4 +1,4 @@
-package com.example.meetplan;
+package com.example.meetplan.restaurants;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -6,17 +6,18 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
-import com.example.meetplan.databinding.FragmentBrowseBinding;
+import com.example.meetplan.MainActivity;
+import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentRestaurantBinding;
-import com.example.meetplan.events.EventAdapter;
-import com.example.meetplan.models.Event;
 import com.example.meetplan.models.Restaurant;
 import com.google.common.collect.ImmutableList;
 
@@ -43,6 +44,7 @@ public class RestaurantFragment extends Fragment {
     private static final String RESTAURANT_BASE_URL = "https://api.yelp.com/v3/businesses/search?";
     private ImmutableList<Restaurant> restaurants;
     private LinearLayoutManager layoutManager;
+    private GridLayoutManager gridLayoutManager;
     private RestaurantAdapter adapter;
     FragmentRestaurantBinding binding;
 
@@ -73,20 +75,25 @@ public class RestaurantFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        binding.btnSearch.setOnClickListener(new View.OnClickListener() {
+        binding.svRestaurants.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onClick(View view) {
-                String city = binding.etRestaurantSearch.getText().toString();
-                String url = RESTAURANT_BASE_URL + "&location=" + city;
+            public boolean onQueryTextSubmit(String s) {
+                String url = RESTAURANT_BASE_URL + "&location=" + s;
                 populateRestaurants(url);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
             }
         });
 
-        layoutManager = new LinearLayoutManager(getContext());
+        gridLayoutManager = new GridLayoutManager(getContext(), 2);
         restaurants = ImmutableList.of();
         adapter = new RestaurantAdapter((Activity) getContext(), restaurants);
         binding.rvRestaurants.setAdapter(adapter);
-        binding.rvRestaurants.setLayoutManager(layoutManager);
+        binding.rvRestaurants.setLayoutManager(gridLayoutManager);
     }
 
     private void populateRestaurants(String url) {

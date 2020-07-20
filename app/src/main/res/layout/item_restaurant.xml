@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="5dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp" >
 
     <TextView
         android:id="@+id/tvPrice"
@@ -12,11 +22,12 @@
         android:layout_toRightOf="@id/tvName"
         tools:text="$$" />
 
-    <TextView
-        android:id="@+id/tvName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Salt and Straw" />
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            tools:text="Salt and Straw" />
 
     <TextView
         android:id="@+id/tvAddress"
@@ -24,4 +35,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvName"
         tools:text="16828 NW Madrone St, Portland, OR 97229" />
-</RelativeLayout>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

@@ -1,18 +1,12 @@
-package com.example.meetplan;
+package com.example.meetplan.restaurants;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.meetplan.databinding.ItemActivityBinding;
 import com.example.meetplan.databinding.ItemRestaurantBinding;
-import com.example.meetplan.events.EventAdapter;
-import com.example.meetplan.models.Event;
 import com.example.meetplan.models.Restaurant;
 import com.google.common.collect.ImmutableList;
 

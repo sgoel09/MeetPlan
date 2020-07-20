@@ -49,4 +49,6 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation("com.google.guava:guava:29.0-android")
     implementation 'com.codepath.libraries:asynchttpclient:0.0.9'
+    implementation "androidx.cardview:cardview:1.0.0"
+
 }
