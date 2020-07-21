@@ -4,59 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp">
+    android:padding="@dimen/padding">
 
     <TextView
-        android:id="@+id/tvTitle"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="@dimen/margin_medium"
         android:fontFamily="@font/catamaran"
-        android:textColor="#000000"
-        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_size"
         tools:text="Title" />
 
     <TextView
-        android:id="@+id/tvDescription"
+        android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvTitle"
-        android:layout_marginLeft="20dp"
+        android:layout_below="@id/title"
+        android:layout_marginLeft="@dimen/margin_large"
         android:fontFamily="@font/catamaran"
         tools:text="This is a description of meetup" />
 
     <ImageView
-        android:id="@+id/btnAccept"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginRight="10dp"
-        android:layout_toLeftOf="@id/btnDecline"
+        android:id="@+id/acceptButton"
+        android:layout_width="@dimen/respond_image"
+        android:layout_height="@dimen/respond_image"
+        android:layout_marginRight="@dimen/margin_med"
+        android:layout_toLeftOf="@id/declineButton"
         app:srcCompat="@drawable/ic_baseline_check" />
 
     <ImageView
-        android:id="@+id/btnDecline"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:id="@+id/declineButton"
+        android:layout_width="@dimen/respond_image"
+        android:layout_height="@dimen/respond_image"
         android:layout_alignParentEnd="true"
         app:srcCompat="@drawable/ic_baseline_clear" />
 
     <TextView
-        android:id="@+id/tvDate"
+        android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvTitle"
-        android:layout_toRightOf="@id/tvDescription"
-        android:layout_marginLeft="20dp"
+        android:layout_below="@id/title"
+        android:layout_toRightOf="@id/description"
+        android:layout_marginLeft="@dimen/margin_large"
         android:fontFamily="@font/catamaran"
         tools:text="Fri, July 17" />
 
     <TextView
-        android:id="@+id/tvDot"
+        android:id="@+id/dot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvTitle"
-        android:layout_marginLeft="6dp"
-        android:layout_toRightOf="@id/tvDescription"
+        android:layout_below="@id/title"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_toRightOf="@id/description"
         android:text="•"
-        android:textSize="20dp" />
+        android:textSize="@dimen/label_size" />
 </RelativeLayout>

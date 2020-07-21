@@ -79,7 +79,7 @@ public class InviteCallBack implements FindCallback<ParseUser> {
                 }
             }
         }
-        binding.tvMembers.setText(allMembers);
-        binding.tvInvites.setText(allInvites);
+        binding.members.setText(allMembers);
+        binding.invites.setText(allInvites);
     }
 }

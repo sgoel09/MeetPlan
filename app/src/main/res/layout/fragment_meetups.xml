@@ -7,53 +7,53 @@
     tools:context=".meetups.MeetupsFragment">
 
     <TextView
-        android:id="@+id/tvAcceptedLabel"
+        android:id="@+id/acceptedLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rvInvited"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_below="@id/invitedRecyclerView"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_small"
         android:text="Upcoming Meetups"
-        android:textColor="#000000"
-        android:textSize="20sp" />
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/label_size" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvMeetups"
+        android:id="@+id/meetupsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvAcceptedLabel" />
+        android:layout_below="@id/acceptedLabel" />
 
     <TextView
-        android:id="@+id/tvInvitedLabel"
+        android:id="@+id/invitedLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
-        android:text="Invited Meetups"
-        android:textColor="#000000"
-        android:textSize="20sp" />
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:text="@string/invited_meetups"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/label_size" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvInvited"
+        android:id="@+id/invitedRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvInvitedLabel" />
+        android:layout_below="@id/invitedLabel" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnNew"
+        android:id="@+id/newButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="#ED7F7F"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:backgroundTint="@color/colorThemeMain"
         android:transitionName="shared_element_container"
         android:src="@drawable/ic_baseline_add" />
 

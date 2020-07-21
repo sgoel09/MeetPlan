@@ -53,9 +53,9 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         }
 
         public void bind(final Restaurant restaurant) {
-            binding.tvName.setText(restaurant.getName());
-            binding.tvPrice.setText(restaurant.getPrice());
-            binding.tvAddress.setText(restaurant.getLocation().getFullAddress());
+            binding.name.setText(restaurant.getName());
+            binding.price.setText(restaurant.getPrice());
+            binding.address.setText(restaurant.getLocation().getFullAddress());
         }
     }
 }

@@ -23,6 +23,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.meetplan.databinding.FragmentProfileBinding;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -48,7 +50,11 @@ public class ProfileFragment extends Fragment {
     private static final int GALLERY_REQUEST_CODE = 20;
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
     private static final String TAG = "ProfileFragment";
+    private static final String IMAGE_TYPE = "image/*";
+    private static final String[] mimeTypes = {"image/jpeg", "image/png"};
+    @Nullable
     private File file;
+    @Nullable
     private ParseFile photoFile;
     private String photoFileName = "photo.jpg";
 
@@ -71,8 +77,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_profile, container, false);
         binding = FragmentProfileBinding.inflate(getLayoutInflater(), container, false);
         View view = binding.getRoot();
         return view;
@@ -80,22 +84,12 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        ParseQuery<ParseUser> query = ParseQuery.getQuery(ParseUser.class);
-        query.include("profilepic");
-        query.setLimit(1);
-        query.whereEqualTo("objectId", ParseUser.getCurrentUser().getObjectId());
-        query.findInBackground(new FindCallback<ParseUser>() {
-            @Override
-            public void done(List<ParseUser> objects, ParseException e) {
-                ParseFile file = objects.get(0).getParseFile("profilepic");
-                Glide.with(getContext()).load(file.getUrl()).circleCrop().into(binding.ivProfilePic);
-            }
-        });
+        loadProfilePic();
         ParseUser user = ParseUser.getCurrentUser();
-        binding.etUsername.setText(user.getUsername());
-        binding.etEmail.setText(user.getEmail());
+        binding.username.setText(user.getUsername());
+        binding.email.setText(user.getEmail());
 
-        binding.btnLogout.setOnClickListener(new View.OnClickListener() {
+        binding.logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ParseUser.logOut();
@@ -104,21 +98,21 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        binding.btnChoose.setOnClickListener(new View.OnClickListener() {
+        binding.chooseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 pickFromGallery();
             }
         });
 
-        binding.btnTake.setOnClickListener(new View.OnClickListener() {
+        binding.captureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onLaunchCamera();
             }
         });
 
-        binding.btnChangeInfo.setOnClickListener(new View.OnClickListener() {
+        binding.changeInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setUserInfo();
@@ -127,8 +121,8 @@ public class ProfileFragment extends Fragment {
     }
 
     private void setUserInfo() {
-        String username = binding.etUsername.getText().toString();
-        String email = binding.etEmail.getText().toString();
+        String username = binding.username.getText().toString();
+        String email = binding.email.getText().toString();
         ParseUser user = ParseUser.getCurrentUser();
         user.setUsername(username);
         user.setEmail(email);
@@ -148,12 +142,14 @@ public class ProfileFragment extends Fragment {
             Uri selectedImageUri = data.getData();
             uriToParse(selectedImageUri);
             saveProfilePic();
-            binding.ivProfilePic.setImageURI(selectedImageUri);
+            binding.profilePic.setImageURI(selectedImageUri);
         } else if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                Bitmap takenImage = BitmapFactory.decodeFile(file.getAbsolutePath());
-                saveProfilePic();
-                binding.ivProfilePic.setImageBitmap(takenImage);
+                if (file != null) {
+                    Bitmap takenImage = BitmapFactory.decodeFile(file.getAbsolutePath());
+                    saveProfilePic();
+                    binding.profilePic.setImageBitmap(takenImage);
+                }
             } else {
                 Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
@@ -192,7 +188,8 @@ public class ProfileFragment extends Fragment {
         try {
             imageStream = getContext().getContentResolver().openInputStream(selectedImageUri);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            Snackbar.make(binding.getRoot(), "Could not load profile picture", BaseTransientBottomBar.LENGTH_SHORT).show();
+            return;
         }
         Bitmap bmp = BitmapFactory.decodeStream(imageStream);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -203,24 +200,22 @@ public class ProfileFragment extends Fragment {
 
     private void pickFromGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        String[] mimeTypes = {"image/jpeg", "image/png"};
-        intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
+        intent.setType(IMAGE_TYPE);
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
         startActivityForResult(intent, GALLERY_REQUEST_CODE);
     }
 
-//    @Override
-//    public void onClick(View view) {
-//        switch(view.getId()) {
-//            case R.id.btnChoose:
-//                pickFromGallery();
-//            case R.id.btnTake:
-//                onLaunchCamera();
-//            case R.id.btnLogout:
-//                ParseUser.logOut();
-//                Intent intent = new Intent(getContext(), LoginActivity.class);
-//                startActivity(intent);
-//                break;
-//        }
-//    }
+    private void loadProfilePic() {
+        ParseQuery<ParseUser> query = ParseQuery.getQuery(ParseUser.class);
+        query.include("profilepic");
+        query.setLimit(1);
+        query.whereEqualTo("objectId", ParseUser.getCurrentUser().getObjectId());
+        query.findInBackground(new FindCallback<ParseUser>() {
+            @Override
+            public void done(List<ParseUser> objects, ParseException e) {
+                ParseFile file = objects.get(0).getParseFile("profilepic");
+                Glide.with(getContext()).load(file.getUrl()).circleCrop().into(binding.profilePic);
+            }
+        });
+    }
 }

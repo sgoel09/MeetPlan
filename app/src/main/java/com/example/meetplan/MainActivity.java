@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUserInfo() {
         ParseUser user = ParseUser.getCurrentUser();
-        navHeaderBinding.tvUsername.setText(user.getUsername());
+        navHeaderBinding.usernameLabel2.setText(user.getUsername());
         ParseQuery<ParseUser> query = ParseQuery.getQuery(ParseUser.class);
         query.include("profilepic");
         query.setLimit(1);
@@ -112,8 +112,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void done(List<ParseUser> objects, ParseException e) {
                 ParseFile file = objects.get(0).getParseFile("profilepic");
-                Glide.with(MainActivity.this).load(file.getUrl()).circleCrop().into(navHeaderBinding.ivImage);
-                navHeaderBinding.tvName.setText(objects.get(0).getString("name"));
+                Glide.with(MainActivity.this).load(file.getUrl()).circleCrop().into(navHeaderBinding.image);
+                navHeaderBinding.name.setText(objects.get(0).getString("name"));
             }
         });
     }

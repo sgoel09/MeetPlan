@@ -75,44 +75,42 @@ public class MeetupAdapter extends RecyclerView.Adapter<MeetupAdapter.ViewHolder
             if (position != RecyclerView.NO_POSITION) {
                 Meetup meetup = meetups.get(position);
                 Fragment fragment = DetailsFragment.newInstance(meetup);
-                ((MainActivity) context).getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).replace(R.id.flContainer, fragment).commit();
+                ((MainActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
 
             }
         }
 
         public void bind(final Meetup meetup) {
-            binding.tvTitle.setText(meetup.getName());
-            binding.tvDescription.setText(meetup.getDescription());
+            binding.title.setText(meetup.getName());
+            binding.description.setText(meetup.getDescription());
             if (meetup.getDescription() == null || meetup.getDescription().equals("")) {
-                binding.tvDescription.setText("No description");
-                binding.tvDescription.setTypeface(null, Typeface.ITALIC);
+                binding.description.setText("No description");
+                binding.description.setTypeface(null, Typeface.ITALIC);
             }
             if (meetup.getDate() != null) {
-                binding.tvDate.setText(Meetup.getDateFormatted(meetup));
-                binding.tvDot.setVisibility(View.VISIBLE);
+                binding.date.setText(Meetup.getDateFormatted(meetup));
+                binding.dot.setVisibility(View.VISIBLE);
             } else {
-                binding.tvDot.setVisibility(View.GONE);
+                binding.dot.setVisibility(View.GONE);
             }
             if (invited) {
-                binding.btnAccept.setOnClickListener(new View.OnClickListener() {
+                binding.acceptButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Meetup meetup = meetups.get(getAdapterPosition());
                         respondInvite(meetup,true);
                     }
                 });
-                binding.btnDecline.setOnClickListener(new View.OnClickListener() {
+                binding.declineButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Meetup meetup = meetups.get(getAdapterPosition());
                         respondInvite(meetup, false);
-                        Fragment fragment = new MeetupsFragment();
-                        ((MainActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
                     }
                 });
             } else {
-                binding.btnAccept.setVisibility(View.GONE);
-                binding.btnDecline.setVisibility(View.GONE);
+                binding.acceptButton.setVisibility(View.GONE);
+                binding.declineButton.setVisibility(View.GONE);
             }
         }
 

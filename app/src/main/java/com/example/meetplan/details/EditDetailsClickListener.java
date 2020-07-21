@@ -21,16 +21,16 @@ public class EditDetailsClickListener implements View.OnClickListener {
     }
 
     private void changeToEdit() {
-        binding.tvTitle.setVisibility(View.GONE);
-        binding.tvDescription.setVisibility(View.GONE);
-        binding.etTitle.setVisibility(View.VISIBLE);
-        binding.etDescription.setVisibility(View.VISIBLE);
-        binding.etTitle.setText(meetup.getName());
-        binding.etDescription.setText(meetup.getDescription());
-        binding.btnInvite.setVisibility(View.VISIBLE);
-        binding.btnDate.setVisibility(View.VISIBLE);
-        binding.btnTime.setVisibility(View.VISIBLE);
-        binding.btnEdit.setVisibility(View.GONE);
-        binding.btnSubmit.setVisibility(View.VISIBLE);
+        binding.title.setVisibility(View.GONE);
+        binding.description.setVisibility(View.GONE);
+        binding.titleEdit.setVisibility(View.VISIBLE);
+        binding.descriptionEdit.setVisibility(View.VISIBLE);
+        binding.titleEdit.setText(meetup.getName());
+        binding.descriptionEdit.setText(meetup.getDescription());
+        binding.inviteDialogButton.setVisibility(View.VISIBLE);
+        binding.dateButton.setVisibility(View.VISIBLE);
+        binding.timeButton.setVisibility(View.VISIBLE);
+        binding.editButton.setVisibility(View.GONE);
+        binding.submitButton.setVisibility(View.VISIBLE);
     }
 }

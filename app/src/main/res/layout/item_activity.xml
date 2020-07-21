@@ -4,59 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="6dp"
-    app:cardElevation="5dp"
+    app:cardCornerRadius="@dimen/margin_small"
+    app:cardElevation="@dimen/margin_small"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp" >
+        android:padding="@dimen/padding" >
 
     <TextView
-        android:id="@+id/tvName"
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
         tools:text="Name" />
 
-        <TextView
-            android:id="@+id/tvUrl"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ivImage"
-            android:text="See website"
-            android:textColor="#ED7F7F" />
-
     <TextView
-        android:id="@+id/tvDate"
+        android:id="@+id/url"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@id/tvName"
+        android:layout_below="@id/address"
+        android:text="@string/see_website"
+        android:textColor="@color/colorThemeMain" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_med"
+        android:layout_toRightOf="@id/name"
         tools:text="2021-03-16" />
 
     <ImageView
-        android:id="@+id/ivImage"
+        android:id="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvName"
+        android:layout_below="@id/name"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/tvAddress"
+        android:id="@+id/address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvVenue"
+        android:layout_below="@id/venue"
         tools:text="16828 NW Madrone St, Portland, OR 97229" />
 
     <TextView
-        android:id="@+id/tvVenue"
+        android:id="@+id/venue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvUrl"
+        android:layout_below="@id/image"
         tools:text="Keller Auditorium" />
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

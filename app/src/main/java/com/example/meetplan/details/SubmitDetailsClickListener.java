@@ -25,24 +25,24 @@ public class SubmitDetailsClickListener implements View.OnClickListener {
     }
 
     private void saveMeetupInfo() {
-        String title = binding.etTitle.getText().toString();
-        String description = binding.etDescription.getText().toString();
+        String title = binding.titleEdit.getText().toString();
+        String description = binding.descriptionEdit.getText().toString();
         meetup.setName(title);
         meetup.setDescription(description);
         meetup.saveInBackground();
     }
 
     private void changeToView() {
-        binding.tvTitle.setVisibility(View.VISIBLE);
-        binding.tvDescription.setVisibility(View.VISIBLE);
-        binding.etTitle.setVisibility(View.GONE);
-        binding.etDescription.setVisibility(View.GONE);
-        binding.tvTitle.setText(meetup.getName());
-        binding.tvDescription.setText(meetup.getDescription());
-        binding.btnInvite.setVisibility(View.GONE);
-        binding.btnDate.setVisibility(View.GONE);
-        binding.btnTime.setVisibility(View.GONE);
-        binding.btnEdit.setVisibility(View.VISIBLE);
-        binding.btnSubmit.setVisibility(View.GONE);
+        binding.title.setVisibility(View.VISIBLE);
+        binding.description.setVisibility(View.VISIBLE);
+        binding.titleEdit.setVisibility(View.GONE);
+        binding.descriptionEdit.setVisibility(View.GONE);
+        binding.title.setText(meetup.getName());
+        binding.description.setText(meetup.getDescription());
+        binding.inviteDialogButton.setVisibility(View.GONE);
+        binding.dateButton.setVisibility(View.GONE);
+        binding.timeButton.setVisibility(View.GONE);
+        binding.editButton.setVisibility(View.VISIBLE);
+        binding.submitButton.setVisibility(View.GONE);
     }
 }

@@ -58,7 +58,6 @@ public class MeetupsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setExitTransition(new Hold());
     }
 
     @Override
@@ -77,15 +76,15 @@ public class MeetupsFragment extends Fragment {
         setUpAcceptedAdapter();
         setUpInvitedAdapter();
         newClickListener = new NewClickListener((MainActivity) getContext());
-        binding.btnNew.setOnClickListener(newClickListener);
+        binding.newButton.setOnClickListener(newClickListener);
     }
 
     private void setUpAcceptedAdapter() {
         acceptedLayoutManager = new LinearLayoutManager(getContext());
         acceptedMeetups = ImmutableList.of();
         acceptedAdapter = new MeetupAdapter((Activity) getContext(), acceptedMeetups, false);
-        binding.rvMeetups.setAdapter(acceptedAdapter);
-        binding.rvMeetups.setLayoutManager(acceptedLayoutManager);
+        binding.meetupsRecyclerView.setAdapter(acceptedAdapter);
+        binding.meetupsRecyclerView.setLayoutManager(acceptedLayoutManager);
         queryAcceptedMeetups();
     }
 
@@ -93,8 +92,8 @@ public class MeetupsFragment extends Fragment {
         invitedLayoutManager = new LinearLayoutManager(getContext());
         invitedMeetups = ImmutableList.of();
         invitedAdapter = new MeetupAdapter((Activity) getContext(), invitedMeetups, true);
-        binding.rvInvited.setAdapter(invitedAdapter);
-        binding.rvInvited.setLayoutManager(invitedLayoutManager);
+        binding.invitedRecyclerView.setAdapter(invitedAdapter);
+        binding.invitedRecyclerView.setLayoutManager(invitedLayoutManager);
         queryInvitedMeetups();
     }
 
@@ -115,9 +114,9 @@ public class MeetupsFragment extends Fragment {
                 invitedMeetups = ImmutableList.<Meetup>builder().addAll(meetups).build();
                 invitedAdapter.updateData(invitedMeetups);
                 if (invitedMeetups.isEmpty()) {
-                    binding.tvInvitedLabel.setVisibility(View.GONE);
+                    binding.invitedLabel.setVisibility(View.GONE);
                 } else {
-                    binding.tvInvitedLabel.setVisibility(View.VISIBLE);
+                    binding.invitedLabel.setVisibility(View.VISIBLE);
                 }
             }
         });

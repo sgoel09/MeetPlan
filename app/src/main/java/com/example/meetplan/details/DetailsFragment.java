@@ -110,21 +110,21 @@ public class DetailsFragment extends Fragment {
         spinnerDialog.bindOnSpinerListener(inviteItemClick);
 
         inviteClickListener = new InviteClickListener(spinnerDialog);
-        binding.btnInviteDialog.setOnClickListener(inviteClickListener);
+        binding.inviteDialogButton.setOnClickListener(inviteClickListener);
 
         datePickerClickListener = new DatePickerClickListener((MainActivity) getContext(), meetup);
-        binding.btnDate.setOnClickListener(datePickerClickListener);
+        binding.dateButton.setOnClickListener(datePickerClickListener);
 
         timePickerClickListener = new TimePickerClickListener((MainActivity) getContext(), meetup);
-        binding.btnTime.setOnClickListener(timePickerClickListener);
+        binding.timeButton.setOnClickListener(timePickerClickListener);
 
         editDetailsClickListener = new EditDetailsClickListener(binding, meetup);
-        binding.btnEdit.setOnClickListener(editDetailsClickListener);
+        binding.editButton.setOnClickListener(editDetailsClickListener);
 
         submitDetailsClickListener = new SubmitDetailsClickListener(binding, meetup);
-        binding.btnSubmit.setOnClickListener(submitDetailsClickListener);
+        binding.submitButton.setOnClickListener(submitDetailsClickListener);
 
-        binding.btnBrowse.setOnClickListener(new View.OnClickListener() {
+        binding.browseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Fragment fragment = new EventFragment();
@@ -137,26 +137,26 @@ public class DetailsFragment extends Fragment {
         if (meetup.getDate() != null) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("EE, MMM d, y");
             String dateFormatted = dateFormat.format(meetup.getDate());
-            binding.tvDate.setText(dateFormatted);
+            binding.date.setText(dateFormatted);
 
             SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
             String timeFormatted = timeFormat.format(meetup.getDate());
-            binding.tvTime.setText(timeFormatted);
+            binding.time.setText(timeFormatted);
         }
     }
 
     private void changeToView() {
-        binding.tvTitle.setVisibility(View.VISIBLE);
-        binding.tvDescription.setVisibility(View.VISIBLE);
-        binding.etTitle.setVisibility(View.GONE);
-        binding.etDescription.setVisibility(View.GONE);
-        binding.tvTitle.setText(meetup.getName());
-        binding.tvDescription.setText(meetup.getDescription());
-        binding.btnInvite.setVisibility(View.GONE);
-        binding.btnDate.setVisibility(View.GONE);
-        binding.btnTime.setVisibility(View.GONE);
-        binding.btnEdit.setVisibility(View.VISIBLE);
-        binding.btnSubmit.setVisibility(View.GONE);
+        binding.title.setVisibility(View.VISIBLE);
+        binding.description.setVisibility(View.VISIBLE);
+        binding.titleEdit.setVisibility(View.GONE);
+        binding.descriptionEdit.setVisibility(View.GONE);
+        binding.title.setText(meetup.getName());
+        binding.description.setText(meetup.getDescription());
+        binding.inviteDialogButton.setVisibility(View.GONE);
+        binding.dateButton.setVisibility(View.GONE);
+        binding.timeButton.setVisibility(View.GONE);
+        binding.editButton.setVisibility(View.VISIBLE);
+        binding.submitButton.setVisibility(View.GONE);
     }
 
     private void displayMembers() {
@@ -180,8 +180,8 @@ public class DetailsFragment extends Fragment {
                 }
             }
         }
-        binding.tvMembers.setText(allMembers);
-        binding.tvInvites.setText(allInvites);
+        binding.members.setText(allMembers);
+        binding.invites.setText(allInvites);
     }
 
 }

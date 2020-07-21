@@ -25,6 +25,7 @@ public class SignupActivity extends AppCompatActivity {
 
     private static final String TAG = "SignupActivity";
     private static final String KEY_PROFILE_PIC = "profilepic";
+    private static final String IMAGE_URL = "image_file.png";
     private SignupClickListener signupClickListener;
     private SignupCallBack signupCallBack;
     ActivitySignupBinding binding;
@@ -39,7 +40,7 @@ public class SignupActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         signupClickListener = new SignupClickListener();
-        binding.btnSignup.setOnClickListener(signupClickListener);
+        binding.signupButton.setOnClickListener(signupClickListener);
     }
 
     private void signupUser(String username, String email, String password) {
@@ -55,10 +56,10 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private ParseFile convertToParseFile(Bitmap imageBitmap) {
-        ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         imageBitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
         byte[] imageByte = byteArrayOutputStream.toByteArray();
-        ParseFile parseFile = new ParseFile("image_file.png",imageByte);
+        ParseFile parseFile = new ParseFile(IMAGE_URL,imageByte);
         return parseFile;
     }
 
@@ -71,9 +72,9 @@ public class SignupActivity extends AppCompatActivity {
     private class SignupClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            String username = binding.etUsername.getText().toString();
-            String email = binding.etEmail.getText().toString();
-            String password = binding.etPassword.getText().toString();
+            String username = binding.username.getText().toString();
+            String email = binding.email.getText().toString();
+            String password = binding.password.getText().toString();
             signupUser(username, email, password);
         }
     }
@@ -86,7 +87,6 @@ public class SignupActivity extends AppCompatActivity {
                 return;
             }
             goMainActivity();
-            //Toast.makeText(SignupActivity.this, "Success", Toast.LENGTH_SHORT).show();
             Snackbar.make(binding.getRoot(), "Success", BaseTransientBottomBar.LENGTH_SHORT).show();
         }
     }

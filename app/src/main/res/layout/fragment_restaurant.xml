@@ -6,16 +6,16 @@
     tools:context=".events.EventFragment">
 
     <SearchView
-        android:id="@+id/svRestaurants"
+        android:id="@+id/restaurantSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:iconifiedByDefault="false"
-        android:queryHint="Search city" />
+        android:queryHint="@string/search_prompt" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvRestaurants"
+        android:id="@+id/restaurantsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/svRestaurants" />
+        android:layout_below="@id/restaurantSearch" />
 
 </RelativeLayout>

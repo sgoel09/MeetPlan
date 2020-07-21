@@ -6,25 +6,24 @@
     tools:context=".events.EventFragment">
 
     <SearchView
-        android:id="@+id/svEvents"
+        android:id="@+id/eventSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:iconifiedByDefault="false"
-        android:queryHint="Search city" />
+        android:queryHint="@string/search_prompt" />
 
     <Button
-        android:id="@+id/btnRestaurantNavigate"
+        android:id="@+id/restaurantNavigateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="0dp"
-        android:text="Restaurants" />
+        android:text="@string/restaurants" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvItems"
+        android:id="@+id/itemRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/svEvents">
+        android:layout_below="@id/eventSearch">
 
     </androidx.recyclerview.widget.RecyclerView>
 </RelativeLayout>

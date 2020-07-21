@@ -57,11 +57,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         }
 
         public void bind(final Event event) {
-            binding.tvName.setText(event.getName());
-            binding.tvDate.setText(event.getDate());
-            binding.tvAddress.setText(event.getVenue().getFullAddress());
-            binding.tvVenue.setText(event.getVenue().getName());
-            binding.tvUrl.setOnClickListener(new View.OnClickListener() {
+            binding.name.setText(event.getName());
+            binding.date.setText(event.getDate());
+            binding.address.setText(event.getVenue().getFullAddress());
+            binding.venue.setText(event.getVenue().getName());
+            binding.url.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(event.getUrl()));

@@ -77,7 +77,7 @@ public class EventFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        binding.svEvents.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        binding.eventSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 String url = EVENT_BASE_URL + getString(R.string.tm_api_key) + "&city=" + s;
@@ -91,7 +91,7 @@ public class EventFragment extends Fragment {
             }
         });
 
-        binding.btnRestaurantNavigate.setOnClickListener(new View.OnClickListener() {
+        binding.restaurantNavigateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Fragment fragment = new RestaurantFragment();
@@ -102,8 +102,8 @@ public class EventFragment extends Fragment {
         gridLayoutManager = new GridLayoutManager(getContext(), 2);
         events = ImmutableList.of();
         adapter = new EventAdapter((Activity) getContext(), events);
-        binding.rvItems.setAdapter(adapter);
-        binding.rvItems.setLayoutManager(gridLayoutManager);
+        binding.itemRecyclerView.setAdapter(adapter);
+        binding.itemRecyclerView.setLayoutManager(gridLayoutManager);
     }
 
     private void populateEvents(String url) {
@@ -132,7 +132,6 @@ public class EventFragment extends Fragment {
                     public void run() {
                         try {
                             JSONArray embedded = finalJsonObject.getJSONObject("_embedded").getJSONArray("events");
-                            events = ImmutableList.of();
                             events = ImmutableList.<Event>builder().addAll(Event.fromJsonArray(embedded)).build();;
                             Log.i(TAG, "parsed");
                             adapter.updateData(events);

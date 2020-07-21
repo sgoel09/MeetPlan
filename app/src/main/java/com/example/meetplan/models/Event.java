@@ -11,18 +11,26 @@ public class Event {
 
     private static final String TAG = "Event";
     private static final String BASE_IMAGE_URL = "https://app.ticketmaster.com/discovery/v2/events/";
-    private String name;
-    private String id;
-    private String url;
-    private String date;
-    private Venue venue;
+    private static final String JSON_FIELD_NAME = "name";
+    private static final String JSON_FIELD_ID = "id";
+    private static final String JSON_FIELD_URL = "url";
+    private static final String JSON_FIELD_DATES = "dates";
+    private static final String JSON_FIELD_START = "start";
+    private static final String JSON_FIELD_LOCAL_DATE = "localDate";
+    private static final String JSON_FIELD_EMBEDDED = "_embedded";
+    private static final String JSON_FIELD_VENUES = "venues";
+    private final String name;
+    private final String id;
+    private final String url;
+    private final String date;
+    private final Venue venue;
     private List<String> images;
     //TODO: venue and image
 
     public Event(JSONObject jsonObject) throws JSONException {
-        name = jsonObject.getString("name");
-        id = jsonObject.getString("id");
-        url = jsonObject.getString("url");
+        name = checkValue(jsonObject, JSON_FIELD_NAME);
+        id = checkValue(jsonObject, JSON_FIELD_ID);
+        url = checkValue(jsonObject, JSON_FIELD_URL);
         date = jsonObject.getJSONObject("dates").getJSONObject("start").getString("localDate");
         venue = new Venue(jsonObject.getJSONObject("_embedded").getJSONArray("venues"));
     }
@@ -33,6 +41,15 @@ public class Event {
             events.add(new Event(eventJsonArray.getJSONObject(i)));
         }
         return events;
+    }
+
+    private String checkValue(JSONObject jsonObject, String field) {
+        try {
+            String address = jsonObject.getString(field);
+            return address;
+        } catch (JSONException e) {
+            return null;
+        }
     }
 
     public String getName() {

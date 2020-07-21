@@ -44,10 +44,10 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         loginClickListener = new LoginClickListener();
-        binding.btnLogin.setOnClickListener(loginClickListener);
+        binding.loginButton.setOnClickListener(loginClickListener);
 
         signupClickListener = new SignupClickListener();
-        binding.btnSignup.setOnClickListener(signupClickListener);
+        binding.signupButton.setOnClickListener(signupClickListener);
     }
 
     private void loginUser(String username, String password) {
@@ -71,8 +71,8 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Log.i(TAG, "onClick login button");
-            String username = binding.etUsername.getText().toString();
-            String password = binding.etPassword.getText().toString();
+            String username = binding.username.getText().toString();
+            String password = binding.password.getText().toString();
             loginUser(username, password);
         }
     }
@@ -85,7 +85,6 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
             goMainActivity();
-            //Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_SHORT).show();
             Snackbar.make(binding.getRoot(), "Success", BaseTransientBottomBar.LENGTH_SHORT).show();
         }
     }

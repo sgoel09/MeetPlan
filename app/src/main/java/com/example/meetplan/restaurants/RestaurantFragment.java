@@ -44,6 +44,8 @@ public class RestaurantFragment extends Fragment {
 
     private static final String TAG = "RestaurantFragment";
     private static final String RESTAURANT_BASE_URL = "https://api.yelp.com/v3/businesses/search?";
+    private static final String LOCATION_PARAM = "&location=";
+    private static final String BEARER = "Bearer ";
     private ImmutableList<Restaurant> restaurants;
     private LinearLayoutManager layoutManager;
     private GridLayoutManager gridLayoutManager;
@@ -77,10 +79,10 @@ public class RestaurantFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        binding.svRestaurants.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        binding.restaurantSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                String url = RESTAURANT_BASE_URL + "&location=" + s;
+                String url = RESTAURANT_BASE_URL + LOCATION_PARAM + s;
                 populateRestaurants(url);
                 return false;
             }
@@ -94,13 +96,13 @@ public class RestaurantFragment extends Fragment {
         gridLayoutManager = new GridLayoutManager(getContext(), 2);
         restaurants = ImmutableList.of();
         adapter = new RestaurantAdapter((Activity) getContext(), restaurants);
-        binding.rvRestaurants.setAdapter(adapter);
-        binding.rvRestaurants.setLayoutManager(gridLayoutManager);
+        binding.restaurantsRecyclerView.setAdapter(adapter);
+        binding.restaurantsRecyclerView.setLayoutManager(gridLayoutManager);
     }
 
     private void populateRestaurants(String url) {
         OkHttpClient client = new OkHttpClient();
-        String value = "Bearer " + getString(R.string.yelp_api_key);
+        String value = BEARER + getString(R.string.yelp_api_key);
         Request request = new Request.Builder().url(url).header("Authorization", value).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -118,6 +120,7 @@ public class RestaurantFragment extends Fragment {
                     jsonObject = new JSONObject(myResponse);
                 } catch (JSONException e) {
                     Log.i(TAG, "onFailure");
+                    return;
                 }
                 final JSONObject finalJsonObject = jsonObject;
                 ((MainActivity) getContext()).runOnUiThread(new Runnable() {
@@ -125,12 +128,12 @@ public class RestaurantFragment extends Fragment {
                     public void run() {
                         try {
                             JSONArray businesses = finalJsonObject.getJSONArray("businesses");
-                            restaurants = ImmutableList.of();
                             restaurants = ImmutableList.<Restaurant>builder().addAll(Restaurant.fromJsonArray(businesses)).build();;
                             Log.i(TAG, "parsed");
                             adapter.updateData(restaurants);
                         } catch (JSONException e) {
-                            e.printStackTrace();
+                            Snackbar.make(binding.getRoot(), "Could not retrieve restaurant data", BaseTransientBottomBar.LENGTH_SHORT).show();
+                            return;
                         }
                     }
                 });

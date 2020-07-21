@@ -10,12 +10,32 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
 
-    <string name="signup">"Signup"</string>
-    <string name="login">"Login"</string>
-    <string name="submit">"Submit"</string>
-    <string name="edit">"Edit"</string>
-    <string name="logout">"Logout"</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="signup">Signup</string>
+    <string name="login">Login</string>
+    <string name="submit">Submit</string>
+    <string name="edit">Edit</string>
+    <string name="logout">Logout</string>
+    <string name="username">Username</string>
+    <string name="new_user">New to MeetPlan?</string>
+    <string name="search_prompt">Search City</string>
+    <string name="restaurants">Restaurants</string>
+    <string name="time">Time</string>
+    <string name="invite">Invite</string>
+    <string name="browse">Browse</string>
+
+    <string name="meetup_details">Meetup Details</string>
+    <string name="choose">Choose</string>
+    <string name="invited_meetups">Invited Meetups</string>
+    <string name="account_info">Account Information</string>
+
+    <string name="time_label">Time:</string>
+    <string name="invited_label">Invited:</string>
+    <string name="members_label">Members:</string>
+    <string name="title_label">Title:</string>
+    <string name="description_label">Description:</string>
+    <string name="date_label">Date:</string>
+    <string name="location_label">Location:</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main2">MainActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -24,7 +44,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-    <string name="see_website"><u>See website</u>.</string>
+    <string name="see_website">See website</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
