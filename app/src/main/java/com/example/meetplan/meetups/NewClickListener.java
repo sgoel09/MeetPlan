@@ -1,17 +1,16 @@
 package com.example.meetplan.meetups;
 
-import android.app.Activity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
-import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.details.DetailsFragment;
 import com.example.meetplan.models.Meetup;
+import com.google.android.material.transition.MaterialContainerTransform;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -48,6 +47,6 @@ public class NewClickListener implements View.OnClickListener {
             }
         });
         Fragment fragment = DetailsFragment.newInstance(meetup);
-        context.getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+        context.getSupportFragmentManager().beginTransaction().addSharedElement(view, "shared_element_container").replace(R.id.flContainer, fragment).addToBackStack("TAG").commit();
     }
 }

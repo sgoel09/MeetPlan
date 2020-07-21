@@ -15,6 +15,8 @@ import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentDetailsBinding;
 import com.example.meetplan.models.Meetup;
+import com.google.android.material.color.MaterialColors;
+import com.google.android.material.transition.MaterialContainerTransform;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,6 +52,10 @@ public class DetailsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MaterialContainerTransform transform = new MaterialContainerTransform();
+        transform.setFadeMode(MaterialContainerTransform.FADE_MODE_OUT);
+        transform.setDuration(500);
+        setSharedElementEnterTransition(transform);
     }
 
     @Override

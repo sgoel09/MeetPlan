@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.databinding.FragmentMeetupsBinding;
 import com.example.meetplan.models.Meetup;
+import com.google.android.material.transition.Hold;
 import com.google.common.collect.ImmutableList;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -57,6 +58,7 @@ public class MeetupsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setExitTransition(new Hold());
     }
 
     @Override
