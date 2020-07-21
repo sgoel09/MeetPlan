@@ -45,14 +45,14 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ItemRestaurantBinding binding;
+        final ItemRestaurantBinding binding;
 
         public ViewHolder(ItemRestaurantBinding bind) {
             super(bind.getRoot());
             binding = bind;
         }
 
-        public void bind(final Restaurant restaurant) {
+        public void bind(Restaurant restaurant) {
             binding.name.setText(restaurant.getName());
             binding.price.setText(restaurant.getPrice());
             binding.address.setText(restaurant.getLocation().getFullAddress());

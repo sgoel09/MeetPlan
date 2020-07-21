@@ -10,13 +10,16 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
+import com.example.meetplan.models.Meetup;
 import com.example.meetplan.restaurants.RestaurantFragment;
 import com.example.meetplan.databinding.FragmentBrowseBinding;
 import com.example.meetplan.models.Event;
@@ -48,15 +51,17 @@ public class EventFragment extends Fragment {
     private ImmutableList<Event> events;
     private GridLayoutManager gridLayoutManager;
     private EventAdapter adapter;
+    private Meetup meetup;
     FragmentBrowseBinding binding;
 
     public EventFragment() {
         // Required empty public constructor
     }
 
-    public static EventFragment newInstance(String param1, String param2) {
+    public static EventFragment newInstance(Meetup meetup) {
         EventFragment fragment = new EventFragment();
         Bundle args = new Bundle();
+        args.putParcelable("meetup", meetup);
         fragment.setArguments(args);
         return fragment;
     }
@@ -77,6 +82,8 @@ public class EventFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        meetup = getArguments().getParcelable("meetup");
+
         binding.eventSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -99,9 +106,9 @@ public class EventFragment extends Fragment {
             }
         });
 
-        gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        gridLayoutManager = new GridLayoutManager(getContext(), getResources().getInteger(R.integer.grid_layout));
         events = ImmutableList.of();
-        adapter = new EventAdapter((Activity) getContext(), events);
+        adapter = new EventAdapter((Activity) getContext(), events, meetup);
         binding.itemRecyclerView.setAdapter(adapter);
         binding.itemRecyclerView.setLayoutManager(gridLayoutManager);
     }

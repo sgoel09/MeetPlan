@@ -37,30 +37,37 @@ public class InviteCallBack implements FindCallback<ParseUser> {
             Snackbar.make(binding.getRoot(), "Issue with fetching users", BaseTransientBottomBar.LENGTH_SHORT).show();
             return;
         }
+        if (userExists(users)) {
+            ArrayList<String> invites = meetup.getInvites();
+            invites.add(invitee);
+            meetup.setInvites(invites);
+            meetup.saveInBackground();
+            Snackbar.make(binding.getRoot(), "User invited!", BaseTransientBottomBar.LENGTH_SHORT).show();
+            displayMembers();
+            return;
+        }
+    }
+
+    private boolean userExists(List<ParseUser> users) {
         for (ParseUser user : users) {
             if (user.getUsername().equals(invitee)) {
                 if (meetup.getMembers().contains(user.getUsername())) {
                     Snackbar.make(binding.getRoot(), "User is already a member", BaseTransientBottomBar.LENGTH_SHORT).show();
-                    return;
+                    return false;
                 } else if (meetup.getInvites().contains(user.getUsername())) {
                     Snackbar.make(binding.getRoot(), "User is already invited", BaseTransientBottomBar.LENGTH_SHORT).show();
-                    return;
+                    return false;
                 }
-                ArrayList<String> invites = meetup.getInvites();
-                invites.add(invitee);
-                meetup.setInvites(invites);
-                meetup.saveInBackground();
-                Snackbar.make(binding.getRoot(), "User invited!", BaseTransientBottomBar.LENGTH_SHORT).show();
-                displayMembers();
-                return;
+                return true;
             }
         }
         Snackbar.make(binding.getRoot(), "User does not exist", BaseTransientBottomBar.LENGTH_SHORT).show();
+        return false;
     }
 
     private void displayMembers() {
-        ArrayList<String> members = meetup.getMembers();
-        ArrayList<String> invites = meetup.getInvites();
+        List<String> members = meetup.getMembers();
+        List<String> invites = meetup.getInvites();
         String allMembers = "";
         for (String username : members) {
             if (!members.get(members.size() - 1).equals(username)) {

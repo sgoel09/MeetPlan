@@ -43,6 +43,7 @@ import static android.widget.Toast.*;
 public class DetailsFragment extends Fragment {
 
     private static final String TAG = "DetailsFragment";
+    private static final int TRANSITION_DURATION = 500;
     private DatePickerClickListener datePickerClickListener;
     private TimePickerClickListener timePickerClickListener;
     private EditDetailsClickListener editDetailsClickListener;
@@ -71,7 +72,7 @@ public class DetailsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         MaterialContainerTransform transform = new MaterialContainerTransform();
         transform.setFadeMode(MaterialContainerTransform.FADE_MODE_OUT);
-        transform.setDuration(500);
+        transform.setDuration(TRANSITION_DURATION);
         setSharedElementEnterTransition(transform);
     }
 
@@ -127,7 +128,7 @@ public class DetailsFragment extends Fragment {
         binding.browseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment = new EventFragment();
+                Fragment fragment = EventFragment.newInstance(meetup);
                 ((MainActivity) getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
             }
         });

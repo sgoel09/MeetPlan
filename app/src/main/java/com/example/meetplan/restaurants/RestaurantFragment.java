@@ -47,7 +47,6 @@ public class RestaurantFragment extends Fragment {
     private static final String LOCATION_PARAM = "&location=";
     private static final String BEARER = "Bearer ";
     private ImmutableList<Restaurant> restaurants;
-    private LinearLayoutManager layoutManager;
     private GridLayoutManager gridLayoutManager;
     private RestaurantAdapter adapter;
     FragmentRestaurantBinding binding;
@@ -93,7 +92,7 @@ public class RestaurantFragment extends Fragment {
             }
         });
 
-        gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        gridLayoutManager = new GridLayoutManager(getContext(), getResources().getInteger(R.integer.grid_layout));
         restaurants = ImmutableList.of();
         adapter = new RestaurantAdapter((Activity) getContext(), restaurants);
         binding.restaurantsRecyclerView.setAdapter(adapter);

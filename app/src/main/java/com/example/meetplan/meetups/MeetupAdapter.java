@@ -59,7 +59,7 @@ public class MeetupAdapter extends RecyclerView.Adapter<MeetupAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        ItemMeetupBinding binding;
+        final ItemMeetupBinding binding;
 
         public ViewHolder(@NonNull View itemView, ItemMeetupBinding bind) {
             super(itemView);
