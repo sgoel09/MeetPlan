@@ -252,4 +252,11 @@
         android:textStyle="bold"
         android:text="Location: " />
 
+    <Button
+        android:id="@+id/btnInviteDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnInvite"
+        android:text="Invite" />
+
 </RelativeLayout>

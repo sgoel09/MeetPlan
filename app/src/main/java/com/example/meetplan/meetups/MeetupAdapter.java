@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.meetplan.MainActivity;
@@ -74,7 +75,8 @@ public class MeetupAdapter extends RecyclerView.Adapter<MeetupAdapter.ViewHolder
             if (position != RecyclerView.NO_POSITION) {
                 Meetup meetup = meetups.get(position);
                 Fragment fragment = DetailsFragment.newInstance(meetup);
-                ((MainActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+                ((MainActivity) context).getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).replace(R.id.flContainer, fragment).commit();
+
             }
         }
 
@@ -97,8 +99,6 @@ public class MeetupAdapter extends RecyclerView.Adapter<MeetupAdapter.ViewHolder
                     public void onClick(View view) {
                         Meetup meetup = meetups.get(getAdapterPosition());
                         respondInvite(meetup,true);
-                        Fragment fragment = new MeetupsFragment();
-                        ((MainActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
                     }
                 });
                 binding.btnDecline.setOnClickListener(new View.OnClickListener() {
@@ -127,6 +127,8 @@ public class MeetupAdapter extends RecyclerView.Adapter<MeetupAdapter.ViewHolder
             }
             meetup.saveInBackground();
             updateData(meetups);
+            Fragment fragment = new MeetupsFragment();
+            ((MainActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
         }
     }
 }

@@ -42,7 +42,7 @@ public class InviteCallBack implements FindCallback<ParseUser> {
                 if (meetup.getMembers().contains(user.getUsername())) {
                     Snackbar.make(binding.getRoot(), "User is already a member", BaseTransientBottomBar.LENGTH_SHORT).show();
                     return;
-                } else if (meetup.getMembers().contains(user.getUsername())) {
+                } else if (meetup.getInvites().contains(user.getUsername())) {
                     Snackbar.make(binding.getRoot(), "User is already invited", BaseTransientBottomBar.LENGTH_SHORT).show();
                     return;
                 }

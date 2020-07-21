@@ -36,17 +36,8 @@ public class NewClickListener implements View.OnClickListener {
         meetup.setName("New Meetup");
         meetup.setMembers(memebers);
         meetup.setInvites(invites);
-        meetup.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Error while saving", e);
-                    return;
-                }
-                Log.i(TAG, "Meetup was saved successfully");
-            }
-        });
+        meetup.saveInBackground();
         Fragment fragment = DetailsFragment.newInstance(meetup);
-        context.getSupportFragmentManager().beginTransaction().addSharedElement(view, "shared_element_container").replace(R.id.flContainer, fragment).addToBackStack("TAG").commit();
+        context.getSupportFragmentManager().beginTransaction().addSharedElement(view, "shared_element_container").replace(R.id.flContainer, fragment).commit();
     }
 }

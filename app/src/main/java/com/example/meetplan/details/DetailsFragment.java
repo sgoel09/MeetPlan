@@ -9,17 +9,31 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.meetplan.events.EventFragment;
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentDetailsBinding;
 import com.example.meetplan.models.Meetup;
-import com.google.android.material.color.MaterialColors;
 import com.google.android.material.transition.MaterialContainerTransform;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
+
+import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
+import in.galaxyofandroid.spinerdialog.SpinnerDialog;
+
+import static android.widget.Toast.*;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,7 +47,10 @@ public class DetailsFragment extends Fragment {
     private TimePickerClickListener timePickerClickListener;
     private EditDetailsClickListener editDetailsClickListener;
     private SubmitDetailsClickListener submitDetailsClickListener;
+    private InviteItemClick inviteItemClick;
     private InviteClickListener inviteClickListener;
+    private ArrayList<String> usernames = new ArrayList<>();
+    private SpinnerDialog spinnerDialog;
     FragmentDetailsBinding binding;
     Meetup meetup;
 
@@ -74,6 +91,27 @@ public class DetailsFragment extends Fragment {
         displayMembers();
         setDateTime();
 
+        ParseQuery<ParseUser> query = ParseQuery.getQuery(ParseUser.class);
+        query.include("username");
+        query.findInBackground(new FindCallback<ParseUser>() {
+            @Override
+            public void done(List<ParseUser> objects, ParseException e) {
+                for (ParseUser user : objects) {
+                    usernames.add(user.getUsername());
+                }
+            }
+        });
+
+        spinnerDialog = new SpinnerDialog((MainActivity) getContext(), usernames, "Select user to invite","Cancel");
+        spinnerDialog.setCancellable(true); // for cancellable
+        spinnerDialog.setShowKeyboard(false);
+
+        inviteItemClick = new InviteItemClick((MainActivity) getContext(), binding, usernames, meetup);
+        spinnerDialog.bindOnSpinerListener(inviteItemClick);
+
+        inviteClickListener = new InviteClickListener(spinnerDialog);
+        binding.btnInviteDialog.setOnClickListener(inviteClickListener);
+
         datePickerClickListener = new DatePickerClickListener((MainActivity) getContext(), meetup);
         binding.btnDate.setOnClickListener(datePickerClickListener);
 
@@ -85,9 +123,6 @@ public class DetailsFragment extends Fragment {
 
         submitDetailsClickListener = new SubmitDetailsClickListener(binding, meetup);
         binding.btnSubmit.setOnClickListener(submitDetailsClickListener);
-
-        inviteClickListener = new InviteClickListener((MainActivity) getContext(), binding, meetup);
-        binding.btnInvite.setOnClickListener(inviteClickListener);
 
         binding.btnBrowse.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,4 +183,5 @@ public class DetailsFragment extends Fragment {
         binding.tvMembers.setText(allMembers);
         binding.tvInvites.setText(allInvites);
     }
+
 }
