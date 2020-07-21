@@ -20,6 +20,7 @@ import android.widget.SearchView;
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.models.Meetup;
+import com.example.meetplan.models.Restaurant;
 import com.example.meetplan.restaurants.RestaurantFragment;
 import com.example.meetplan.databinding.FragmentBrowseBinding;
 import com.example.meetplan.models.Event;
@@ -101,7 +102,7 @@ public class EventFragment extends Fragment {
         binding.restaurantNavigateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment = new RestaurantFragment();
+                Fragment fragment = RestaurantFragment.newInstance(meetup);
                 ((MainActivity) getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
             }
         });

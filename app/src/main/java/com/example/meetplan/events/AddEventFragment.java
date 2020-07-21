@@ -31,7 +31,8 @@ public class AddEventFragment extends DialogFragment {
     private String name;
     private String place;
     private String address;
-    private Task task;
+    private AddClickListener addClickListener;
+    private CloseClickListener closeClickListener;
 
     public AddEventFragment() {
         // Required empty public constructor
@@ -72,30 +73,10 @@ public class AddEventFragment extends DialogFragment {
         binding.address.setText(address);
         binding.question.setText(String.format("%s %s?", getString(R.string.add_question), meetup.getName()));
 
-        binding.addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Task task = new Task();
-                task.setName(name);
-                task.setPlace(place);
-                task.setAddress(address);
-                task.saveInBackground();
-                meetup.setTask(task);
-                meetup.saveInBackground(new SaveCallback() {
-                                            @Override
-                                            public void done(ParseException e) {
-                                                Snackbar.make(binding.getRoot(), "Task saved", BaseTransientBottomBar.LENGTH_SHORT).show();
-                                                dismiss();
-                                            }
-                                        });
-            }
-        });
+        addClickListener = new AddClickListener(this, binding, meetup, name, place, address);
+        binding.addButton.setOnClickListener(addClickListener);
 
-        binding.close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
+        closeClickListener = new CloseClickListener(this);
+        binding.close.setOnClickListener(closeClickListener);
     }
 }
