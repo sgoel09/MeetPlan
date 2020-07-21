@@ -34,11 +34,51 @@ public class SubmitDetailsClickListener implements View.OnClickListener {
 
     private void changeToView() {
         binding.title.setVisibility(View.VISIBLE);
-        binding.description.setVisibility(View.VISIBLE);
-        binding.titleEdit.setVisibility(View.GONE);
-        binding.descriptionEdit.setVisibility(View.GONE);
         binding.title.setText(meetup.getName());
-        binding.description.setText(meetup.getDescription());
+        binding.titleEdit.setVisibility(View.GONE);
+
+        if (meetup.getDescription() != null && !meetup.getDescription().equals("")) {
+            binding.description.setVisibility(View.VISIBLE);
+            binding.description.setText(meetup.getDescription());
+            binding.descriptionLabel.setVisibility(View.VISIBLE);
+        } else {
+            binding.description.setVisibility(View.GONE);
+            binding.descriptionLabel.setVisibility(View.GONE);
+        }
+        binding.descriptionEdit.setVisibility(View.GONE);
+
+        if (meetup.getDate() != null && !Meetup.getDateFormatted(meetup).equals("")) {
+            binding.date.setVisibility(View.VISIBLE);
+            binding.date.setText(Meetup.getDateFormatted(meetup));
+            binding.dateLabel.setVisibility(View.VISIBLE);
+        } else {
+            binding.date.setVisibility(View.GONE);
+            binding.dateLabel.setVisibility(View.GONE);
+        }
+
+        if (meetup.getDate() != null && !Meetup.getTimeFormatted(meetup).equals("")) {
+            binding.time.setVisibility(View.VISIBLE);
+            binding.time.setText(Meetup.getTimeFormatted(meetup));
+            binding.timeLabel.setVisibility(View.VISIBLE);
+        } else {
+            binding.time.setVisibility(View.GONE);
+            binding.timeLabel.setVisibility(View.GONE);
+        }
+
+        if (meetup.getTask() != null) {
+            binding.activity.setVisibility(View.VISIBLE);
+            binding.activityLabel.setVisibility(View.VISIBLE);
+            binding.activity.setText(meetup.getTask().getName());
+            binding.location.setVisibility(View.VISIBLE);
+            binding.locationLabel.setVisibility(View.VISIBLE);
+            binding.locationLabel.setText(meetup.getTask().getPlace());
+        } else {
+            binding.activity.setVisibility(View.GONE);
+            binding.activityLabel.setVisibility(View.GONE);
+            binding.location.setVisibility(View.GONE);
+            binding.locationLabel.setVisibility(View.GONE);
+        }
+
         binding.inviteDialogButton.setVisibility(View.GONE);
         binding.dateButton.setVisibility(View.GONE);
         binding.timeButton.setVisibility(View.GONE);

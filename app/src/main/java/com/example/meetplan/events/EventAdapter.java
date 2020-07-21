@@ -60,6 +60,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         final ItemActivityBinding binding;
+        private Event event;
 
         public ViewHolder(@NonNull View itemView, ItemActivityBinding bind) {
             super(bind.getRoot());
@@ -69,13 +70,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                 public void onDoubleTap(MotionEvent e) {
                     Toast.makeText(context, "Double Tap", Toast.LENGTH_SHORT).show();
                     FragmentManager fm = ((MainActivity) context).getSupportFragmentManager();
-                    AddEventFragment editNameDialogFragment = AddEventFragment.newInstance(meetup);
+                    AddEventFragment editNameDialogFragment = AddEventFragment.newInstance(meetup, event.getName(), event.getVenue().getName(), event.getVenue().getFullAddress());
                     editNameDialogFragment.show(fm, "fragment_edit_name");
                 }
             });
         }
 
         public void bind(final Event event) {
+            this.event = event;
             binding.name.setText(event.getName());
             binding.date.setText(event.getDate());
             binding.address.setText(event.getVenue().getFullAddress());

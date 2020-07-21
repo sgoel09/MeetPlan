@@ -125,6 +125,7 @@ public class MeetupsFragment extends Fragment {
     private void queryAcceptedMeetups() {
         ParseQuery<Meetup> query = ParseQuery.getQuery(Meetup.class);
         query.whereContains(KEY_MEMBERS, ParseUser.getCurrentUser().getUsername());
+        query.include("task");
         query.orderByAscending("date");
         query.findInBackground(new FindCallback<Meetup>() {
             @Override

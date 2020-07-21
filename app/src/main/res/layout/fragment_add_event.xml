@@ -1,20 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:orientation="vertical"
-    tools:context=".events.AddEventFragment">
+    android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/margin_med"
+    card_view:cardCornerRadius="@dimen/padding"
+    card_view:cardElevation="@dimen/margin_small"
+    card_view:cardPreventCornerOverlap="true"
+    card_view:cardUseCompatPadding="true">
 
-    <TextView
-        android:id="@+id/lbl_your_name" android:text="Your name"
-        android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin_med"
+        android:layout_marginBottom="@dimen/margin_details"
+        android:padding="@dimen/padding"
+        tools:context=".ComposeActivity">
 
-    <EditText
-        android:id="@+id/txt_your_name"
-        android:layout_width="match_parent"  android:layout_height="wrap_content"
-        android:inputType="text"
-        android:imeOptions="actionDone" />
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/address"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/respond_image"
+            android:background="@color/colorThemeMain"
+            android:text="@string/add"
+            android:textColor="@android:color/white" />
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_baseline_close" />
+
+        <TextView
+            android:id="@+id/activityLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_med"
+            android:layout_marginTop="@dimen/margin_details"
+            android:textStyle="bold"
+            android:text="@string/type_label" />
+
+        <TextView
+            android:id="@+id/locationLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/activityLabel"
+            android:layout_marginLeft="@dimen/margin_med"
+            android:layout_marginTop="@dimen/margin_med"
+            android:textStyle="bold"
+            android:text="@string/location_label" />
+
+        <TextView
+            android:id="@+id/activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_large"
+            android:layout_marginTop="@dimen/margin_details"
+            android:layout_toRightOf="@id/activityLabel"
+            tools:text="Event" />
+
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/activity"
+            android:layout_marginLeft="@dimen/margin_med"
+            android:layout_marginTop="@dimen/margin_med"
+            android:layout_toRightOf="@id/locationLabel"
+            tools:text="Location" />
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/location"
+            android:layout_marginLeft="@dimen/margin_med"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_toRightOf="@id/locationLabel"
+            tools:text="Location" />
+
+        <TextView
+            android:id="@+id/question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/address"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="@dimen/margin_small"
+            android:layout_toLeftOf="@id/addButton" />
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

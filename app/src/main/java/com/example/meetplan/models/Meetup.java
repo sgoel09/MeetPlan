@@ -15,7 +15,7 @@ public class Meetup extends ParseObject {
     public static final String KEY_MEMBERS = "members";
     public static final String KEY_INVITES = "invites";
     public static final String KEY_DATE = "date";
-
+    public static final String KEY_TASK = "task";
 
     public Meetup() {}
 
@@ -38,6 +38,10 @@ public class Meetup extends ParseObject {
     public Date getDate() { return getDate(KEY_DATE); }
 
     public void setDate(Date date) { put(KEY_DATE, date); }
+
+    public Task getTask() { return (Task) getParseObject(KEY_TASK); }
+
+    public void setTask(Task task) { put(KEY_TASK, task); }
 
     public ArrayList<String> getMembers() {
         return (ArrayList<String>) get(KEY_MEMBERS);

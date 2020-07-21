@@ -14,7 +14,9 @@
         android:layout_below="@id/dateLabel"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/margin_med"
-        android:text="@string/time" />
+        android:background="@color/colorThemeMain"
+        android:text="@string/time"
+        android:textColor="@android:color/white" />
 
     <Button
         android:id="@+id/submitButton"
@@ -147,15 +149,6 @@
         android:textStyle="bold"
         android:text="@string/members_label" />
 
-    <EditText
-        android:id="@+id/invitesEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/invites"
-        android:layout_marginLeft="@dimen/margin_small"
-        android:layout_marginTop="@dimen/margin_med"
-        android:layout_toRightOf="@id/invitedLabel" />
-
     <Button
         android:id="@+id/dateButton"
         android:layout_width="wrap_content"
@@ -163,7 +156,9 @@
         android:layout_below="@id/descriptionLabel"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/margin_med"
-        android:text="@string/choose" />
+        android:background="@color/colorThemeMain"
+        android:text="@string/choose"
+        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/date"
@@ -220,30 +215,67 @@
         android:fontFamily="@font/catamaran"
         tools:text="1:00 PM to 3:00 PM" />
 
+    <TextView
+        android:id="@+id/activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/time"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_details"
+        android:layout_toRightOf="@id/activityLabel"
+        android:fontFamily="@font/catamaran" />
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_details"
+        android:layout_toRightOf="@id/locationLabel"
+        android:fontFamily="@font/catamaran" />
+
     <Button
         android:id="@+id/browseButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/timeLabel"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/margin_medium"
-        android:layout_toRightOf="@id/locationLabel"
-        android:text="@string/choose" />
+        android:background="@color/colorThemeMain"
+        android:text="@string/choose"
+        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/locationLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/timeLabel"
+        android:layout_below="@id/activityLabel"
         android:layout_marginLeft="@dimen/margin_med"
         android:layout_marginTop="@dimen/margin_details"
-        android:textStyle="bold"
-        android:text="@string/location_label" />
+        android:fontFamily="@font/catamaran"
+        android:text="@string/location_label"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/inviteDialogButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/invites"
-        android:text="@string/invite" />
+        android:layout_alignParentEnd="true"
+        android:background="@color/colorThemeMain"
+        android:text="@string/invite"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/activityLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/timeLabel"
+        android:layout_marginLeft="@dimen/margin_med"
+        android:layout_marginTop="@dimen/margin_details"
+        android:fontFamily="@font/catamaran"
+        android:text="@string/type_label"
+        android:textStyle="bold" />
 
 </RelativeLayout>
