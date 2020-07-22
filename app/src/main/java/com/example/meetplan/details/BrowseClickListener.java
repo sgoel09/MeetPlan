@@ -22,7 +22,7 @@ public class BrowseClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        Fragment fragment = RestaurantFragment.newInstance(meetup);
+        Fragment fragment = RestaurantFragment.newInstance(meetup, null);
         ((MainActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
     }
 }

@@ -15,6 +15,7 @@ public class BottomNavigationItemSelectedListener implements BottomNavigationVie
 
     private final FragmentManager fragmentManager;
     Meetup meetup;
+    String city;
 
     public BottomNavigationItemSelectedListener(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
@@ -25,12 +26,12 @@ public class BottomNavigationItemSelectedListener implements BottomNavigationVie
         Fragment fragment;
         switch (item.getItemId()) {
             case R.id.action_events:
-                fragment = EventFragment.newInstance(meetup);
+                fragment = EventFragment.newInstance(meetup, city);
                 break;
             case R.id.action_restaurants:
                 // fall through
             default:
-                fragment = RestaurantFragment.newInstance(meetup);
+                fragment = RestaurantFragment.newInstance(meetup, city);
                 break;
         }
         fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
@@ -39,5 +40,9 @@ public class BottomNavigationItemSelectedListener implements BottomNavigationVie
 
     public void addMeetup(Meetup meetup) {
         this.meetup = meetup;
+    }
+
+    public void addCity(String city) {
+        this.city = city;
     }
 }

@@ -27,6 +27,7 @@ import com.example.meetplan.databinding.FragmentBrowseBinding;
 import com.example.meetplan.models.Event;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.common.collect.ImmutableList;
 
 import org.json.JSONArray;
@@ -60,10 +61,11 @@ public class EventFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static EventFragment newInstance(Meetup meetup) {
+    public static EventFragment newInstance(Meetup meetup, String city) {
         EventFragment fragment = new EventFragment();
         Bundle args = new Bundle();
         args.putParcelable("meetup", meetup);
+        args.putString("city", city);
         fragment.setArguments(args);
         return fragment;
     }
@@ -71,6 +73,10 @@ public class EventFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MaterialSharedAxis forwardTransition =  new MaterialSharedAxis(MaterialSharedAxis.X, true);
+        setReenterTransition(forwardTransition);
+        MaterialSharedAxis backwardTransition =  new MaterialSharedAxis(MaterialSharedAxis.X, false);
+        setExitTransition(backwardTransition);
     }
 
     @Override
@@ -87,11 +93,17 @@ public class EventFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         meetup = getArguments().getParcelable("meetup");
         ((MainActivity) getActivity()).itemSelectedListener.addMeetup(meetup);
+
+        String city = getArguments().getString("city");
+        if (city != null) {
+            searchByCity(city);
+            binding.search.setQuery(city, true);
+        }
+
         binding.search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                String url = EVENT_BASE_URL + getString(R.string.tm_api_key) + "&city=" + s;
-                populateEvents(url);
+                searchByCity(s);
                 return false;
             }
 
@@ -106,6 +118,12 @@ public class EventFragment extends Fragment {
         adapter = new EventAdapter((Activity) getContext(), events, meetup);
         binding.itemRecyclerView.setAdapter(adapter);
         binding.itemRecyclerView.setLayoutManager(gridLayoutManager);
+    }
+
+    private void searchByCity(String city) {
+        String url = EVENT_BASE_URL + getString(R.string.tm_api_key) + "&city=" + city;
+        populateEvents(url);
+        ((MainActivity) getActivity()).itemSelectedListener.addCity(city);
     }
 
     private void populateEvents(String url) {

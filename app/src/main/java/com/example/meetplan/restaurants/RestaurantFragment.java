@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 
+import com.example.meetplan.BottomNavigationItemSelectedListener;
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentBrowseBinding;
@@ -24,6 +25,7 @@ import com.example.meetplan.models.Meetup;
 import com.example.meetplan.models.Restaurant;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.common.collect.ImmutableList;
 
 import org.json.JSONArray;
@@ -59,10 +61,11 @@ public class RestaurantFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static RestaurantFragment newInstance(Meetup meetup) {
+    public static RestaurantFragment newInstance(Meetup meetup, String city) {
         RestaurantFragment fragment = new RestaurantFragment();
         Bundle args = new Bundle();
         args.putParcelable("meetup", meetup);
+        args.putString("city", city);
         fragment.setArguments(args);
         return fragment;
     }
@@ -70,6 +73,10 @@ public class RestaurantFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MaterialSharedAxis backwardTransition =  new MaterialSharedAxis(MaterialSharedAxis.X, false);
+        setReenterTransition(backwardTransition);
+        MaterialSharedAxis forwardTransition =  new MaterialSharedAxis(MaterialSharedAxis.X, true);
+        setExitTransition(forwardTransition);
     }
 
     @Override
@@ -86,11 +93,17 @@ public class RestaurantFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         meetup = getArguments().getParcelable("meetup");
         ((MainActivity) getActivity()).itemSelectedListener.addMeetup(meetup);
+
+        final String city = getArguments().getString("city");
+        if (city != null) {
+            searchByCity(city);
+            binding.search.setQuery(city, true);
+        }
+
         binding.search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                String url = RESTAURANT_BASE_URL + LOCATION_PARAM + s;
-                populateRestaurants(url);
+                searchByCity(s);
                 return false;
             }
 
@@ -105,6 +118,12 @@ public class RestaurantFragment extends Fragment {
         adapter = new RestaurantAdapter((Activity) getContext(), meetup, restaurants);
         binding.itemRecyclerView.setAdapter(adapter);
         binding.itemRecyclerView.setLayoutManager(gridLayoutManager);
+    }
+
+    private void searchByCity(String city) {
+        String url = RESTAURANT_BASE_URL + LOCATION_PARAM + city;
+        populateRestaurants(url);
+        ((MainActivity) getActivity()).itemSelectedListener.addCity(city);
     }
 
     private void populateRestaurants(String url) {
