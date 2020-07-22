@@ -40,11 +40,13 @@ public class MainActivity extends AppCompatActivity {
     private NavHeaderBinding navHeaderBinding;
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
+    public BottomNavigationItemSelectedListener itemSelectedListener;
+    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
@@ -87,6 +89,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        itemSelectedListener = new BottomNavigationItemSelectedListener(getSupportFragmentManager());
+        binding.bottomNavigation.setOnNavigationItemSelectedListener(itemSelectedListener);
     }
 
     @Override
@@ -99,6 +104,14 @@ public class MainActivity extends AppCompatActivity {
         if(t.onOptionsItemSelected(item))
             return true;
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showBottomNavigation(Boolean show) {
+        if (show) {
+            binding.bottomNavigation.setVisibility(View.VISIBLE);
+        } else {
+            binding.bottomNavigation.setVisibility(View.GONE);
+        }
     }
 
     private void setUserInfo() {

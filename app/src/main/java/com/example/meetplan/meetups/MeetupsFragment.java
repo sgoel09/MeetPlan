@@ -73,6 +73,7 @@ public class MeetupsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ((MainActivity) getActivity()).showBottomNavigation(false);
         setUpAcceptedAdapter();
         setUpInvitedAdapter();
         newClickListener = new NewClickListener((MainActivity) getContext());

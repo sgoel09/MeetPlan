@@ -76,13 +76,14 @@ public class RestaurantFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentRestaurantBinding.inflate(getLayoutInflater(), container, false);
         View view = binding.getRoot();
+        ((MainActivity) getActivity()).showBottomNavigation(true);
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         meetup = getArguments().getParcelable("meetup");
-
+        ((MainActivity) getActivity()).itemSelectedListener.addMeetup(meetup);
         binding.restaurantSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {

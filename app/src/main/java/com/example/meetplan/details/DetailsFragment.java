@@ -82,6 +82,7 @@ public class DetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentDetailsBinding.inflate(getLayoutInflater(), container, false);
         View view = binding.getRoot();
+        ((MainActivity) getActivity()).showBottomNavigation(false);
         return view;
     }
 
@@ -187,6 +188,7 @@ public class DetailsFragment extends Fragment {
             binding.location.setVisibility(View.VISIBLE);
             binding.locationLabel.setVisibility(View.VISIBLE);
             binding.location.setText(meetup.getTask().getPlace());
+            binding.address.setText(meetup.getTask().getAddress());
         } else {
             binding.activity.setVisibility(View.GONE);
             binding.activityLabel.setVisibility(View.GONE);

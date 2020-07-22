@@ -142,12 +142,12 @@
         android:id="@+id/membersLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/locationLabel"
+        android:layout_below="@id/address"
         android:layout_marginLeft="@dimen/margin_med"
         android:layout_marginTop="@dimen/margin_details"
         android:fontFamily="@font/catamaran"
-        android:textStyle="bold"
-        android:text="@string/members_label" />
+        android:text="@string/members_label"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/dateButton"
@@ -186,7 +186,7 @@
         android:id="@+id/members"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/locationLabel"
+        android:layout_below="@id/address"
         android:layout_marginLeft="@dimen/margin_small"
         android:layout_marginTop="@dimen/margin_details"
         android:layout_toRightOf="@id/membersLabel"
@@ -223,7 +223,19 @@
         android:layout_marginLeft="@dimen/margin_small"
         android:layout_marginTop="@dimen/margin_details"
         android:layout_toRightOf="@id/activityLabel"
-        android:fontFamily="@font/catamaran" />
+        android:fontFamily="@font/catamaran"
+        tools:text="@string/restaurants" />
+
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/location"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_toRightOf="@id/locationLabel"
+        android:fontFamily="@font/catamaran"
+        tools:text="16828 NW Madrone St" />
 
     <TextView
         android:id="@+id/location"
@@ -233,7 +245,8 @@
         android:layout_marginLeft="@dimen/margin_small"
         android:layout_marginTop="@dimen/margin_details"
         android:layout_toRightOf="@id/locationLabel"
-        android:fontFamily="@font/catamaran" />
+        android:fontFamily="@font/catamaran"
+        tools:text="Salt and Straw" />
 
     <Button
         android:id="@+id/browseButton"
