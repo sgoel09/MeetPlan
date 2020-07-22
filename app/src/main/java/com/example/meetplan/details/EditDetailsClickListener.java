@@ -32,6 +32,8 @@ public class EditDetailsClickListener implements View.OnClickListener {
         binding.timeLabel.setVisibility(View.VISIBLE);
         binding.date.setVisibility(View.VISIBLE);
         binding.time.setVisibility(View.VISIBLE);
+        binding.locationLabel.setVisibility(View.VISIBLE);
+        binding.location.setVisibility(View.VISIBLE);
         binding.browseButton.setVisibility(View.VISIBLE);
         binding.inviteDialogButton.setVisibility(View.VISIBLE);
         binding.dateButton.setVisibility(View.VISIBLE);

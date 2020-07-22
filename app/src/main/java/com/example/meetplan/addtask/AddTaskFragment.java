@@ -1,4 +1,4 @@
-package com.example.meetplan;
+package com.example.meetplan.addtask;
 
 import android.os.Bundle;
 
@@ -10,9 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentAddEventBinding;
-import com.example.meetplan.events.AddClickListener;
-import com.example.meetplan.events.CloseClickListener;
 import com.example.meetplan.models.Meetup;
 
 /**
@@ -22,6 +21,10 @@ import com.example.meetplan.models.Meetup;
  */
 public class AddTaskFragment extends DialogFragment {
 
+    private static final String MEETUP_KEY = "meetup";
+    private static final String NAME_KEY = "name";
+    private static final String PLACE_KEY = "place";
+    private static final String ADDRESS_KEY = "address";
     private FragmentAddEventBinding binding;
     private Meetup meetup;
     private String name;
@@ -37,10 +40,10 @@ public class AddTaskFragment extends DialogFragment {
     public static AddTaskFragment newInstance(Meetup meetup, String name, String place, String address) {
         AddTaskFragment fragment = new AddTaskFragment();
         Bundle args = new Bundle();
-        args.putParcelable("meetup", meetup);
-        args.putString("name", name);
-        args.putString("place", place);
-        args.putString("address", address);
+        args.putParcelable(MEETUP_KEY, meetup);
+        args.putString(NAME_KEY, name);
+        args.putString(PLACE_KEY, place);
+        args.putString(ADDRESS_KEY, address);
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,10 +63,10 @@ public class AddTaskFragment extends DialogFragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        meetup = getArguments().getParcelable("meetup");
-        name = getArguments().getString("name");
-        place = getArguments().getString("place");
-        address = getArguments().getString("address");
+        meetup = getArguments().getParcelable(MEETUP_KEY);
+        name = getArguments().getString(NAME_KEY);
+        place = getArguments().getString(PLACE_KEY);
+        address = getArguments().getString(ADDRESS_KEY);
         binding.activity.setText(name);
         binding.location.setText(place);
         binding.address.setText(address);

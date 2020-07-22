@@ -11,8 +11,10 @@ import android.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.example.meetplan.EndlessRecyclerViewScrollListener;
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentBrowseBinding;
@@ -28,6 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -45,15 +48,18 @@ public class RestaurantFragment extends Fragment {
     private static final String TAG = "RestaurantFragment";
     private static final String RESTAURANT_BASE_URL = "https://api.yelp.com/v3/businesses/search?";
     private static final String LOCATION_PARAM = "&location=";
+    private static final String OFFSET_PARAM = "&offset=";
     private static final String BEARER = "Bearer ";
     private static final String AUTHORIZATION = "Authorization";
     private static final String BUSINESSES_FIELD = "businesses";
     private static final String MEETUP_KEY = "meetup";
     private static final String CITY_KEY = "city";
+    private static final int LIMIT = 20;
     private ImmutableList<Restaurant> restaurants;
     private StaggeredGridLayoutManager gridLayoutManager;
     private RestaurantAdapter adapter;
     private Meetup meetup;
+    private EndlessRecyclerViewScrollListener scrollListener;
     FragmentBrowseBinding binding;
 
     public RestaurantFragment() {
@@ -117,6 +123,20 @@ public class RestaurantFragment extends Fragment {
         adapter = new RestaurantAdapter((Activity) getContext(), meetup, restaurants);
         binding.itemRecyclerView.setAdapter(adapter);
         binding.itemRecyclerView.setLayoutManager(gridLayoutManager);
+
+        scrollListener = new EndlessRecyclerViewScrollListener(gridLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                loadMoreData(page);
+            }
+        };
+        binding.itemRecyclerView.addOnScrollListener(scrollListener);
+    }
+
+    private void loadMoreData(int page) {
+        String city = binding.search.getQuery().toString();
+        String url = RESTAURANT_BASE_URL + LOCATION_PARAM + city + OFFSET_PARAM + (page * LIMIT);
+        populateRestaurants(url);
     }
 
     private void searchByCity(String city) {
@@ -164,7 +184,8 @@ public class RestaurantFragment extends Fragment {
 
     private void extractData(JSONObject finalJsonObject) throws JSONException {
         JSONArray businesses = finalJsonObject.getJSONArray(BUSINESSES_FIELD);
-        restaurants = ImmutableList.<Restaurant>builder().addAll(Restaurant.fromJsonArray(businesses)).build();;
+        List<Restaurant> allRestaurants = restaurants;
+        restaurants = ImmutableList.<Restaurant>builder().addAll(allRestaurants).addAll(Restaurant.fromJsonArray(businesses)).build();;
         adapter.updateData(restaurants);
     }
 }

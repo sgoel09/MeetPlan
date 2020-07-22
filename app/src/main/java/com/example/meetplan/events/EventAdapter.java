@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.example.meetplan.AddTaskFragment;
+import com.example.meetplan.addtask.AddTaskFragment;
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.OnDoubleTapListener;
 import com.example.meetplan.R;

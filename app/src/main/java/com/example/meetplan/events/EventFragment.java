@@ -11,13 +11,16 @@ import android.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.example.meetplan.EndlessRecyclerViewScrollListener;
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentBrowseBinding;
 import com.example.meetplan.models.Event;
 import com.example.meetplan.models.Meetup;
+import com.example.meetplan.models.Restaurant;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.transition.MaterialSharedAxis;
@@ -28,6 +31,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -44,6 +48,7 @@ public class EventFragment extends Fragment {
 
     private static final String EVENT_BASE_URL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=";
     private static final String CITY_PARAM = "&city=";
+    private static final String PAGE_PARAM = "&page=";
     private static final String MEETUP_KEY = "meetup";
     private static final String CITY_KEY = "city";
     private static final String EVENTS_FIELD = "events";
@@ -53,6 +58,7 @@ public class EventFragment extends Fragment {
     private StaggeredGridLayoutManager gridLayoutManager;
     private EventAdapter adapter;
     private Meetup meetup;
+    private EndlessRecyclerViewScrollListener scrollListener;
     FragmentBrowseBinding binding;
 
     public EventFragment() {
@@ -116,6 +122,20 @@ public class EventFragment extends Fragment {
         adapter = new EventAdapter((Activity) getContext(), events, meetup);
         binding.itemRecyclerView.setAdapter(adapter);
         binding.itemRecyclerView.setLayoutManager(gridLayoutManager);
+
+        scrollListener = new EndlessRecyclerViewScrollListener(gridLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                loadMoreData(page);
+            }
+        };
+        binding.itemRecyclerView.addOnScrollListener(scrollListener);
+    }
+
+    private void loadMoreData(int page) {
+        String city = binding.search.getQuery().toString();
+        String url = EVENT_BASE_URL + getString(R.string.tm_api_key) + CITY_PARAM + city + PAGE_PARAM + page;
+        populateEvents(url);
     }
 
     private void searchByCity(String city) {
@@ -163,7 +183,8 @@ public class EventFragment extends Fragment {
 
     private void extractData(JSONObject finalJsonObject) throws JSONException {
         JSONArray embedded = finalJsonObject.getJSONObject(EMBEDDED_FIELD).getJSONArray(EVENTS_FIELD);
-        events = ImmutableList.<Event>builder().addAll(Event.fromJsonArray(embedded)).build();;
+        List<Event> allEvents = events;
+        events = ImmutableList.<Event>builder().addAll(allEvents).addAll(Event.fromJsonArray(embedded)).build();;
         adapter.updateData(events);
     }
 }
