@@ -1,4 +1,4 @@
-package com.example.meetplan.events;
+package com.example.meetplan;
 
 import android.os.Bundle;
 
@@ -10,21 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentAddEventBinding;
+import com.example.meetplan.events.AddClickListener;
+import com.example.meetplan.events.CloseClickListener;
 import com.example.meetplan.models.Meetup;
-import com.example.meetplan.models.Task;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
-import com.parse.ParseException;
-import com.parse.SaveCallback;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AddEventFragment#newInstance} factory method to
+ * Use the {@link AddTaskFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddEventFragment extends DialogFragment {
+public class AddTaskFragment extends DialogFragment {
 
     private FragmentAddEventBinding binding;
     private Meetup meetup;
@@ -34,12 +30,12 @@ public class AddEventFragment extends DialogFragment {
     private AddClickListener addClickListener;
     private CloseClickListener closeClickListener;
 
-    public AddEventFragment() {
+    public AddTaskFragment() {
         // Required empty public constructor
     }
 
-    public static AddEventFragment newInstance(Meetup meetup, String name, String place, String address) {
-        AddEventFragment fragment = new AddEventFragment();
+    public static AddTaskFragment newInstance(Meetup meetup, String name, String place, String address) {
+        AddTaskFragment fragment = new AddTaskFragment();
         Bundle args = new Bundle();
         args.putParcelable("meetup", meetup);
         args.putString("name", name);

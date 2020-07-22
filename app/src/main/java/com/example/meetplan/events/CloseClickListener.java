@@ -2,11 +2,13 @@ package com.example.meetplan.events;
 
 import android.view.View;
 
+import com.example.meetplan.AddTaskFragment;
+
 public class CloseClickListener implements View.OnClickListener {
 
-    private AddEventFragment fragment;
+    private AddTaskFragment fragment;
 
-    public CloseClickListener(AddEventFragment fragment) {
+    public CloseClickListener(AddTaskFragment fragment) {
         this.fragment = fragment;
     }
 

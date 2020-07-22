@@ -20,6 +20,7 @@ import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentDetailsBinding;
 import com.example.meetplan.models.Meetup;
 import com.example.meetplan.models.Task;
+import com.example.meetplan.restaurants.RestaurantFragment;
 import com.google.android.material.transition.MaterialContainerTransform;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -51,6 +52,7 @@ public class DetailsFragment extends Fragment {
     private SubmitDetailsClickListener submitDetailsClickListener;
     private InviteItemClick inviteItemClick;
     private InviteClickListener inviteClickListener;
+    private BrowseClickListener browseClickListener;
     private ArrayList<String> usernames = new ArrayList<>();
     private SpinnerDialog spinnerDialog;
     FragmentDetailsBinding binding;
@@ -127,13 +129,8 @@ public class DetailsFragment extends Fragment {
         submitDetailsClickListener = new SubmitDetailsClickListener(binding, meetup);
         binding.submitButton.setOnClickListener(submitDetailsClickListener);
 
-        binding.browseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment fragment = EventFragment.newInstance(meetup);
-                ((MainActivity) getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
-            }
-        });
+        browseClickListener = new BrowseClickListener(getContext(), meetup);
+        binding.browseButton.setOnClickListener(browseClickListener);
     }
 
     private void setDateTime() {

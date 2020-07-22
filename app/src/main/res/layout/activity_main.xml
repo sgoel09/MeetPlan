@@ -44,6 +44,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            app:backgroundTint="@color/colorThemeMain"
+            app:elevation="@dimen/padding"
+            app:itemIconTint="@color/bottomnav_selector"
+            app:itemTextColor="@color/bottomnav_selector"
             app:menu="@menu/menu_bottom_navigation" />
 
     </RelativeLayout>

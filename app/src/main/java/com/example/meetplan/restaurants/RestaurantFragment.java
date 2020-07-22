@@ -17,6 +17,7 @@ import android.widget.SearchView;
 
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
+import com.example.meetplan.databinding.FragmentBrowseBinding;
 import com.example.meetplan.databinding.FragmentRestaurantBinding;
 import com.example.meetplan.models.Meetup;
 import com.example.meetplan.models.Restaurant;
@@ -51,7 +52,7 @@ public class RestaurantFragment extends Fragment {
     private GridLayoutManager gridLayoutManager;
     private RestaurantAdapter adapter;
     private Meetup meetup;
-    FragmentRestaurantBinding binding;
+    FragmentBrowseBinding binding;
 
     public RestaurantFragment() {
         // Required empty public constructor
@@ -74,7 +75,7 @@ public class RestaurantFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentRestaurantBinding.inflate(getLayoutInflater(), container, false);
+        binding = FragmentBrowseBinding.inflate(getLayoutInflater(), container, false);
         View view = binding.getRoot();
         ((MainActivity) getActivity()).showBottomNavigation(true);
         return view;
@@ -84,7 +85,7 @@ public class RestaurantFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         meetup = getArguments().getParcelable("meetup");
         ((MainActivity) getActivity()).itemSelectedListener.addMeetup(meetup);
-        binding.restaurantSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        binding.search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 String url = RESTAURANT_BASE_URL + LOCATION_PARAM + s;
@@ -101,8 +102,8 @@ public class RestaurantFragment extends Fragment {
         gridLayoutManager = new GridLayoutManager(getContext(), getResources().getInteger(R.integer.grid_layout));
         restaurants = ImmutableList.of();
         adapter = new RestaurantAdapter((Activity) getContext(), meetup, restaurants);
-        binding.restaurantsRecyclerView.setAdapter(adapter);
-        binding.restaurantsRecyclerView.setLayoutManager(gridLayoutManager);
+        binding.itemRecyclerView.setAdapter(adapter);
+        binding.itemRecyclerView.setLayoutManager(gridLayoutManager);
     }
 
     private void populateRestaurants(String url) {

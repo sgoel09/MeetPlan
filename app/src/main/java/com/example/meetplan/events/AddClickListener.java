@@ -2,6 +2,7 @@ package com.example.meetplan.events;
 
 import android.view.View;
 
+import com.example.meetplan.AddTaskFragment;
 import com.example.meetplan.databinding.FragmentAddEventBinding;
 import com.example.meetplan.models.Meetup;
 import com.example.meetplan.models.Task;
@@ -12,14 +13,14 @@ import com.parse.SaveCallback;
 
 public class AddClickListener implements View.OnClickListener {
 
-    private AddEventFragment fragment;
+    private AddTaskFragment fragment;
     private FragmentAddEventBinding binding;
     private Meetup meetup;
     private String name;
     private String place;
     private String address;
 
-    public AddClickListener(AddEventFragment fragment, FragmentAddEventBinding binding, Meetup meetup, String name, String place, String address) {
+    public AddClickListener(AddTaskFragment fragment, FragmentAddEventBinding binding, Meetup meetup, String name, String place, String address) {
         this.binding = binding;
         this.meetup = meetup;
         this.name = name;

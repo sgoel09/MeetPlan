@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.OnDoubleTapListener;
 import com.example.meetplan.databinding.ItemRestaurantBinding;
-import com.example.meetplan.events.AddEventFragment;
+import com.example.meetplan.AddTaskFragment;
 import com.example.meetplan.models.Meetup;
 import com.example.meetplan.models.Restaurant;
 import com.google.common.collect.ImmutableList;
@@ -68,7 +68,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
                 public void onDoubleTap(MotionEvent e) {
                     Toast.makeText(context, "Double Tap", Toast.LENGTH_SHORT).show();
                     FragmentManager fm = ((MainActivity) context).getSupportFragmentManager();
-                    AddEventFragment editNameDialogFragment = AddEventFragment.newInstance(meetup, RESTAURANT_TAG,
+                    AddTaskFragment editNameDialogFragment = AddTaskFragment.newInstance(meetup, RESTAURANT_TAG,
                             restaurant.getName(), restaurant.getLocation().getFullAddress());
                     editNameDialogFragment.show(fm, "fragment_edit_name");
                 }

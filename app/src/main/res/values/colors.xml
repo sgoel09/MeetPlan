@@ -6,4 +6,6 @@
     <color name="colorDarkGray">#838383</color>
     <color name="colorThemeBackground">#FDFCFC</color>
     <color name="colorThemeMain">#ED7F7F</color>
+    <color name="colorBottomNavChecked">#FFF7DD</color>
+    <color name="colorBottomNavDefault">#E1D5B2</color>
 </resources>

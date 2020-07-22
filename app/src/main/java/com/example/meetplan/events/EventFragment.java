@@ -86,7 +86,7 @@ public class EventFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         meetup = getArguments().getParcelable("meetup");
         ((MainActivity) getActivity()).itemSelectedListener.addMeetup(meetup);
-        binding.eventSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        binding.search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 String url = EVENT_BASE_URL + getString(R.string.tm_api_key) + "&city=" + s;
@@ -97,14 +97,6 @@ public class EventFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String s) {
                 return false;
-            }
-        });
-
-        binding.restaurantNavigateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment fragment = RestaurantFragment.newInstance(meetup);
-                ((MainActivity) getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
             }
         });
 
