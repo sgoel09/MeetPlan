@@ -19,6 +19,7 @@ public class Event {
     private static final String JSON_FIELD_LOCAL_DATE = "localDate";
     private static final String JSON_FIELD_EMBEDDED = "_embedded";
     private static final String JSON_FIELD_VENUES = "venues";
+    private static final String JSON_FIELD_IMAGES = "images";
     private final String name;
     private final String id;
     private final String url;
@@ -33,7 +34,7 @@ public class Event {
         url = checkValue(jsonObject, JSON_FIELD_URL);
         date = jsonObject.getJSONObject(JSON_FIELD_DATES).getJSONObject(JSON_FIELD_START).getString(JSON_FIELD_LOCAL_DATE);
         venue = new Venue(jsonObject.getJSONObject(JSON_FIELD_EMBEDDED).getJSONArray(JSON_FIELD_VENUES));
-        image = jsonObject.getJSONArray("images").getJSONObject(0).getString("url");
+        image = jsonObject.getJSONArray(JSON_FIELD_IMAGES).getJSONObject(0).getString(JSON_FIELD_URL);
     }
 
     public static List<Event> fromJsonArray(JSONArray eventJsonArray) throws JSONException {

@@ -46,6 +46,10 @@ public class DetailsFragment extends Fragment {
 
     private static final String TAG = "DetailsFragment";
     private static final int TRANSITION_DURATION = 500;
+    private static final String MEETUP_KEY = "meetup";
+    private static final String USERNAME_KEY = "username";
+    private static final String DATE_FORMAT = "EE, MMM d, y";
+    private static final String TIME_FORMAT = "h:mm a";
     private DatePickerClickListener datePickerClickListener;
     private TimePickerClickListener timePickerClickListener;
     private EditDetailsClickListener editDetailsClickListener;
@@ -65,7 +69,7 @@ public class DetailsFragment extends Fragment {
     public static DetailsFragment newInstance(Meetup meetup) {
         DetailsFragment fragment = new DetailsFragment();
         Bundle args = new Bundle();
-        args.putParcelable("meetup", meetup);
+        args.putParcelable(MEETUP_KEY, meetup);
         fragment.setArguments(args);
         return fragment;
     }
@@ -90,14 +94,14 @@ public class DetailsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        meetup = getArguments().getParcelable("meetup");
+        meetup = getArguments().getParcelable(MEETUP_KEY);
 
         changeToView();
         displayMembers();
         setDateTime();
 
         ParseQuery<ParseUser> query = ParseQuery.getQuery(ParseUser.class);
-        query.include("username");
+        query.include(USERNAME_KEY);
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> objects, ParseException e) {
@@ -107,7 +111,7 @@ public class DetailsFragment extends Fragment {
             }
         });
 
-        spinnerDialog = new SpinnerDialog((MainActivity) getContext(), usernames, "Select user to invite","Cancel");
+        spinnerDialog = new SpinnerDialog((MainActivity) getContext(), usernames, getString(R.string.invite_title), getString(R.string.cancel));
         spinnerDialog.setCancellable(true); // for cancellable
         spinnerDialog.setShowKeyboard(false);
 
@@ -135,11 +139,11 @@ public class DetailsFragment extends Fragment {
 
     private void setDateTime() {
         if (meetup.getDate() != null) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("EE, MMM d, y");
+            SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
             String dateFormatted = dateFormat.format(meetup.getDate());
             binding.date.setText(dateFormatted);
 
-            SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
+            SimpleDateFormat timeFormat = new SimpleDateFormat(TIME_FORMAT);
             String timeFormatted = timeFormat.format(meetup.getDate());
             binding.time.setText(timeFormatted);
         }

@@ -2,25 +2,20 @@ package com.example.meetplan.restaurants;
 
 import android.app.Activity;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 
-import com.example.meetplan.BottomNavigationItemSelectedListener;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentBrowseBinding;
-import com.example.meetplan.databinding.FragmentRestaurantBinding;
 import com.example.meetplan.models.Meetup;
 import com.example.meetplan.models.Restaurant;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -51,6 +46,10 @@ public class RestaurantFragment extends Fragment {
     private static final String RESTAURANT_BASE_URL = "https://api.yelp.com/v3/businesses/search?";
     private static final String LOCATION_PARAM = "&location=";
     private static final String BEARER = "Bearer ";
+    private static final String AUTHORIZATION = "Authorization";
+    private static final String BUSINESSES_FIELD = "businesses";
+    private static final String MEETUP_KEY = "meetup";
+    private static final String CITY_KEY = "city";
     private ImmutableList<Restaurant> restaurants;
     private StaggeredGridLayoutManager gridLayoutManager;
     private RestaurantAdapter adapter;
@@ -64,8 +63,8 @@ public class RestaurantFragment extends Fragment {
     public static RestaurantFragment newInstance(Meetup meetup, String city) {
         RestaurantFragment fragment = new RestaurantFragment();
         Bundle args = new Bundle();
-        args.putParcelable("meetup", meetup);
-        args.putString("city", city);
+        args.putParcelable(MEETUP_KEY, meetup);
+        args.putString(CITY_KEY, city);
         fragment.setArguments(args);
         return fragment;
     }
@@ -91,10 +90,10 @@ public class RestaurantFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        meetup = getArguments().getParcelable("meetup");
+        meetup = getArguments().getParcelable(MEETUP_KEY);
         ((MainActivity) getActivity()).itemSelectedListener.addMeetup(meetup);
 
-        final String city = getArguments().getString("city");
+        final String city = getArguments().getString(CITY_KEY);
         if (city != null) {
             searchByCity(city);
             binding.search.setQuery(city, true);
@@ -129,23 +128,22 @@ public class RestaurantFragment extends Fragment {
     private void populateRestaurants(String url) {
         OkHttpClient client = new OkHttpClient();
         String value = BEARER + getString(R.string.yelp_api_key);
-        Request request = new Request.Builder().url(url).header("Authorization", value).build();
+        Request request = new Request.Builder().url(url).header(AUTHORIZATION, value).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 call.cancel();
-                Snackbar.make(binding.getRoot(), "Could not retrieve restaurant data", BaseTransientBottomBar.LENGTH_SHORT).show();
+                Snackbar.make(binding.getRoot(), getString(R.string.restaurant_error), BaseTransientBottomBar.LENGTH_SHORT).show();
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Log.i(TAG, "onResponse");
                 final String myResponse = response.body().string();
-                JSONObject jsonObject = new JSONObject();
+                JSONObject jsonObject;
                 try {
                     jsonObject = new JSONObject(myResponse);
                 } catch (JSONException e) {
-                    Log.i(TAG, "onFailure");
+                    Snackbar.make(binding.getRoot(), getString(R.string.restaurant_error), BaseTransientBottomBar.LENGTH_SHORT).show();
                     return;
                 }
                 final JSONObject finalJsonObject = jsonObject;
@@ -153,17 +151,20 @@ public class RestaurantFragment extends Fragment {
                     @Override
                     public void run() {
                         try {
-                            JSONArray businesses = finalJsonObject.getJSONArray("businesses");
-                            restaurants = ImmutableList.<Restaurant>builder().addAll(Restaurant.fromJsonArray(businesses)).build();;
-                            Log.i(TAG, "parsed");
-                            adapter.updateData(restaurants);
+                            extractData(finalJsonObject);
                         } catch (JSONException e) {
-                            Snackbar.make(binding.getRoot(), "Could not retrieve restaurant data", BaseTransientBottomBar.LENGTH_SHORT).show();
+                            Snackbar.make(binding.getRoot(), getString(R.string.restaurant_error), BaseTransientBottomBar.LENGTH_SHORT).show();
                             return;
                         }
                     }
                 });
             }
         });
+    }
+
+    private void extractData(JSONObject finalJsonObject) throws JSONException {
+        JSONArray businesses = finalJsonObject.getJSONArray(BUSINESSES_FIELD);
+        restaurants = ImmutableList.<Restaurant>builder().addAll(Restaurant.fromJsonArray(businesses)).build();;
+        adapter.updateData(restaurants);
     }
 }

@@ -16,6 +16,8 @@ public class Meetup extends ParseObject {
     public static final String KEY_INVITES = "invites";
     public static final String KEY_DATE = "date";
     public static final String KEY_TASK = "task";
+    public static final String DATE_FORMAT = "EE, MMM d, y";
+    public static final String TIME_FORMAT = "h:mm a";
 
     public Meetup() {}
 
@@ -60,13 +62,13 @@ public class Meetup extends ParseObject {
     }
 
     public static String getDateFormatted(Meetup meetup) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EE, MMM d, y");
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
         String dateFormatted = dateFormat.format(meetup.getDate());
         return dateFormatted;
     }
 
     public static String getTimeFormatted(Meetup meetup) {
-        SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
+        SimpleDateFormat timeFormat = new SimpleDateFormat(TIME_FORMAT);
         String timeFormatted = timeFormat.format(meetup.getDate());
         return timeFormatted;
     }
