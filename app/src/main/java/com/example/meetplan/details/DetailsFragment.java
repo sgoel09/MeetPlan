@@ -46,8 +46,8 @@ public class DetailsFragment extends Fragment {
 
     private static final String TAG = "DetailsFragment";
     private static final int TRANSITION_DURATION = 500;
-    private static final String MEETUP_KEY = "meetup";
-    private static final String USERNAME_KEY = "username";
+    private static final String KEY_MEETUP = "meetup";
+    private static final String KEY_USERNAME = "username";
     private static final String DATE_FORMAT = "EE, MMM d, y";
     private static final String TIME_FORMAT = "h:mm a";
     private DatePickerClickListener datePickerClickListener;
@@ -69,7 +69,7 @@ public class DetailsFragment extends Fragment {
     public static DetailsFragment newInstance(Meetup meetup) {
         DetailsFragment fragment = new DetailsFragment();
         Bundle args = new Bundle();
-        args.putParcelable(MEETUP_KEY, meetup);
+        args.putParcelable(KEY_MEETUP, meetup);
         fragment.setArguments(args);
         return fragment;
     }
@@ -94,14 +94,14 @@ public class DetailsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        meetup = getArguments().getParcelable(MEETUP_KEY);
+        meetup = getArguments().getParcelable(KEY_MEETUP);
 
         changeToView();
         displayMembers();
         setDateTime();
 
         ParseQuery<ParseUser> query = ParseQuery.getQuery(ParseUser.class);
-        query.include(USERNAME_KEY);
+        query.include(KEY_USERNAME);
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> objects, ParseException e) {

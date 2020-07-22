@@ -21,10 +21,10 @@ import com.example.meetplan.models.Meetup;
  */
 public class AddTaskFragment extends DialogFragment {
 
-    private static final String MEETUP_KEY = "meetup";
-    private static final String NAME_KEY = "name";
-    private static final String PLACE_KEY = "place";
-    private static final String ADDRESS_KEY = "address";
+    private static final String KEY_MEETUP = "meetup";
+    private static final String KEY_NAME = "name";
+    private static final String KEY_PLACE = "place";
+    private static final String KEY_ADDRESS = "address";
     private FragmentAddEventBinding binding;
     private Meetup meetup;
     private String name;
@@ -40,10 +40,10 @@ public class AddTaskFragment extends DialogFragment {
     public static AddTaskFragment newInstance(Meetup meetup, String name, String place, String address) {
         AddTaskFragment fragment = new AddTaskFragment();
         Bundle args = new Bundle();
-        args.putParcelable(MEETUP_KEY, meetup);
-        args.putString(NAME_KEY, name);
-        args.putString(PLACE_KEY, place);
-        args.putString(ADDRESS_KEY, address);
+        args.putParcelable(KEY_MEETUP, meetup);
+        args.putString(KEY_NAME, name);
+        args.putString(KEY_PLACE, place);
+        args.putString(KEY_ADDRESS, address);
         fragment.setArguments(args);
         return fragment;
     }
@@ -63,10 +63,10 @@ public class AddTaskFragment extends DialogFragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        meetup = getArguments().getParcelable(MEETUP_KEY);
-        name = getArguments().getString(NAME_KEY);
-        place = getArguments().getString(PLACE_KEY);
-        address = getArguments().getString(ADDRESS_KEY);
+        meetup = getArguments().getParcelable(KEY_MEETUP);
+        name = getArguments().getString(KEY_NAME);
+        place = getArguments().getString(KEY_PLACE);
+        address = getArguments().getString(KEY_ADDRESS);
         binding.activity.setText(name);
         binding.location.setText(place);
         binding.address.setText(address);

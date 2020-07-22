@@ -47,13 +47,13 @@ public class RestaurantFragment extends Fragment {
 
     private static final String TAG = "RestaurantFragment";
     private static final String RESTAURANT_BASE_URL = "https://api.yelp.com/v3/businesses/search?";
-    private static final String LOCATION_PARAM = "&location=";
-    private static final String OFFSET_PARAM = "&offset=";
+    private static final String PARAM_LOCATION = "&location=";
+    private static final String PARAM_OFFSET = "&offset=";
     private static final String BEARER = "Bearer ";
     private static final String AUTHORIZATION = "Authorization";
     private static final String BUSINESSES_FIELD = "businesses";
-    private static final String MEETUP_KEY = "meetup";
-    private static final String CITY_KEY = "city";
+    private static final String KEY_MEETUP = "meetup";
+    private static final String KEY_CITY = "city";
     private static final int LIMIT = 20;
     private ImmutableList<Restaurant> restaurants;
     private StaggeredGridLayoutManager gridLayoutManager;
@@ -69,8 +69,8 @@ public class RestaurantFragment extends Fragment {
     public static RestaurantFragment newInstance(Meetup meetup, String city) {
         RestaurantFragment fragment = new RestaurantFragment();
         Bundle args = new Bundle();
-        args.putParcelable(MEETUP_KEY, meetup);
-        args.putString(CITY_KEY, city);
+        args.putParcelable(KEY_MEETUP, meetup);
+        args.putString(KEY_CITY, city);
         fragment.setArguments(args);
         return fragment;
     }
@@ -96,10 +96,10 @@ public class RestaurantFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        meetup = getArguments().getParcelable(MEETUP_KEY);
+        meetup = getArguments().getParcelable(KEY_MEETUP);
         ((MainActivity) getActivity()).itemSelectedListener.addMeetup(meetup);
 
-        final String city = getArguments().getString(CITY_KEY);
+        final String city = getArguments().getString(KEY_CITY);
         if (city != null) {
             searchByCity(city);
             binding.search.setQuery(city, true);
@@ -135,12 +135,12 @@ public class RestaurantFragment extends Fragment {
 
     private void loadMoreData(int page) {
         String city = binding.search.getQuery().toString();
-        String url = RESTAURANT_BASE_URL + LOCATION_PARAM + city + OFFSET_PARAM + (page * LIMIT);
+        String url = RESTAURANT_BASE_URL + PARAM_LOCATION + city + PARAM_OFFSET + (page * LIMIT);
         populateRestaurants(url);
     }
 
     private void searchByCity(String city) {
-        String url = RESTAURANT_BASE_URL + LOCATION_PARAM + city;
+        String url = RESTAURANT_BASE_URL + PARAM_LOCATION + city;
         populateRestaurants(url);
         ((MainActivity) getActivity()).itemSelectedListener.addCity(city);
     }

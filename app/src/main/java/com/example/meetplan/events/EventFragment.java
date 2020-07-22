@@ -47,12 +47,12 @@ import okhttp3.Response;
 public class EventFragment extends Fragment {
 
     private static final String EVENT_BASE_URL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=";
-    private static final String CITY_PARAM = "&city=";
-    private static final String PAGE_PARAM = "&page=";
-    private static final String MEETUP_KEY = "meetup";
-    private static final String CITY_KEY = "city";
-    private static final String EVENTS_FIELD = "events";
-    private static final String EMBEDDED_FIELD = "_embedded";
+    private static final String PARAM_CITY = "&city=";
+    private static final String PARAM_PAGE = "&page=";
+    private static final String KEY_MEETUP = "meetup";
+    private static final String KEY_CITY = "city";
+    private static final String JSON_FIELD_EVENTS = "events";
+    private static final String JSON_FIELD_EMBEDDED = "_embedded";
     private static final String TAG = "BrowseFragment";
     private ImmutableList<Event> events;
     private StaggeredGridLayoutManager gridLayoutManager;
@@ -68,8 +68,8 @@ public class EventFragment extends Fragment {
     public static EventFragment newInstance(Meetup meetup, String city) {
         EventFragment fragment = new EventFragment();
         Bundle args = new Bundle();
-        args.putParcelable(MEETUP_KEY, meetup);
-        args.putString(CITY_KEY, city);
+        args.putParcelable(KEY_MEETUP, meetup);
+        args.putString(KEY_CITY, city);
         fragment.setArguments(args);
         return fragment;
     }
@@ -95,10 +95,10 @@ public class EventFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        meetup = getArguments().getParcelable(MEETUP_KEY);
+        meetup = getArguments().getParcelable(KEY_MEETUP);
         ((MainActivity) getActivity()).itemSelectedListener.addMeetup(meetup);
 
-        String city = getArguments().getString(CITY_KEY);
+        String city = getArguments().getString(KEY_CITY);
         if (city != null) {
             searchByCity(city);
             binding.search.setQuery(city, true);
@@ -134,12 +134,12 @@ public class EventFragment extends Fragment {
 
     private void loadMoreData(int page) {
         String city = binding.search.getQuery().toString();
-        String url = EVENT_BASE_URL + getString(R.string.tm_api_key) + CITY_PARAM + city + PAGE_PARAM + page;
+        String url = EVENT_BASE_URL + getString(R.string.tm_api_key) + PARAM_CITY + city + PARAM_PAGE + page;
         populateEvents(url);
     }
 
     private void searchByCity(String city) {
-        String url = EVENT_BASE_URL + getString(R.string.tm_api_key) + CITY_PARAM + city;
+        String url = EVENT_BASE_URL + getString(R.string.tm_api_key) + PARAM_CITY + city;
         populateEvents(url);
         ((MainActivity) getActivity()).itemSelectedListener.addCity(city);
     }
@@ -182,7 +182,7 @@ public class EventFragment extends Fragment {
     }
 
     private void extractData(JSONObject finalJsonObject) throws JSONException {
-        JSONArray embedded = finalJsonObject.getJSONObject(EMBEDDED_FIELD).getJSONArray(EVENTS_FIELD);
+        JSONArray embedded = finalJsonObject.getJSONObject(JSON_FIELD_EMBEDDED).getJSONArray(JSON_FIELD_EVENTS);
         List<Event> allEvents = events;
         events = ImmutableList.<Event>builder().addAll(allEvents).addAll(Event.fromJsonArray(embedded)).build();;
         adapter.updateData(events);
