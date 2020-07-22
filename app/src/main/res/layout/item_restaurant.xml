@@ -14,27 +14,38 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/padding" >
 
-    <TextView
-        android:id="@+id/price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_med"
-        android:layout_toRightOf="@id/name"
-        tools:text="$$" />
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image"
+            android:layout_marginLeft="@dimen/margin_med"
+            android:layout_toRightOf="@id/name"
+            tools:text="$$" />
 
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/image"
             android:textStyle="bold"
             tools:text="Salt and Straw" />
 
-    <TextView
-        android:id="@+id/address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/name"
-        tools:text="16828 NW Madrone St, Portland, OR 97229" />
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name"
+            tools:text="16828 NW Madrone St, Portland, OR 97229" />
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="@dimen/padding"
+            android:layout_marginEnd="@dimen/padding"
+            tools:srcCompat="@tools:sample/avatars" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

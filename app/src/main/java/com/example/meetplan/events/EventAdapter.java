@@ -12,9 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.meetplan.AddTaskFragment;
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.OnDoubleTapListener;
+import com.example.meetplan.R;
 import com.example.meetplan.databinding.ItemActivityBinding;
 import com.example.meetplan.models.Event;
 import com.example.meetplan.models.Meetup;
@@ -83,13 +86,21 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             binding.date.setText(event.getDate());
             binding.address.setText(event.getVenue().getFullAddress());
             binding.venue.setText(event.getVenue().getName());
+            loadImage();
             binding.url.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(event.getUrl()));
-                    ((MainActivity) context).startActivity(browserIntent);
+                    context.startActivity(browserIntent);
                 }
             });
+        }
+
+        private void loadImage() {
+            int imageWidth = context.getResources().getInteger(R.integer.image_width);
+            int imageHeight = context.getResources().getInteger(R.integer.image_height);
+            int round = context.getResources().getInteger(R.integer.round_corners);
+            Glide.with(context).load(event.getImage()).override(imageWidth, imageHeight).centerCrop().transform(new RoundedCorners(round)).into(binding.image);
         }
     }
 }

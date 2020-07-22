@@ -15,17 +15,18 @@ public class Restaurant {
     private final String image;
     private static final String JSON_FIELD_NAME = "name";
     private static final String JSON_FIELD_ID = "id";
-    private static final String JSON_FIELD_URL = "image_url";
+    private static final String JSON_FIELD_URL = "url";
+    private static final String JSON_FIELD_IMAGE_URL = "image_url";
     private static final String JSON_FIELD_PRICE = "price";
     private static final String JSON_FIELD_LOCATION = "location";
     private final Location location;
 
-    public Restaurant(JSONObject jsonObject) throws JSONException {
+    public Restaurant(JSONObject jsonObject) {
         name = checkValue(jsonObject, JSON_FIELD_NAME);
         id = checkValue(jsonObject, JSON_FIELD_ID);
-        image = checkValue(jsonObject, JSON_FIELD_URL);
+        image = checkValue(jsonObject, JSON_FIELD_IMAGE_URL);
         price = checkValue(jsonObject, JSON_FIELD_PRICE);
-        location = new Location(jsonObject.getJSONObject(JSON_FIELD_LOCATION));
+        location = createLocation(jsonObject);
     }
 
     public static List<Restaurant> fromJsonArray(JSONArray restaurantJsonArray) throws JSONException {
@@ -34,6 +35,15 @@ public class Restaurant {
             restaurants.add(new Restaurant(restaurantJsonArray.getJSONObject(i)));
         }
         return restaurants;
+    }
+
+    private Location createLocation(JSONObject jsonObject) {
+        try {
+            Location location = new Location(jsonObject.getJSONObject(JSON_FIELD_LOCATION));
+            return location;
+        } catch (JSONException e) {
+            return null;
+        }
     }
 
     private String checkValue(JSONObject jsonObject, String field) {
@@ -51,6 +61,10 @@ public class Restaurant {
 
     public String getPrice() {
         return price;
+    }
+
+    public String getImage() {
+        return image;
     }
 
     public Location getLocation() {

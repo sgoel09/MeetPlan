@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,7 +50,7 @@ public class RestaurantFragment extends Fragment {
     private static final String LOCATION_PARAM = "&location=";
     private static final String BEARER = "Bearer ";
     private ImmutableList<Restaurant> restaurants;
-    private GridLayoutManager gridLayoutManager;
+    private StaggeredGridLayoutManager gridLayoutManager;
     private RestaurantAdapter adapter;
     private Meetup meetup;
     FragmentBrowseBinding binding;
@@ -99,7 +100,7 @@ public class RestaurantFragment extends Fragment {
             }
         });
 
-        gridLayoutManager = new GridLayoutManager(getContext(), getResources().getInteger(R.integer.grid_layout));
+        gridLayoutManager = new StaggeredGridLayoutManager(getResources().getInteger(R.integer.grid_layout), StaggeredGridLayoutManager.VERTICAL);
         restaurants = ImmutableList.of();
         adapter = new RestaurantAdapter((Activity) getContext(), meetup, restaurants);
         binding.itemRecyclerView.setAdapter(adapter);

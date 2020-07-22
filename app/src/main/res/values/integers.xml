@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="grid_layout">2</integer>
+    <integer name="round_corners">30</integer>
+    <integer name="image_width">500</integer>
+    <integer name="image_height">350</integer>
 </resources>

@@ -10,8 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.OnDoubleTapListener;
+import com.example.meetplan.R;
 import com.example.meetplan.databinding.ItemRestaurantBinding;
 import com.example.meetplan.AddTaskFragment;
 import com.example.meetplan.models.Meetup;
@@ -80,6 +84,14 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
             binding.name.setText(restaurant.getName());
             binding.price.setText(restaurant.getPrice());
             binding.address.setText(restaurant.getLocation().getFullAddress());
+            loadImage();
+        }
+
+        private void loadImage() {
+            int imageWidth = context.getResources().getInteger(R.integer.image_width);
+            int imageHeight = context.getResources().getInteger(R.integer.image_height);
+            int round = context.getResources().getInteger(R.integer.round_corners);
+            Glide.with(context).load(restaurant.getImage()).override(imageWidth, imageHeight).centerCrop().transform(new RoundedCorners(round)).into(binding.image);
         }
     }
 }

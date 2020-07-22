@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.util.Log;
 import android.view.GestureDetector;
@@ -50,7 +51,7 @@ public class EventFragment extends Fragment {
     private static final String EVENT_BASE_URL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=";
     private static final String TAG = "BrowseFragment";
     private ImmutableList<Event> events;
-    private GridLayoutManager gridLayoutManager;
+    private StaggeredGridLayoutManager gridLayoutManager;
     private EventAdapter adapter;
     private Meetup meetup;
     FragmentBrowseBinding binding;
@@ -100,7 +101,7 @@ public class EventFragment extends Fragment {
             }
         });
 
-        gridLayoutManager = new GridLayoutManager(getContext(), getResources().getInteger(R.integer.grid_layout));
+        gridLayoutManager = new StaggeredGridLayoutManager(getResources().getInteger(R.integer.grid_layout), StaggeredGridLayoutManager.VERTICAL);
         events = ImmutableList.of();
         adapter = new EventAdapter((Activity) getContext(), events, meetup);
         binding.itemRecyclerView.setAdapter(adapter);

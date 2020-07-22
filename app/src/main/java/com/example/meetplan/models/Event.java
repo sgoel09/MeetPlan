@@ -24,15 +24,16 @@ public class Event {
     private final String url;
     private final String date;
     private final Venue venue;
-    private List<String> images;
+    private String image;
     //TODO: venue and image
 
     public Event(JSONObject jsonObject) throws JSONException {
         name = checkValue(jsonObject, JSON_FIELD_NAME);
         id = checkValue(jsonObject, JSON_FIELD_ID);
         url = checkValue(jsonObject, JSON_FIELD_URL);
-        date = jsonObject.getJSONObject("dates").getJSONObject("start").getString("localDate");
-        venue = new Venue(jsonObject.getJSONObject("_embedded").getJSONArray("venues"));
+        date = jsonObject.getJSONObject(JSON_FIELD_DATES).getJSONObject(JSON_FIELD_START).getString(JSON_FIELD_LOCAL_DATE);
+        venue = new Venue(jsonObject.getJSONObject(JSON_FIELD_EMBEDDED).getJSONArray(JSON_FIELD_VENUES));
+        image = jsonObject.getJSONArray("images").getJSONObject(0).getString("url");
     }
 
     public static List<Event> fromJsonArray(JSONArray eventJsonArray) throws JSONException {
@@ -62,6 +63,10 @@ public class Event {
 
     public String getDate() {
         return date;
+    }
+
+    public String getImage() {
+        return image;
     }
 
     public Venue getVenue() {
