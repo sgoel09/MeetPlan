@@ -1,28 +1,18 @@
 package com.example.meetplan;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.meetplan.databinding.ActivityLoginBinding;
-import com.example.meetplan.databinding.ActivityMainBinding;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
-import com.parse.ParseFile;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
-import com.parse.SignUpCallback;
-
-import java.io.ByteArrayOutputStream;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -51,7 +41,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser(String username, String password) {
-        Log.i(TAG, "Attempting to login user " + username);
         loginCallBack = new LoginCallBack();
         ParseUser.logInInBackground(username, password, loginCallBack);
     }
@@ -70,7 +59,6 @@ public class LoginActivity extends AppCompatActivity {
     private class LoginClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            Log.i(TAG, "onClick login button");
             String username = binding.username.getText().toString();
             String password = binding.password.getText().toString();
             loginUser(username, password);

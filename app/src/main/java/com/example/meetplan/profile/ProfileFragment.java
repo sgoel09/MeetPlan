@@ -1,4 +1,4 @@
-package com.example.meetplan;
+package com.example.meetplan.profile;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,6 +21,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.meetplan.LoginActivity;
+import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentProfileBinding;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -49,9 +50,13 @@ public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;
     private static final int GALLERY_REQUEST_CODE = 20;
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
+    private static final String PROFILE_PIC_KEY = "profilepic";
+    private static final String OBJECT_ID_KEY = "objectId";
     private static final String TAG = "ProfileFragment";
     private static final String IMAGE_TYPE = "image/*";
     private static final String[] mimeTypes = {"image/jpeg", "image/png"};
+    private ProfilePicCallBack profilePicCallBack;
+    private LogoutClickListener logoutClickListener;
     @Nullable
     private File file;
     @Nullable
@@ -89,14 +94,8 @@ public class ProfileFragment extends Fragment {
         binding.username.setText(user.getUsername());
         binding.email.setText(user.getEmail());
 
-        binding.logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ParseUser.logOut();
-                Intent intent = new Intent(getContext(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
+        logoutClickListener = new LogoutClickListener(getContext());
+        binding.logoutButton.setOnClickListener(logoutClickListener);
 
         binding.chooseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,14 +171,14 @@ public class ProfileFragment extends Fragment {
     public File getPhotoFileUri(String fileName) {
         File mediaStorageDir = new File(getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
         if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
-            Log.d(TAG, "failed to create directory");
+            Snackbar.make(binding.getRoot(), getString(R.string.profile_pic_error), BaseTransientBottomBar.LENGTH_SHORT).show();
         }
         return new File(mediaStorageDir.getPath() + File.separator + fileName);
     }
 
     private void saveProfilePic() {
         ParseUser user = ParseUser.getCurrentUser();
-        user.put("profilepic", photoFile);
+        user.put(PROFILE_PIC_KEY, photoFile);
         user.saveInBackground();
     }
 
@@ -188,7 +187,7 @@ public class ProfileFragment extends Fragment {
         try {
             imageStream = getContext().getContentResolver().openInputStream(selectedImageUri);
         } catch (FileNotFoundException e) {
-            Snackbar.make(binding.getRoot(), "Could not load profile picture", BaseTransientBottomBar.LENGTH_SHORT).show();
+            Snackbar.make(binding.getRoot(), getString(R.string.profile_pic_error), BaseTransientBottomBar.LENGTH_SHORT).show();
             return;
         }
         Bitmap bmp = BitmapFactory.decodeStream(imageStream);
@@ -207,15 +206,10 @@ public class ProfileFragment extends Fragment {
 
     private void loadProfilePic() {
         ParseQuery<ParseUser> query = ParseQuery.getQuery(ParseUser.class);
-        query.include("profilepic");
+        query.include(PROFILE_PIC_KEY);
         query.setLimit(1);
-        query.whereEqualTo("objectId", ParseUser.getCurrentUser().getObjectId());
-        query.findInBackground(new FindCallback<ParseUser>() {
-            @Override
-            public void done(List<ParseUser> objects, ParseException e) {
-                ParseFile file = objects.get(0).getParseFile("profilepic");
-                Glide.with(getContext()).load(file.getUrl()).circleCrop().into(binding.profilePic);
-            }
-        });
+        query.whereEqualTo(OBJECT_ID_KEY, ParseUser.getCurrentUser().getObjectId());
+        profilePicCallBack = new ProfilePicCallBack(getContext(), binding);
+        query.findInBackground(profilePicCallBack);
     }
 }

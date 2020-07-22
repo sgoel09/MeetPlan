@@ -31,7 +31,5 @@ public class OnDoubleTapListener implements View.OnTouchListener {
         }
     }
 
-    public void onDoubleTap(MotionEvent e) {
-        // To be overridden when implementing listener
-    }
+    public void onDoubleTap(MotionEvent e) {}
 }

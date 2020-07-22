@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_alignParentRight="true"
     android:layout_alignParentBottom="true"
-    tools:context=".ProfileFragment">
+    tools:context=".profile.ProfileFragment">
 
     <Button
         android:id="@+id/captureButton"
