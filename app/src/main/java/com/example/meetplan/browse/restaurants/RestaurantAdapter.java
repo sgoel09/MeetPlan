@@ -69,7 +69,6 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
             itemView.setOnTouchListener(new OnDoubleTapListener(context) {
                 @Override
                 public void onDoubleTap(MotionEvent e) {
-                    Toast.makeText(context, "Double Tap", Toast.LENGTH_SHORT).show();
                     FragmentManager fm = ((MainActivity) context).getSupportFragmentManager();
                     AddTaskFragment editNameDialogFragment = AddTaskFragment.newInstance(meetup, RESTAURANT_TAG,
                             restaurant.getName(), restaurant.getLocation().getFullAddress());

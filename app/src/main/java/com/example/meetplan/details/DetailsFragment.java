@@ -39,6 +39,7 @@ public class DetailsFragment extends Fragment {
     private static final String KEY_USERNAME = "username";
     private static final String DATE_FORMAT = "EE, MMM d, y";
     private static final String TIME_FORMAT = "h:mm a";
+    private static final String NONE_STRING = "None";
     private DatePickerClickListener datePickerClickListener;
     private TimePickerClickListener timePickerClickListener;
     private EditDetailsClickListener editDetailsClickListener;
@@ -209,8 +210,9 @@ public class DetailsFragment extends Fragment {
                 allMembers += username;
             }
         }
+        binding.members.setText(allMembers);
         String allInvites = "";
-        if (invites != null || invites.size() != 0) {
+        if (invites != null && !invites.isEmpty()) {
             for (String username : invites) {
                 if (!invites.get(invites.size() - 1).equals(username)) {
                     allInvites += String.format("%s; ", username);
@@ -218,9 +220,10 @@ public class DetailsFragment extends Fragment {
                     allInvites += username;
                 }
             }
+            binding.invites.setText(allInvites);
+        } else {
+            binding.invites.setText(NONE_STRING);
         }
-        binding.members.setText(allMembers);
-        binding.invites.setText(allInvites);
     }
 
 }

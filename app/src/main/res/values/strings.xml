@@ -67,6 +67,7 @@
     <string name="event_error">Could not retrieve event data</string>
     <string name="restaurant_error">Could not retrieve restaurant data</string>
     <string name="profile_pic_error">Could not load profile picture</string>
+    <string name="take_pic_error">Picture was not taken</string>
 
     <string name="invite_title">Choose user to invite</string>
     <string name="add_title">Choose user to add</string>

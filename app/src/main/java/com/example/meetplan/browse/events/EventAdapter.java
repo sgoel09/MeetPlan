@@ -71,7 +71,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             itemView.setOnTouchListener(new OnDoubleTapListener(context) {
                 @Override
                 public void onDoubleTap(MotionEvent e) {
-                    Toast.makeText(context, "Double Tap", Toast.LENGTH_SHORT).show();
                     FragmentManager fm = ((MainActivity) context).getSupportFragmentManager();
                     AddTaskFragment editNameDialogFragment = AddTaskFragment.newInstance(meetup, event.getName(),
                             event.getVenue().getName(), event.getVenue().getFullAddress());

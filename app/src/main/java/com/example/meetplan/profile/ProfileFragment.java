@@ -151,7 +151,7 @@ public class ProfileFragment extends Fragment {
                     binding.profilePic.setImageBitmap(takenImage);
                 }
             } else {
-                Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
+                Snackbar.make(binding.getRoot(), getString(R.string.take_pic_error),BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         }
     }

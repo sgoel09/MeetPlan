@@ -19,6 +19,7 @@ import java.util.List;
 public class InviteCallBack implements FindCallback<ParseUser> {
 
     private static final String TAG = "InviteCallBack";
+    private static final String NONE_STRING = "None";
     private Meetup meetup;
     private AppCompatActivity activity;
     FragmentDetailsBinding binding;
@@ -76,8 +77,9 @@ public class InviteCallBack implements FindCallback<ParseUser> {
                 allMembers += username;
             }
         }
+        binding.members.setText(allMembers);
         String allInvites = "";
-        if (invites != null || invites.size() != 0) {
+        if (invites != null && !invites.isEmpty()) {
             for (String username : invites) {
                 if (!invites.get(invites.size() - 1).equals(username)) {
                     allInvites += String.format("%s; ", username);
@@ -85,8 +87,9 @@ public class InviteCallBack implements FindCallback<ParseUser> {
                     allInvites += username;
                 }
             }
+            binding.invites.setText(allInvites);
+        } else {
+            binding.invites.setText(NONE_STRING);
         }
-        binding.members.setText(allMembers);
-        binding.invites.setText(allInvites);
     }
 }
