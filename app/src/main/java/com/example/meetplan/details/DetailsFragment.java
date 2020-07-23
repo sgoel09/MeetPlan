@@ -9,22 +9,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.example.meetplan.events.EventFragment;
+import com.example.meetplan.ExpenseFragment;
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentDetailsBinding;
+import com.example.meetplan.models.Expense;
 import com.example.meetplan.models.Meetup;
-import com.example.meetplan.models.Task;
-import com.example.meetplan.restaurants.RestaurantFragment;
 import com.google.android.material.transition.MaterialContainerTransform;
 import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -32,10 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
 import in.galaxyofandroid.spinerdialog.SpinnerDialog;
-
-import static android.widget.Toast.*;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,6 +48,7 @@ public class DetailsFragment extends Fragment {
     private InviteItemClick inviteItemClick;
     private InviteClickListener inviteClickListener;
     private BrowseClickListener browseClickListener;
+    private ExpenseClickListener expenseClickListener;
     private ArrayList<String> usernames = new ArrayList<>();
     private SpinnerDialog spinnerDialog;
     FragmentDetailsBinding binding;
@@ -135,6 +127,9 @@ public class DetailsFragment extends Fragment {
 
         browseClickListener = new BrowseClickListener(getContext(), meetup);
         binding.browseButton.setOnClickListener(browseClickListener);
+
+        expenseClickListener = new ExpenseClickListener(getContext());
+        binding.expenseButton.setOnClickListener(expenseClickListener);
     }
 
     private void setDateTime() {

@@ -1,4 +1,4 @@
-package com.example.meetplan;
+package com.example.meetplan.browse;
 
 import android.view.MenuItem;
 
@@ -6,9 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.example.meetplan.events.EventFragment;
+import com.example.meetplan.R;
+import com.example.meetplan.browse.events.EventFragment;
 import com.example.meetplan.models.Meetup;
-import com.example.meetplan.restaurants.RestaurantFragment;
+import com.example.meetplan.browse.restaurants.RestaurantFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class BottomNavigationItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener {

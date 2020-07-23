@@ -1,4 +1,4 @@
-package com.example.meetplan.restaurants;
+package com.example.meetplan.browse.restaurants;
 
 import android.app.Activity;
 import android.view.MotionEvent;
@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.meetplan.MainActivity;
-import com.example.meetplan.OnDoubleTapListener;
+import com.example.meetplan.utilities.OnDoubleTapListener;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.ItemRestaurantBinding;
 import com.example.meetplan.addtask.AddTaskFragment;

@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
+import com.example.meetplan.browse.BottomNavigationItemSelectedListener;
 import com.example.meetplan.databinding.ActivityMainBinding;
 import com.example.meetplan.databinding.NavHeaderBinding;
 import com.example.meetplan.meetups.MeetupsFragment;

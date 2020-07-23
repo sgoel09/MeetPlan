@@ -1,4 +1,4 @@
-package com.example.meetplan.events;
+package com.example.meetplan.browse.events;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.meetplan.addtask.AddTaskFragment;
 import com.example.meetplan.MainActivity;
-import com.example.meetplan.OnDoubleTapListener;
+import com.example.meetplan.utilities.OnDoubleTapListener;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.ItemActivityBinding;
 import com.example.meetplan.models.Event;

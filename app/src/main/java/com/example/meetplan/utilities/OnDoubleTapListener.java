@@ -1,4 +1,4 @@
-package com.example.meetplan;
+package com.example.meetplan.utilities;
 
 import android.content.Context;
 import android.view.GestureDetector;

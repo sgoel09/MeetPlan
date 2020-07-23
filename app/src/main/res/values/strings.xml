@@ -24,6 +24,9 @@
     <string name="browse">Browse</string>
     <string name="add">Add</string>
     <string name="cancel">Cancel</string>
+    <string name="expenses">Expenses</string>
+    <string name="create">Create</string>
+    <string name="calculate">Calculate</string>
 
     <string name="meetup_details">Meetup Details</string>
     <string name="choose">Choose</string>
