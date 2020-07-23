@@ -1,4 +1,4 @@
-package com.example.meetplan;
+package com.example.meetplan.expenses;
 
 import android.util.Log;
 

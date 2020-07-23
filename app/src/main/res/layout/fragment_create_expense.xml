@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/padding"
+    tools:context=".expenses.create.CreateExpenseFragment">
+
+    <TextView
+        android:id="@+id/createLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/catamaran"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_size"
+        android:text="@string/new_expense" />
+
+    <Button
+        android:id="@+id/membersButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/createLabel"
+        android:layout_alignParentEnd="true"
+        android:text="@string/add_members" />
+
+    <Switch
+        android:id="@+id/allSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/createLabel"
+        android:layout_marginTop="@dimen/margin_med"
+        android:fontFamily="@font/catamaran"
+        android:textColor="@android:color/black"
+        android:text="@string/all_members" />
+
+    <TextView
+        android:id="@+id/amountLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/allSwitch"
+        android:layout_marginTop="@dimen/margin_extra"
+        android:fontFamily="@font/catamaran"
+        android:textColor="@android:color/black"
+        android:text="@string/amount_label" />
+
+    <EditText
+        android:id="@+id/amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/allSwitch"
+        android:layout_marginLeft="@dimen/margin_med"
+        android:layout_marginTop="@dimen/margin_large"
+        android:layout_marginRight="@dimen/margin_med"
+        android:layout_toRightOf="@id/amountLabel" />
+</RelativeLayout>

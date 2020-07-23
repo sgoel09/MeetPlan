@@ -10,11 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.meetplan.ExpenseFragment;
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentDetailsBinding;
-import com.example.meetplan.models.Expense;
 import com.example.meetplan.models.Meetup;
 import com.google.android.material.transition.MaterialContainerTransform;
 import com.parse.FindCallback;
@@ -128,7 +126,7 @@ public class DetailsFragment extends Fragment {
         browseClickListener = new BrowseClickListener(getContext(), meetup);
         binding.browseButton.setOnClickListener(browseClickListener);
 
-        expenseClickListener = new ExpenseClickListener(getContext());
+        expenseClickListener = new ExpenseClickListener(getContext(), meetup);
         binding.expenseButton.setOnClickListener(expenseClickListener);
     }
 
