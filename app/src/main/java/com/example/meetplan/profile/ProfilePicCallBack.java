@@ -13,7 +13,8 @@ import java.util.List;
 
 public class ProfilePicCallBack implements FindCallback<ParseUser> {
 
-    private static final String PROFILE_PIC_KEY = "profilepic";
+    private static final String KEY_PROFILE_PIC = "profilepic";
+    private static final String KEY_NAME = "name";
     private FragmentProfileBinding binding;
     private Context context;
 
@@ -24,7 +25,8 @@ public class ProfilePicCallBack implements FindCallback<ParseUser> {
 
     @Override
     public void done(List<ParseUser> objects, ParseException e) {
-        ParseFile file = objects.get(0).getParseFile(PROFILE_PIC_KEY);
+        ParseFile file = objects.get(0).getParseFile(KEY_PROFILE_PIC);
         Glide.with(context).load(file.getUrl()).circleCrop().into(binding.profilePic);
+        binding.nameLabel.setText(objects.get(0).getString(KEY_NAME));
     }
 }

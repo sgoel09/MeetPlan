@@ -38,6 +38,9 @@
     <string name="date_label">Date:</string>
     <string name="location_label">Location:</string>
     <string name="type_label">Activity:</string>
+    <string name="username_label">Username:</string>
+    <string name="email_label">Email:</string>
+    <string name="profile_pic_label">Profile Picture:</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main2">MainActivity</string>

@@ -50,8 +50,9 @@ public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;
     private static final int GALLERY_REQUEST_CODE = 20;
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
-    private static final String PROFILE_PIC_KEY = "profilepic";
-    private static final String OBJECT_ID_KEY = "objectId";
+    private static final String KEY_NAME = "name";
+    private static final String KEY_PROFILE_PIC = "profilepic";
+    private static final String KEY_OBJECT_ID = "objectId";
     private static final String TAG = "ProfileFragment";
     private static final String IMAGE_TYPE = "image/*";
     private static final String[] mimeTypes = {"image/jpeg", "image/png"};
@@ -178,7 +179,7 @@ public class ProfileFragment extends Fragment {
 
     private void saveProfilePic() {
         ParseUser user = ParseUser.getCurrentUser();
-        user.put(PROFILE_PIC_KEY, photoFile);
+        user.put(KEY_PROFILE_PIC, photoFile);
         user.saveInBackground();
     }
 
@@ -206,9 +207,10 @@ public class ProfileFragment extends Fragment {
 
     private void loadProfilePic() {
         ParseQuery<ParseUser> query = ParseQuery.getQuery(ParseUser.class);
-        query.include(PROFILE_PIC_KEY);
+        query.include(KEY_PROFILE_PIC);
+        query.include(KEY_NAME);
         query.setLimit(1);
-        query.whereEqualTo(OBJECT_ID_KEY, ParseUser.getCurrentUser().getObjectId());
+        query.whereEqualTo(KEY_OBJECT_ID, ParseUser.getCurrentUser().getObjectId());
         profilePicCallBack = new ProfilePicCallBack(getContext(), binding);
         query.findInBackground(profilePicCallBack);
     }

@@ -10,6 +10,7 @@
     <dimen name="margin_medium">15dp</dimen>
     <dimen name="margin_large">20dp</dimen>
     <dimen name="margin_details">25dp</dimen>
+    <dimen name="margin_extra">35dp</dimen>
     <dimen name="divider_height">1dp</dimen>
     <dimen name="title_size">24sp</dimen>
     <dimen name="label_size">20sp</dimen>
