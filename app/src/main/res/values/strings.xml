@@ -69,4 +69,5 @@
     <string name="profile_pic_error">Could not load profile picture</string>
 
     <string name="invite_title">Choose user to invite</string>
+    <string name="add_title">Choose user to add</string>
 </resources>

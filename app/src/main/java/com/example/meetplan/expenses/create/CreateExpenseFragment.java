@@ -64,10 +64,12 @@ public class CreateExpenseFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         meetup = getArguments().getParcelable(KEY_MEETUP);
 
-        spinnerDialog = new SpinnerDialog((MainActivity) getContext(), meetup.getMembers(), getString(R.string.invite_title), getString(R.string.cancel));
+        spinnerDialog = new SpinnerDialog((MainActivity) getContext(), meetup.getMembers(), getString(R.string.add_title), getString(R.string.cancel));
         spinnerDialog.setCancellable(true); // for cancellable
         spinnerDialog.setShowKeyboard(false);
 
+        binding.allSwitch.setChecked(true);
+        binding.membersButton.setVisibility(View.GONE);
         switchChangeListener = new SwitchChangeListener(binding);
         binding.allSwitch.setOnCheckedChangeListener(switchChangeListener);
 
