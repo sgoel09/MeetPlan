@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.meetplan.databinding.FragmentExpenseBinding;
 import com.example.meetplan.models.Expense;
 import com.example.meetplan.models.Meetup;
+import com.example.meetplan.models.Transaction;
 import com.google.common.collect.ImmutableList;
 
 public class ExpenseFragment extends Fragment {
@@ -22,10 +23,13 @@ public class ExpenseFragment extends Fragment {
     private FragmentExpenseBinding binding;
     private Meetup meetup;
     private LinearLayoutManager layoutManager;
-    private ExpenseAdapter adapter;
+    private ExpenseAdapter expenseAdapter;
     private ImmutableList<Expense> allExpenses;
+    private LinearLayoutManager transactionLayoutManager;
+    private TransactionAdapter transactionAdapter;
+    private ImmutableList<Transaction> allTransactions;
     private CreateClickListener createClickListener;
-    private CalculateClickListener calculateClickListener;
+    private ExpenseManager expenseManager;
 
     public ExpenseFragment() {
         // Required empty public constructor
@@ -56,22 +60,32 @@ public class ExpenseFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         meetup = getArguments().getParcelable(KEY_MEETUP);
 
-        setUpAdapter();
+        setUpAdapters();
         queryExpenses();
 
         createClickListener = new CreateClickListener(getContext(), meetup);
         binding.createButton.setOnClickListener(createClickListener);
 
-        calculateClickListener = new CalculateClickListener(meetup);
-        binding.calculateButton.setOnClickListener(calculateClickListener);
+        binding.calculateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                expenseManager = new ExpenseManager(meetup, transactionAdapter);
+            }
+        });
     }
 
-    private void setUpAdapter() {
+    private void setUpAdapters() {
         layoutManager = new LinearLayoutManager(getContext());
         allExpenses = ImmutableList.of();
-        adapter = new ExpenseAdapter((Activity) getContext(), allExpenses);
-        binding.expensesRecyclerView.setAdapter(adapter);
+        expenseAdapter = new ExpenseAdapter((Activity) getContext(), allExpenses);
+        binding.expensesRecyclerView.setAdapter(expenseAdapter);
         binding.expensesRecyclerView.setLayoutManager(layoutManager);
+
+        transactionLayoutManager = new LinearLayoutManager(getContext());
+        allTransactions = ImmutableList.of();
+        transactionAdapter = new TransactionAdapter((Activity) getContext(), allTransactions);
+        binding.transactionsRecyclerView.setAdapter(transactionAdapter);
+        binding.transactionsRecyclerView.setLayoutManager(transactionLayoutManager);
     }
 
     private void queryExpenses() {

@@ -2,10 +2,8 @@ package com.example.meetplan.models;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 @ParseClassName("Expense")
 public class Expense extends ParseObject {

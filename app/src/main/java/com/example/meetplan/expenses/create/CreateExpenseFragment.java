@@ -47,6 +47,7 @@ public class CreateExpenseFragment extends DialogFragment {
     private Meetup meetup;
     private AddMemberClickListener addMemberClickListener;
     private ArrayList<String> users = new ArrayList<>();
+    HashMap<String, Integer> splits;
 
     public CreateExpenseFragment() {
         // Required empty public constructor
@@ -128,7 +129,7 @@ public class CreateExpenseFragment extends DialogFragment {
     }
 
     private  HashMap<String, Integer>  calculateSplits() {
-        HashMap<String, Integer> splits = new HashMap<>();
+        splits = new HashMap<>();
         for (String user : users) {
             splits.put(user, 1);
         }

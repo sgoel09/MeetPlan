@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.toRadians;
 
 public class ExpenseManager {
 
@@ -34,19 +35,24 @@ public class ExpenseManager {
     private HashMap<String, Double> allNets;
     private ImmutableSortedMap<String, Double> allNetsImmutable;
     private ImmutableList<Transaction> allTransactions;
+    private TransactionAdapter transactionAdapter;
     private int numQueried = 0;
 
-    public ExpenseManager(Meetup meetup) {
+    public ExpenseManager(Meetup meetup, TransactionAdapter adapter) {
         this.meetup = meetup;
+        this.transactionAdapter = adapter;
         queryExpenses(meetup);
     }
 
-    public ImmutableList<Transaction> calculateTransactions() {
+    public ImmutableList<Transaction> getTransactions() {
+        return allTransactions;
+    }
+
+    private void calculateTransactions() {
         allTransactions = ImmutableList.of();
         while (allNets.size() > 1) {
             makeTransaction();
         }
-        return allTransactions;
     }
 
     private void calculateNetTotals() {
@@ -105,6 +111,7 @@ public class ExpenseManager {
         transactionAmount = Math.round(transactionAmount * ROUND_DOUBLE) / ROUND_DOUBLE;
         Transaction transaction = new Transaction(creditor, debtor, transactionAmount);
         allTransactions = ImmutableList.<Transaction>builder().addAll(allTransactions).add(transaction).build();
+        transactionAdapter.updateData(allTransactions);
     }
 
     private void sortMap() {
