@@ -12,27 +12,22 @@ public class Task extends ParseObject {
 
     public Task() {}
 
-    public String getName() {
-        return getString(KEY_NAME);
+    public Task(String name, String place, String address) {
+        put(KEY_NAME, name);
+        put(KEY_PLACE, place);
+        put(KEY_ADDRESS, address);
     }
 
-    public void setName(String name) {
-        put(KEY_NAME, name);
+    public String getName() {
+        return getString(KEY_NAME);
     }
 
     public String getPlace() {
         return getString(KEY_PLACE);
     }
 
-    public void setPlace(String place) {
-        put(KEY_PLACE, place);
-    }
-
     public String getAddress() {
         return getString(KEY_ADDRESS);
     }
 
-    public void setAddress(String address) {
-        put(KEY_ADDRESS, address);
-    }
 }

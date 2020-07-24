@@ -10,43 +10,28 @@ import java.util.HashMap;
 @ParseClassName("Expense")
 public class Expense extends ParseObject {
 
-    public static final String KEY_MEETUP = "meetup";
-    public static final String KEY_PAYER = "payer";
     public static final String KEY_AMOUNT = "amount";
-    public static final String KEY_SHARES = "shares";
+    public static final String KEY_NAME = "name";
+    public static final String KEY_USERS = "users";
 
     public Expense() {}
 
-    public Meetup getMeetup() {
-        return (Meetup) getParseObject(KEY_MEETUP);
+    public Expense(String name, double amount, ArrayList<String> users) {
+        put(KEY_AMOUNT, amount);
+        put(KEY_NAME, name);
+        put(KEY_USERS, users);
     }
 
-    public void setMeetup(Meetup meet) {
-        put(KEY_MEETUP, meet);
-    }
-
-    public ParseUser getPayer() {
-        return getParseUser(KEY_PAYER);
-    }
-
-    public void setPayer(String payer) {
-        put(KEY_PAYER, payer);
+    public ArrayList<String> getUsers() {
+        return (ArrayList<String>) get(KEY_USERS);
     }
 
     public double getAmount() {
         return getDouble(KEY_AMOUNT);
     }
 
-    public void setAmount(double amount) {
-        put(KEY_AMOUNT, amount);
-    }
-
-    public ArrayList<HashMap<ParseUser, Integer>> getShares() {
-        return (ArrayList<HashMap<ParseUser, Integer>>) get(KEY_SHARES);
-    }
-
-    public void setShares(ArrayList<HashMap<ParseUser, Integer>> shares) {
-        put(KEY_SHARES, shares);
+    public String getName() {
+        return getString(KEY_NAME);
     }
 
 }

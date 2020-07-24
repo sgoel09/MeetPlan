@@ -31,10 +31,7 @@ public class AddClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        Task task = new Task();
-        task.setName(name);
-        task.setPlace(place);
-        task.setAddress(address);
+        Task task = new Task(name, place, address);
         task.saveInBackground();
         meetup.setTask(task);
         meetup.saveInBackground(new SaveCallback() {

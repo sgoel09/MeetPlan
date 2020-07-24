@@ -16,6 +16,7 @@ public class Meetup extends ParseObject {
     public static final String KEY_INVITES = "invites";
     public static final String KEY_DATE = "date";
     public static final String KEY_TASK = "task";
+    public static final String KEY_EXPENSES = "expenses";
     public static final String DATE_FORMAT = "EE, MMM d, y";
     public static final String TIME_FORMAT = "h:mm a";
 
@@ -59,6 +60,14 @@ public class Meetup extends ParseObject {
 
     public void setInvites(ArrayList<String> invites) {
         put(KEY_INVITES, invites);
+    }
+
+    public ArrayList<Expense> getExpenses() {
+        return (ArrayList<Expense>) get(KEY_EXPENSES);
+    }
+
+    public void setExpenses(ArrayList<Expense> expenses) {
+        put(KEY_EXPENSES, expenses);
     }
 
     public static String getDateFormatted(Meetup meetup) {
