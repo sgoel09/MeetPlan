@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.example.meetplan.models.Expense;
 import com.example.meetplan.models.Meetup;
+import com.example.meetplan.models.SplitExpense;
 import com.example.meetplan.models.Task;
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -17,6 +18,7 @@ public class MeetApplication extends Application {
         ParseObject.registerSubclass(Meetup.class);
         ParseObject.registerSubclass(Task.class);
         ParseObject.registerSubclass(Expense.class);
+        ParseObject.registerSubclass(SplitExpense.class);
 
         // set applicationId, and server server based on the values in the Heroku settings.
         // clientKey is not needed unless explicitly configured

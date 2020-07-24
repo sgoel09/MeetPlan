@@ -25,6 +25,7 @@ public class ExpenseFragment extends Fragment {
     private ExpenseAdapter adapter;
     private ImmutableList<Expense> allExpenses;
     private CreateClickListener createClickListener;
+    private CalculateClickListener calculateClickListener;
 
     public ExpenseFragment() {
         // Required empty public constructor
@@ -60,6 +61,9 @@ public class ExpenseFragment extends Fragment {
 
         createClickListener = new CreateClickListener(getContext(), meetup);
         binding.createButton.setOnClickListener(createClickListener);
+
+        calculateClickListener = new CalculateClickListener(meetup);
+        binding.calculateButton.setOnClickListener(calculateClickListener);
     }
 
     private void setUpAdapter() {

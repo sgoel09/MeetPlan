@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +18,21 @@ import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentCreateExpenseBinding;
 import com.example.meetplan.models.Expense;
 import com.example.meetplan.models.Meetup;
+import com.example.meetplan.models.SplitExpense;
 import com.example.meetplan.profile.ProfilePicCallBack;
+import com.google.common.collect.ImmutableSetMultimap;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.security.auth.callback.Callback;
 
@@ -98,8 +106,10 @@ public class CreateExpenseFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 String name = binding.name.getText().toString();
-                double amount = Double.parseDouble(binding.amount.getText().toString());
-                Expense expense = new Expense(name, amount, users);
+                String amount = binding.amount.getText().toString();
+                SplitExpense splitExpense = new SplitExpense(calculateSplits(), ParseUser.getCurrentUser().getUsername());
+                splitExpense.saveInBackground();
+                Expense expense = new Expense(name, amount, splitExpense);
                 expense.saveInBackground();
                 ArrayList<Expense> expenses = meetup.getExpenses();
                 expenses.add(expense);
@@ -115,5 +125,13 @@ public class CreateExpenseFragment extends DialogFragment {
                 users.add(item);
             }
         });
+    }
+
+    private  HashMap<String, Integer>  calculateSplits() {
+        HashMap<String, Integer> splits = new HashMap<>();
+        for (String user : users) {
+            splits.put(user, 1);
+        }
+        return splits;
     }
 }
