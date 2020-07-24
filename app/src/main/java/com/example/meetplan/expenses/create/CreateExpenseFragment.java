@@ -79,11 +79,26 @@ public class CreateExpenseFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         meetup = getArguments().getParcelable(KEY_MEETUP);
 
-        users = meetup.getMembers();
+        users = new ArrayList<>();
+        users.addAll(meetup.getMembers());
 
         spinnerDialog = new SpinnerDialog((MainActivity) getContext(), meetup.getMembers(), getString(R.string.add_title), getString(R.string.cancel));
         spinnerDialog.setCancellable(true); // for cancellable
         spinnerDialog.setShowKeyboard(false);
+
+        spinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
+            @Override
+            public void onClick(String item, int position) {
+                users.add(item);
+                String usersSoFar = binding.members.getText().toString();
+                if (usersSoFar.equals("")) {
+                    usersSoFar = item;
+                } else {
+                    usersSoFar += String.format("; %s", item);
+                }
+                binding.members.setText(usersSoFar);
+            }
+        });
 
         binding.allSwitch.setChecked(true);
         binding.membersButton.setVisibility(View.GONE);
@@ -92,17 +107,26 @@ public class CreateExpenseFragment extends DialogFragment {
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
                 if (checked) {
                     binding.membersButton.setVisibility(View.GONE);
+                    binding.membersLabel.setVisibility(View.GONE);
+                    binding.members.setVisibility(View.GONE);
                     users.clear();
                     users.addAll(meetup.getMembers());
                 } else {
                     binding.membersButton.setVisibility(View.VISIBLE);
+                    binding.membersLabel.setVisibility(View.VISIBLE);
+                    binding.members.setVisibility(View.VISIBLE);
                     users.clear();
                 }
             }
         });
 
-        addMemberClickListener = new AddMemberClickListener(spinnerDialog);
-        binding.membersButton.setOnClickListener(addMemberClickListener);
+        //addMemberClickListener = new AddMemberClickListener(spinnerDialog);
+        binding.membersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                spinnerDialog.showSpinerDialog();
+            }
+        });
 
         binding.createButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,13 +144,6 @@ public class CreateExpenseFragment extends DialogFragment {
                 QueryResponder mHost = (QueryResponder) getTargetFragment();
                 mHost.passNewExpense(expense);
                 dismiss();
-            }
-        });
-
-        spinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
-            @Override
-            public void onClick(String item, int position) {
-                users.add(item);
             }
         });
     }

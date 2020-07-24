@@ -14,7 +14,8 @@
         android:layout_marginTop="@dimen/margin_med"
         android:fontFamily="@font/catamaran"
         android:text="@string/name_label"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/name"
@@ -48,9 +49,9 @@
         android:id="@+id/createButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/allSwitch"
+        android:layout_below="@id/membersLabel"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="@dimen/margin_extra"
+        android:layout_marginTop="@dimen/margin_large"
         android:background="@color/colorThemeMain"
         android:text="@string/create"
         android:textColor="@android:color/white" />
@@ -61,9 +62,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/amount"
         android:layout_marginTop="@dimen/margin_med"
+        android:layout_marginBottom="@dimen/margin_details"
         android:fontFamily="@font/catamaran"
         android:text="@string/all_members"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/amountLabel"
@@ -73,7 +76,8 @@
         android:layout_marginTop="@dimen/margin_details"
         android:fontFamily="@font/catamaran"
         android:text="@string/amount_label"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/amount"
@@ -84,4 +88,25 @@
         android:layout_marginTop="@dimen/margin_small"
         android:layout_marginRight="@dimen/margin_med"
         android:layout_toRightOf="@id/amountLabel" />
+
+    <TextView
+        android:id="@+id/members"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/allSwitch"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_toRightOf="@id/membersLabel"
+        android:fontFamily="@font/catamaran"
+        android:textColor="@android:color/black"
+        tools:text="shefali; testing; ..." />
+
+    <TextView
+        android:id="@+id/membersLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/allSwitch"
+        android:fontFamily="@font/catamaran"
+        android:text="@string/members_label"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
 </RelativeLayout>
