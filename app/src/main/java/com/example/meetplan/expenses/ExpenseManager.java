@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.meetplan.models.Expense;
 import com.example.meetplan.models.Meetup;
 import com.example.meetplan.models.SplitExpense;
+import com.example.meetplan.models.Transaction;
 import com.google.common.base.Functions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSortedMap;
@@ -13,6 +14,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +33,7 @@ public class ExpenseManager {
     private ImmutableList<Expense> allExpenses;
     private HashMap<String, Double> allNets;
     private ImmutableSortedMap<String, Double> allNetsImmutable;
+    private ImmutableList<Transaction> allTransactions;
     private int numQueried = 0;
 
     public ExpenseManager(Meetup meetup) {
@@ -38,10 +41,12 @@ public class ExpenseManager {
         queryExpenses(meetup);
     }
 
-    public void calculateTransactions() {
+    public ImmutableList<Transaction> calculateTransactions() {
+        allTransactions = ImmutableList.of();
         while (allNets.size() > 1) {
             makeTransaction();
         }
+        return allTransactions;
     }
 
     private void calculateNetTotals() {
@@ -98,7 +103,8 @@ public class ExpenseManager {
         }
         sortMap();
         transactionAmount = Math.round(transactionAmount * ROUND_DOUBLE) / ROUND_DOUBLE;
-        Log.i(TAG, debtor + " pays " + creditor + " $" + transactionAmount);
+        Transaction transaction = new Transaction(creditor, debtor, transactionAmount);
+        allTransactions = ImmutableList.<Transaction>builder().addAll(allTransactions).add(transaction).build();
     }
 
     private void sortMap() {

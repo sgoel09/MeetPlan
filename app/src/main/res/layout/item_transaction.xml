@@ -7,23 +7,31 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Dinner" />
-
-    <ImageView
-        android:id="@+id/debtorPicture"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_below="@id/name"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <TextView
         android:id="@+id/debtor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/name"
-        android:layout_toRightOf="@id/debtorPicture"
         android:text="shefali" />
+
+    <ImageView
+        android:id="@+id/arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/debtor"
+        app:srcCompat="@drawable/ic_baseline_double_arrow" />
+
+    <TextView
+        android:id="@+id/creditor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/arrow"
+        tools:text="testing" />
+
+    <TextView
+        android:id="@+id/amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_extra"
+        android:layout_toRightOf="@id/creditor"
+        tools:text="$15" />
+
 </RelativeLayout>
