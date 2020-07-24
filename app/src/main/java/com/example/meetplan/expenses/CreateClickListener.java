@@ -13,16 +13,19 @@ public class CreateClickListener implements View.OnClickListener {
 
     private Context context;
     private Meetup meetup;
+    private ExpenseFragment expenseFragment;
 
-    public CreateClickListener(Context context, Meetup meetup) {
+    public CreateClickListener(Context context, Meetup meetup, ExpenseFragment fragment) {
         this.context = context;
         this.meetup = meetup;
+        this.expenseFragment = fragment;
     }
 
     @Override
     public void onClick(View view) {
         FragmentManager fm = ((MainActivity) context).getSupportFragmentManager();
         CreateExpenseFragment fragment = CreateExpenseFragment.newInstance(meetup);
+        fragment.setTargetFragment(expenseFragment, 0);
         fragment.show(fm, "tag");
     }
 }

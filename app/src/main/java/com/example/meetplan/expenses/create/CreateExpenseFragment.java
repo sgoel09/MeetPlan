@@ -16,6 +16,7 @@ import android.widget.CompoundButton;
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentCreateExpenseBinding;
+import com.example.meetplan.expenses.QueryResponder;
 import com.example.meetplan.models.Expense;
 import com.example.meetplan.models.Meetup;
 import com.example.meetplan.models.SplitExpense;
@@ -116,6 +117,8 @@ public class CreateExpenseFragment extends DialogFragment {
                 expenses.add(expense);
                 meetup.setExpenses(expenses);
                 meetup.saveInBackground();
+                QueryResponder mHost = (QueryResponder) getTargetFragment();
+                mHost.passNewExpense(expense);
                 dismiss();
             }
         });

@@ -6,10 +6,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.meetplan.databinding.ItemExpenseBinding;
 import com.example.meetplan.models.Expense;
 import com.google.common.collect.ImmutableList;
+
+import java.util.Map;
 
 public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHolder> {
 
@@ -56,6 +59,15 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
         }
 
         public void bind(Expense expense) {
+            binding.name.setText(expense.getName());
+            binding.amount.setText(String.format("$%s", expense.getAmount()));
+            binding.paid.setText(expense.getSplitExpense().getPaid());
+            String membersString = "";
+            for (Map.Entry<String, Integer> entry : expense.getSplitExpense().getSplit().entrySet()) {
+                membersString += String.format("%s (%s); ", entry.getKey(), entry.getValue());
+            }
+            membersString = membersString.substring(0, membersString.length() - 2);
+            binding.members.setText(membersString);
         }
     }
 }

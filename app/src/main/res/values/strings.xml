@@ -49,6 +49,7 @@
     <string name="profile_pic_label">Profile Picture:</string>
     <string name="amount_label">Amount:</string>
     <string name="name_label">Name:</string>
+    <string name="paid_label">Paid by:</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main2">MainActivity</string>

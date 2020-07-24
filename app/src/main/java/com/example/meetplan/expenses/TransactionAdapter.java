@@ -7,9 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.meetplan.databinding.ItemExpenseBinding;
 import com.example.meetplan.databinding.ItemTransactionBinding;
-import com.example.meetplan.models.Expense;
 import com.example.meetplan.models.Transaction;
 import com.google.common.collect.ImmutableList;
 

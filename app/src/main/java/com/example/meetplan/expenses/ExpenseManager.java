@@ -38,10 +38,10 @@ public class ExpenseManager {
     private TransactionAdapter transactionAdapter;
     private int numQueried = 0;
 
-    public ExpenseManager(Meetup meetup, TransactionAdapter adapter) {
+    public ExpenseManager(Meetup meetup, TransactionAdapter adapter, ImmutableList<Expense> expenses) {
         this.meetup = meetup;
         this.transactionAdapter = adapter;
-        queryExpenses(meetup);
+        allExpenses = expenses;
     }
 
     public ImmutableList<Transaction> getTransactions() {
@@ -55,11 +55,12 @@ public class ExpenseManager {
         }
     }
 
-    private void calculateNetTotals() {
+    protected void calculateNetTotals() {
         allNets = new HashMap<>();
         for (Expense expense : allExpenses) {
-            querySplitExpense(expense);
+            eachExpense(expense, expense.getSplitExpense());
         }
+        calculateTransactions();
     }
 
     private void eachExpense(Expense expense, SplitExpense splitExpense) {
@@ -83,9 +84,6 @@ public class ExpenseManager {
             } else {
                 allNets.put(user, personalTotal);
             }
-        }
-        if (numQueried == allExpenses.size()) {
-            calculateTransactions();
         }
     }
 

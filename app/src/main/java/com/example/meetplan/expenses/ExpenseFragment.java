@@ -2,6 +2,7 @@ package com.example.meetplan.expenses;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +15,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.meetplan.databinding.FragmentExpenseBinding;
 import com.example.meetplan.models.Expense;
 import com.example.meetplan.models.Meetup;
+import com.example.meetplan.models.SplitExpense;
 import com.example.meetplan.models.Transaction;
 import com.google.common.collect.ImmutableList;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 
-public class ExpenseFragment extends Fragment {
+import java.util.List;
+
+public class ExpenseFragment extends Fragment implements QueryResponder {
 
     private static final String KEY_MEETUP = "meetup";
+    private static final String KEY_EXPENSES = "expenses";
+    private static final String KEY_OBJECT_ID = "objectId";
+    private static final int UNIQUE_LIMIT = 1;
+    private static final String KEY_SPLIT_EXPENSE = "splitexpense";
     private FragmentExpenseBinding binding;
     private Meetup meetup;
     private LinearLayoutManager layoutManager;
@@ -61,17 +72,26 @@ public class ExpenseFragment extends Fragment {
         meetup = getArguments().getParcelable(KEY_MEETUP);
 
         setUpAdapters();
-        queryExpenses();
 
-        createClickListener = new CreateClickListener(getContext(), meetup);
+        createClickListener = new CreateClickListener(getContext(), meetup, this);
         binding.createButton.setOnClickListener(createClickListener);
 
         binding.calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                expenseManager = new ExpenseManager(meetup, transactionAdapter);
+                expenseManager = new ExpenseManager(meetup, transactionAdapter, allExpenses);
+                expenseManager.calculateNetTotals();
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.i("ExpenseFragment", "onResume");
+        for (Expense expense : meetup.getExpenses()) {
+            queryExpenses(expense);
+        }
     }
 
     private void setUpAdapters() {
@@ -88,6 +108,26 @@ public class ExpenseFragment extends Fragment {
         binding.transactionsRecyclerView.setLayoutManager(transactionLayoutManager);
     }
 
-    private void queryExpenses() {
+    private Expense queryExpenses(final Expense expense) {
+        final Expense[] newExpense = {new Expense()};
+        ParseQuery<Expense> query = ParseQuery.getQuery(Expense.class);
+        query.whereEqualTo(KEY_OBJECT_ID, expense.getObjectId());
+        query.setLimit(UNIQUE_LIMIT);
+        query.include(KEY_SPLIT_EXPENSE);
+        query.findInBackground(new FindCallback<Expense>() {
+            @Override
+            public void done(List<Expense> expenses, ParseException e) {
+                newExpense[0] = expenses.get(0);
+                allExpenses = ImmutableList.<Expense>builder().addAll(allExpenses).add(newExpense[0]).build();
+                expenseAdapter.updateData(allExpenses);
+            }
+        });
+        return newExpense[0];
+    }
+
+    @Override
+    public void passNewExpense(Expense expense) {
+        allExpenses = ImmutableList.<Expense>builder().addAll(allExpenses).add(expense).build();
+        expenseAdapter.updateData(allExpenses);
     }
 }
