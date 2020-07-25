@@ -1,51 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/margin_small"
+    app:cardElevation="@dimen/margin_small"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="Dinner" />
+        android:padding="@dimen/padding">
 
-    <TextView
-        android:id="@+id/amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_large"
-        android:layout_toRightOf="@id/name"
-        tools:text="$15" />
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_med"
+            android:fontFamily="@font/catamaran"
+            android:textSize="@dimen/text_size"
+            android:textStyle="bold"
+            tools:text="Dinner" />
 
-    <TextView
-        android:id="@+id/paidLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/name"
-        android:text="@string/paid_label" />
+        <TextView
+            android:id="@+id/amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_large"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_toRightOf="@id/name"
+            android:textSize="@dimen/text_size"
+            tools:text="$15" />
 
-    <TextView
-        android:id="@+id/paid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/name"
-        android:layout_marginLeft="@dimen/margin_small"
-        android:layout_toRightOf="@id/paidLabel"
-        tools:text="shefali" />
+        <TextView
+            android:id="@+id/paidLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name"
+            android:layout_marginBottom="@dimen/margin_med"
+            android:fontFamily="@font/catamaran"
+            android:text="@string/paid_label"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/members"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/paidLabel"
-        android:layout_marginLeft="@dimen/margin_small"
-        android:layout_toRightOf="@id/membersLabel"
-        tools:text="testing; signup" />
+        <TextView
+            android:id="@+id/paid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_toRightOf="@id/paidLabel"
+            android:fontFamily="@font/catamaran"
+            tools:text="shefali" />
 
-    <TextView
-        android:id="@+id/membersLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/paidLabel"
-        android:text="@string/members_label" />
-</RelativeLayout>
+        <TextView
+            android:id="@+id/members"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/paidLabel"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_toRightOf="@id/membersLabel"
+            android:fontFamily="@font/catamaran"
+            tools:text="testing; signup" />
+
+        <TextView
+            android:id="@+id/membersLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/paidLabel"
+            android:fontFamily="@font/catamaran"
+            android:text="@string/members_label"
+            android:textStyle="bold" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

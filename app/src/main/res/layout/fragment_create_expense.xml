@@ -14,8 +14,7 @@
         android:layout_marginTop="@dimen/margin_med"
         android:fontFamily="@font/catamaran"
         android:text="@string/name_label"
-        android:textColor="@android:color/black"
-        android:textStyle="bold" />
+        android:textColor="@android:color/black" />
 
     <EditText
         android:id="@+id/name"
@@ -65,8 +64,7 @@
         android:layout_marginBottom="@dimen/margin_details"
         android:fontFamily="@font/catamaran"
         android:text="@string/all_members"
-        android:textColor="@android:color/black"
-        android:textStyle="bold" />
+        android:textColor="@android:color/black" />
 
     <TextView
         android:id="@+id/amountLabel"
@@ -76,8 +74,7 @@
         android:layout_marginTop="@dimen/margin_details"
         android:fontFamily="@font/catamaran"
         android:text="@string/amount_label"
-        android:textColor="@android:color/black"
-        android:textStyle="bold" />
+        android:textColor="@android:color/black" />
 
     <EditText
         android:id="@+id/amount"
@@ -107,6 +104,5 @@
         android:layout_below="@id/allSwitch"
         android:fontFamily="@font/catamaran"
         android:text="@string/members_label"
-        android:textColor="@android:color/black"
-        android:textStyle="bold" />
+        android:textColor="@android:color/black" />
 </RelativeLayout>
