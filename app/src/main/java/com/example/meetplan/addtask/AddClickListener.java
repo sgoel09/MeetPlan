@@ -20,7 +20,8 @@ public class AddClickListener implements View.OnClickListener {
     private String place;
     private String address;
 
-    public AddClickListener(AddTaskFragment fragment, FragmentAddEventBinding binding, Meetup meetup, String name, String place, String address) {
+    public AddClickListener(AddTaskFragment fragment, FragmentAddEventBinding binding,
+                            Meetup meetup, String name, String place, String address) {
         this.binding = binding;
         this.meetup = meetup;
         this.name = name;

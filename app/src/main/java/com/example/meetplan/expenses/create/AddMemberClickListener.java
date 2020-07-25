@@ -14,7 +14,6 @@ public class AddMemberClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        int i = 0;
         spinnerDialog.showSpinerDialog();
     }
 }

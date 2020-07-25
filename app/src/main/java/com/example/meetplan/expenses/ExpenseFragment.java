@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.meetplan.databinding.FragmentExpenseBinding;
 import com.example.meetplan.models.Expense;
 import com.example.meetplan.models.Meetup;
-import com.example.meetplan.models.SplitExpense;
 import com.example.meetplan.models.Transaction;
 import com.google.common.collect.ImmutableList;
 import com.parse.FindCallback;
@@ -79,7 +78,7 @@ public class ExpenseFragment extends Fragment implements QueryResponder {
         binding.calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                expenseManager = new ExpenseManager(meetup, transactionAdapter, allExpenses);
+                expenseManager = new ExpenseManager(transactionAdapter, allExpenses);
                 expenseManager.calculateNetTotals();
             }
         });

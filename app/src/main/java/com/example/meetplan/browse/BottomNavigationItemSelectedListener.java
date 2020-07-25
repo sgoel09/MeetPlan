@@ -12,7 +12,8 @@ import com.example.meetplan.models.Meetup;
 import com.example.meetplan.browse.restaurants.RestaurantFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class BottomNavigationItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class BottomNavigationItemSelectedListener
+        implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private final FragmentManager fragmentManager;
     Meetup meetup;

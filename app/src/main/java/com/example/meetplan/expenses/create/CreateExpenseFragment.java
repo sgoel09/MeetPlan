@@ -1,17 +1,13 @@
 package com.example.meetplan.expenses.create;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-
-import android.util.Pair;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CompoundButton;
 
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
@@ -20,24 +16,11 @@ import com.example.meetplan.expenses.QueryResponder;
 import com.example.meetplan.models.Expense;
 import com.example.meetplan.models.Meetup;
 import com.example.meetplan.models.SplitExpense;
-import com.example.meetplan.profile.ProfilePicCallBack;
-import com.google.common.collect.ImmutableSetMultimap;
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import javax.security.auth.callback.Callback;
-
-import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
 import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 
 public class CreateExpenseFragment extends DialogFragment {
@@ -47,6 +30,8 @@ public class CreateExpenseFragment extends DialogFragment {
     private SpinnerDialog spinnerDialog;
     private Meetup meetup;
     private AddMemberClickListener addMemberClickListener;
+    private SwitchChangeListener switchChangeListener;
+    private SpinnerItemClick spinnerItemClick;
     private ArrayList<String> users = new ArrayList<>();
     HashMap<String, Integer> splits;
 
@@ -86,47 +71,17 @@ public class CreateExpenseFragment extends DialogFragment {
         spinnerDialog.setCancellable(true); // for cancellable
         spinnerDialog.setShowKeyboard(false);
 
-        spinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
-            @Override
-            public void onClick(String item, int position) {
-                users.add(item);
-                String usersSoFar = binding.members.getText().toString();
-                if (usersSoFar.equals("")) {
-                    usersSoFar = item;
-                } else {
-                    usersSoFar += String.format("; %s", item);
-                }
-                binding.members.setText(usersSoFar);
-            }
-        });
+        spinnerItemClick = new SpinnerItemClick(binding, users);
+        spinnerDialog.bindOnSpinerListener(spinnerItemClick);
 
         binding.allSwitch.setChecked(true);
         binding.membersButton.setVisibility(View.GONE);
-        binding.allSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-                if (checked) {
-                    binding.membersButton.setVisibility(View.GONE);
-                    binding.membersLabel.setVisibility(View.GONE);
-                    binding.members.setVisibility(View.GONE);
-                    users.clear();
-                    users.addAll(meetup.getMembers());
-                } else {
-                    binding.membersButton.setVisibility(View.VISIBLE);
-                    binding.membersLabel.setVisibility(View.VISIBLE);
-                    binding.members.setVisibility(View.VISIBLE);
-                    users.clear();
-                }
-            }
-        });
 
-        //addMemberClickListener = new AddMemberClickListener(spinnerDialog);
-        binding.membersButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                spinnerDialog.showSpinerDialog();
-            }
-        });
+        switchChangeListener = new SwitchChangeListener(binding, users, meetup);
+        binding.allSwitch.setOnCheckedChangeListener(switchChangeListener);
+
+        addMemberClickListener = new AddMemberClickListener(spinnerDialog);
+        binding.membersButton.setOnClickListener(addMemberClickListener);
 
         binding.createButton.setOnClickListener(new View.OnClickListener() {
             @Override
