@@ -1,8 +1,6 @@
-package com.example.meetplan.addtask;
+package com.example.meetplan.browse.addtask;
 
 import android.view.View;
-
-import com.example.meetplan.addtask.AddTaskFragment;
 
 public class CloseClickListener implements View.OnClickListener {
 

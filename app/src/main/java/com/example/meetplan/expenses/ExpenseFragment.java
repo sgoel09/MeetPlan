@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentExpenseBinding;
-import com.example.meetplan.models.Expense;
+import com.example.meetplan.expenses.models.Expense;
 import com.example.meetplan.models.Meetup;
-import com.example.meetplan.models.Transaction;
+import com.example.meetplan.expenses.models.Transaction;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.common.collect.ImmutableList;
@@ -24,24 +24,22 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ExpenseFragment extends Fragment implements QueryResponder {
 
     private static final String KEY_MEETUP = "meetup";
-    private static final String KEY_EXPENSES = "expenses";
     private static final String KEY_OBJECT_ID = "objectId";
-    private static final int UNIQUE_LIMIT = 1;
     private static final String KEY_SPLIT_EXPENSE = "splitexpense";
+    private static final int UNIQUE_LIMIT = 1;
     private FragmentExpenseBinding binding;
     private Meetup meetup;
     private LinearLayoutManager layoutManager;
-    private ExpenseAdapter expenseAdapter;
-    private ImmutableList<Expense> allExpenses;
     private LinearLayoutManager transactionLayoutManager;
     private TransactionAdapter transactionAdapter;
+    private ExpenseAdapter expenseAdapter;
     private ImmutableList<Transaction> allTransactions;
+    private ImmutableList<Expense> allExpenses;
     private CreateClickListener createClickListener;
     private ExpenseManager expenseManager;
 

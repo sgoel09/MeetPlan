@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.meetplan.databinding.ItemExpenseBinding;
-import com.example.meetplan.models.Expense;
+import com.example.meetplan.expenses.models.Expense;
 import com.google.common.collect.ImmutableList;
 
 import java.util.Map;

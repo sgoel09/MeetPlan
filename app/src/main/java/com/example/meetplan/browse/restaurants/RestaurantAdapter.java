@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
@@ -16,9 +15,9 @@ import com.example.meetplan.MainActivity;
 import com.example.meetplan.utilities.OnDoubleTapListener;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.ItemRestaurantBinding;
-import com.example.meetplan.addtask.AddTaskFragment;
+import com.example.meetplan.browse.addtask.AddTaskFragment;
 import com.example.meetplan.models.Meetup;
-import com.example.meetplan.models.Restaurant;
+import com.example.meetplan.browse.restaurants.models.Restaurant;
 import com.google.common.collect.ImmutableList;
 
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.ViewHolder> {

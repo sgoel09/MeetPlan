@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
@@ -14,12 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.example.meetplan.addtask.AddTaskFragment;
+import com.example.meetplan.browse.addtask.AddTaskFragment;
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.utilities.OnDoubleTapListener;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.ItemActivityBinding;
-import com.example.meetplan.models.Event;
+import com.example.meetplan.browse.events.models.Event;
 import com.example.meetplan.models.Meetup;
 import com.google.common.collect.ImmutableList;
 

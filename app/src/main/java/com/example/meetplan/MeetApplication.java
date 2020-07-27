@@ -2,9 +2,9 @@ package com.example.meetplan;
 
 import android.app.Application;
 
-import com.example.meetplan.models.Expense;
+import com.example.meetplan.expenses.models.Expense;
 import com.example.meetplan.models.Meetup;
-import com.example.meetplan.models.SplitExpense;
+import com.example.meetplan.expenses.models.SplitExpense;
 import com.example.meetplan.models.Task;
 import com.parse.Parse;
 import com.parse.ParseObject;

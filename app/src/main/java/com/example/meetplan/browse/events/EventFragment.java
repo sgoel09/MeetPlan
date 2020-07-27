@@ -17,7 +17,7 @@ import com.example.meetplan.utilities.EndlessRecyclerViewScrollListener;
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentBrowseBinding;
-import com.example.meetplan.models.Event;
+import com.example.meetplan.browse.events.models.Event;
 import com.example.meetplan.models.Meetup;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;

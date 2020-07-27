@@ -1,8 +1,7 @@
-package com.example.meetplan.addtask;
+package com.example.meetplan.browse.addtask;
 
 import android.view.View;
 
-import com.example.meetplan.addtask.AddTaskFragment;
 import com.example.meetplan.databinding.FragmentAddEventBinding;
 import com.example.meetplan.models.Meetup;
 import com.example.meetplan.models.Task;

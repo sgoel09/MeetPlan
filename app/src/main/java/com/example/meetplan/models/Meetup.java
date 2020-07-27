@@ -1,5 +1,6 @@
 package com.example.meetplan.models;
 
+import com.example.meetplan.expenses.models.Expense;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 

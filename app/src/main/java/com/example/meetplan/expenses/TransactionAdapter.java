@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.meetplan.databinding.ItemTransactionBinding;
-import com.example.meetplan.models.Transaction;
+import com.example.meetplan.expenses.models.Transaction;
 import com.google.common.collect.ImmutableList;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.ViewHolder> {

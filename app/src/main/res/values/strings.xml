@@ -71,6 +71,7 @@
     <string name="expense_error">Could not retrieve expenses</string>
     <string name="profile_pic_error">Could not load profile picture</string>
     <string name="take_pic_error">Picture was not taken</string>
+    <string name="integer_error">Please enter a valid integer</string>
 
     <string name="invite_title">Choose user to invite</string>
     <string name="add_title">Choose user to add</string>

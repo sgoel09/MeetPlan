@@ -1,4 +1,4 @@
-package com.example.meetplan.models;
+package com.example.meetplan.browse.events.models;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -1,4 +1,4 @@
-package com.example.meetplan.models;
+package com.example.meetplan.expenses.models;
 
 public class Transaction {
 

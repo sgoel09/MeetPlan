@@ -18,7 +18,7 @@ import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentBrowseBinding;
 import com.example.meetplan.models.Meetup;
-import com.example.meetplan.models.Restaurant;
+import com.example.meetplan.browse.restaurants.models.Restaurant;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.transition.MaterialSharedAxis;

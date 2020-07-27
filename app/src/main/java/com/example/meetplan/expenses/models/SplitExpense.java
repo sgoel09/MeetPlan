@@ -1,9 +1,10 @@
-package com.example.meetplan.models;
+package com.example.meetplan.expenses.models;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Nullable;
 
@@ -16,7 +17,7 @@ public class SplitExpense extends ParseObject {
     public SplitExpense() {}
 
     @Nullable
-    public SplitExpense(HashMap<String, Integer> splits, String paid) {
+    public SplitExpense(Map<String, Integer> splits, String paid) {
         put(KEY_SPLIT, splits);
         put(KEY_PAID, paid);
     }

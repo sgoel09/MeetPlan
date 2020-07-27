@@ -1,4 +1,4 @@
-package com.example.meetplan.models;
+package com.example.meetplan.browse.restaurants.models;
 
 import android.content.Context;
 import android.widget.Toast;

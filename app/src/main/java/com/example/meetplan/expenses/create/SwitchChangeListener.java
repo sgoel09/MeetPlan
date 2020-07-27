@@ -5,24 +5,27 @@ import android.widget.CompoundButton;
 
 import com.example.meetplan.databinding.FragmentCreateExpenseBinding;
 import com.example.meetplan.models.Meetup;
+import com.example.meetplan.models.User;
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SwitchChangeListener implements CompoundButton.OnCheckedChangeListener {
 
     private final FragmentCreateExpenseBinding binding;
-    private ArrayList<String> users;
-    private ImmutableList<String> usersList;
+    private List<User> users;
+    private ImmutableList<User> usersImmutable;
     private Meetup meetup;
     private CreateExpenseAdapter adapter;
-    private HashMap<String, Integer> splits;
+    private Map<String, Integer> splits;
 
-    public SwitchChangeListener(FragmentCreateExpenseBinding binding, ArrayList<String> users, ImmutableList<String> usersList, Meetup meetup, CreateExpenseAdapter adapter, HashMap<String, Integer> splits) {
+    public SwitchChangeListener(FragmentCreateExpenseBinding binding, List<User> users, ImmutableList<User> usersImmutable, Meetup meetup, CreateExpenseAdapter adapter, Map<String, Integer> splits) {
         this.binding = binding;
         this.users = users;
-        this.usersList = usersList;
+        this.usersImmutable = usersImmutable;
         this.meetup = meetup;
         this.adapter = adapter;
         this.splits = splits;
@@ -33,12 +36,14 @@ public class SwitchChangeListener implements CompoundButton.OnCheckedChangeListe
         users.clear();
         if (checked) {
             setViews(View.GONE);
-            users.addAll(meetup.getMembers());
-            usersList = ImmutableList.<String>builder().addAll(meetup.getMembers()).build();
+            for (String member : meetup.getMembers()) {
+                users.add(new User(member));
+            }
+            usersImmutable = ImmutableList.<User>builder().addAll(users).build();
             calculateSplits();
         } else {
             setViews(View.VISIBLE);
-            usersList = ImmutableList.of();
+            usersImmutable = ImmutableList.of();
             splits.clear();
         }
         adapter.updateData(users);
@@ -46,8 +51,8 @@ public class SwitchChangeListener implements CompoundButton.OnCheckedChangeListe
 
     private void calculateSplits() {
         splits.clear();
-        for (String user : usersList) {
-            splits.put(user, 1);
+        for (User user : usersImmutable) {
+            splits.put(user.getUsername(), 1);
         }
     }
 

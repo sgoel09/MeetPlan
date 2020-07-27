@@ -1,8 +1,8 @@
 package com.example.meetplan.expenses;
 
-import com.example.meetplan.models.Expense;
-import com.example.meetplan.models.SplitExpense;
-import com.example.meetplan.models.Transaction;
+import com.example.meetplan.expenses.models.Expense;
+import com.example.meetplan.expenses.models.SplitExpense;
+import com.example.meetplan.expenses.models.Transaction;
 import com.google.common.base.Functions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSortedMap;
@@ -52,7 +52,7 @@ public class ExpenseManager {
         for (Map.Entry<String, Integer> entry : splitExpense.getSplit().entrySet()) {
             String user = entry.getKey();
             int share = entry.getValue();
-            double personalTotal = calculatePersonalTotal(user, paid, share, total, amount);
+            double personalTotal = calculatePersonalTotal(user, splitExpense.getSplit(), paid, share, total, amount);
             updateAllNets(user, personalTotal);
         }
     }
@@ -65,7 +65,7 @@ public class ExpenseManager {
         }
     }
 
-    private double calculatePersonalTotal(String user, String paid, int share, int total, double amount) {
+    private double calculatePersonalTotal(String user, Map<String, Integer> splits, String paid, int share, int total, double amount) {
         if (user.equals(paid)) {
             return amount - calculatePersonalExpenseTotal(share, total, amount);
         } else {

@@ -7,7 +7,6 @@ import com.example.meetplan.R;
 import com.example.meetplan.expenses.ExpenseFragment;
 import com.example.meetplan.expenses.TransactionFragment;
 import com.example.meetplan.models.Meetup;
-import com.example.meetplan.models.Transaction;
 import com.google.android.material.tabs.TabLayout;
 
 public class TabSelectedListener implements TabLayout.OnTabSelectedListener {

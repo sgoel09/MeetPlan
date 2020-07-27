@@ -10,22 +10,26 @@ import android.widget.ArrayAdapter;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.meetplan.R;
 import com.example.meetplan.databinding.ItemExpenseMemberBinding;
 import com.example.meetplan.models.Meetup;
-import com.google.common.collect.ImmutableList;
+import com.example.meetplan.models.User;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CreateExpenseAdapter extends RecyclerView.Adapter<CreateExpenseAdapter.ViewHolder> {
 
     private Activity context;
-    private ArrayList<String> users;
+    private List<User> users;
     private Meetup meetup;
-    private ArrayAdapter arrayAdapter;
-    private HashMap<String, Integer> splits;
+    private Map<String, Integer> splits;
 
-    public CreateExpenseAdapter(Activity context, Meetup meetup, ArrayList<String> users, HashMap<String, Integer> splits) {
+    public CreateExpenseAdapter(Activity context, Meetup meetup, List<User> users, Map<String, Integer> splits) {
         this.context = context;
         this.users = users;
         this.meetup = meetup;
@@ -42,7 +46,7 @@ public class CreateExpenseAdapter extends RecyclerView.Adapter<CreateExpenseAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String user = users.get(position);
+        User user = users.get(position);
         holder.bind(user);
     }
 
@@ -51,7 +55,7 @@ public class CreateExpenseAdapter extends RecyclerView.Adapter<CreateExpenseAdap
         return users.size();
     }
 
-    public void updateData(ArrayList<String> users) {
+    public void updateData(List<User> users) {
         this.users = users;
         notifyDataSetChanged();
     }
@@ -66,9 +70,9 @@ public class CreateExpenseAdapter extends RecyclerView.Adapter<CreateExpenseAdap
             binding = bind;
         }
 
-        public void bind(final String user) {
-            binding.member.setText(user);
-            binding.numMembers.setText(splits.get(user).toString());
+        public void bind(final User user) {
+            binding.member.setText(user.getUsername());
+            binding.numMembers.setText(splits.get(user.getUsername()).toString());
             binding.numMembers.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -78,8 +82,12 @@ public class CreateExpenseAdapter extends RecyclerView.Adapter<CreateExpenseAdap
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                     if (charSequence.length() != 0) {
-                        int num = Integer.parseInt(binding.numMembers.getText().toString());
-                        splits.put(binding.member.getText().toString(), num);
+                        try {
+                            int num = Integer.parseInt(binding.numMembers.getText().toString());
+                            splits.put(binding.member.getText().toString(), num);
+                        } catch(Exception e) {
+                            Snackbar.make(binding.getRoot(), context.getString(R.string.integer_error), BaseTransientBottomBar.LENGTH_SHORT).show();
+                        }
                     }
                 }
 
@@ -88,6 +96,5 @@ public class CreateExpenseAdapter extends RecyclerView.Adapter<CreateExpenseAdap
                 }
             });
         }
-
     }
 }

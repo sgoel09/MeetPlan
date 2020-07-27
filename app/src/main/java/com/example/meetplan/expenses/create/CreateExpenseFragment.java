@@ -14,15 +14,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentCreateExpenseBinding;
-import com.example.meetplan.expenses.QueryResponder;
-import com.example.meetplan.models.Expense;
 import com.example.meetplan.models.Meetup;
-import com.example.meetplan.models.SplitExpense;
+import com.example.meetplan.models.User;
 import com.google.common.collect.ImmutableList;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 
@@ -38,9 +37,9 @@ public class CreateExpenseFragment extends DialogFragment {
     private LinearLayoutManager layoutManager;
     private CreateExpenseAdapter createExpenseAdapter;
     private CreateExpenseClickListener createExpenseClickListener;
-    private ImmutableList<String> usersList;
-    private ArrayList<String> users = new ArrayList<>();
-    HashMap<String, Integer> splits;
+    private ImmutableList<User> usersImmutable;
+    private List<User> users;
+    Map<String, Integer> splits;
 
     public CreateExpenseFragment() {
         // Required empty public constructor
@@ -78,13 +77,13 @@ public class CreateExpenseFragment extends DialogFragment {
         spinnerDialog.setCancellable(true); // for cancellable
         spinnerDialog.setShowKeyboard(false);
 
-        spinnerItemClick = new SpinnerItemClick(binding, users, usersList, createExpenseAdapter, splits);
+        spinnerItemClick = new SpinnerItemClick(binding, users, usersImmutable, createExpenseAdapter, splits);
         spinnerDialog.bindOnSpinerListener(spinnerItemClick);
 
         binding.allSwitch.setChecked(true);
         binding.membersButton.setVisibility(View.GONE);
 
-        switchChangeListener = new SwitchChangeListener(binding, users, usersList, meetup, createExpenseAdapter, splits);
+        switchChangeListener = new SwitchChangeListener(binding, users, usersImmutable, meetup, createExpenseAdapter, splits);
         binding.allSwitch.setOnCheckedChangeListener(switchChangeListener);
 
         addMemberClickListener = new AddMemberClickListener(spinnerDialog);
@@ -105,15 +104,17 @@ public class CreateExpenseFragment extends DialogFragment {
 
     private void setUpAllUsers() {
         users = new ArrayList<>();
-        users.addAll(meetup.getMembers());
-        usersList = ImmutableList.<String>builder().addAll(meetup.getMembers()).build();
+        for (String member : meetup.getMembers()) {
+            users.add(new User(member));
+        }
+        usersImmutable = ImmutableList.<User>builder().addAll(users).build();
         calculateSplits();
     }
 
     private void calculateSplits() {
         splits = new HashMap<>();
-        for (String user : usersList) {
-            splits.put(user, 1);
+        for (User user : usersImmutable) {
+            splits.put(user.getUsername(), 1);
         }
     }
 }

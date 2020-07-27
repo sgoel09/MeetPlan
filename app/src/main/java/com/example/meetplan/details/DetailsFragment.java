@@ -48,7 +48,7 @@ public class DetailsFragment extends Fragment {
     private InviteClickListener inviteClickListener;
     private BrowseClickListener browseClickListener;
     private ExpenseClickListener expenseClickListener;
-    private ArrayList<String> usernames = new ArrayList<>();
+    private ArrayList<String> inviteUsernames = new ArrayList<>();
     private SpinnerDialog spinnerDialog;
     FragmentDetailsBinding binding;
     Meetup meetup;
@@ -92,22 +92,13 @@ public class DetailsFragment extends Fragment {
         dispalyInvites();
         setDateTime();
 
-        ParseQuery<ParseUser> query = ParseQuery.getQuery(ParseUser.class);
-        query.include(KEY_USERNAME);
-        query.findInBackground(new FindCallback<ParseUser>() {
-            @Override
-            public void done(List<ParseUser> objects, ParseException e) {
-                for (ParseUser user : objects) {
-                    usernames.add(user.getUsername());
-                }
-            }
-        });
+        updateInviteUsernames();
 
-        spinnerDialog = new SpinnerDialog((MainActivity) getContext(), usernames, getString(R.string.invite_title), getString(R.string.cancel));
+        spinnerDialog = new SpinnerDialog((MainActivity) getContext(), inviteUsernames, getString(R.string.invite_title), getString(R.string.cancel));
         spinnerDialog.setCancellable(true); // for cancellable
         spinnerDialog.setShowKeyboard(false);
 
-        inviteItemClick = new InviteItemClick((MainActivity) getContext(), binding, usernames, meetup);
+        inviteItemClick = new InviteItemClick((MainActivity) getContext(), binding, inviteUsernames, meetup);
         spinnerDialog.bindOnSpinerListener(inviteItemClick);
 
         inviteClickListener = new InviteClickListener(spinnerDialog);
@@ -130,6 +121,19 @@ public class DetailsFragment extends Fragment {
 
         expenseClickListener = new ExpenseClickListener(getContext(), meetup);
         binding.expenseButton.setOnClickListener(expenseClickListener);
+    }
+
+    private void updateInviteUsernames() {
+        ParseQuery<ParseUser> query = ParseQuery.getQuery(ParseUser.class);
+        query.include(KEY_USERNAME);
+        query.findInBackground(new FindCallback<ParseUser>() {
+            @Override
+            public void done(List<ParseUser> objects, ParseException e) {
+                for (ParseUser user : objects) {
+                    inviteUsernames.add(user.getUsername());
+                }
+            }
+        });
     }
 
     private void setDateTime() {
