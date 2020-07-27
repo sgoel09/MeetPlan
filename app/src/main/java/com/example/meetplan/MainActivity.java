@@ -19,6 +19,7 @@ import com.example.meetplan.databinding.ActivityMainBinding;
 import com.example.meetplan.databinding.NavHeaderBinding;
 import com.example.meetplan.meetups.MeetupsFragment;
 import com.example.meetplan.profile.ProfileFragment;
+import com.example.meetplan.utilities.TabSelectedListener;
 import com.google.android.material.navigation.NavigationView;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -36,9 +37,10 @@ public class MainActivity extends AppCompatActivity {
     private static final String OBJECT_ID_KEY = "objectId";
     private static final String NAME_KEY = "name";
     private NavHeaderBinding navHeaderBinding;
-    private DrawerLayout dl;
-    private ActionBarDrawerToggle t;
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle toggle;
     public BottomNavigationItemSelectedListener itemSelectedListener;
+    private TabSelectedListener tabSelectedListener;
     ActivityMainBinding binding;
 
     @Override
@@ -51,15 +53,15 @@ public class MainActivity extends AppCompatActivity {
         View hview = binding.nv.getHeaderView(0);
         navHeaderBinding = NavHeaderBinding.bind(hview);
 
-        dl = (DrawerLayout)findViewById(R.id.activity_main);
-        t = new ActionBarDrawerToggle(this, dl, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout = (DrawerLayout)findViewById(R.id.activity_main);
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
-        dl.addDrawerListener(t);
+        drawerLayout.addDrawerListener(toggle);
 
         setSupportActionBar(binding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        t.syncState();
+        toggle.syncState();
 
         fragmentManager.beginTransaction().replace(R.id.flContainer, new MeetupsFragment()).commit();
 
@@ -81,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
                 fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
-                dl.closeDrawer(GravityCompat.START);
+                drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }
         });
@@ -97,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(t.onOptionsItemSelected(item))
+        if(toggle.onOptionsItemSelected(item))
             return true;
         return super.onOptionsItemSelected(item);
     }

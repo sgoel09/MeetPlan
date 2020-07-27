@@ -32,7 +32,7 @@ public class SpinnerItemClick implements OnSpinerItemClick {
         splits.put(item, SINGLE_SHARE);
         adapter.updateData(users);
         String usersSoFar = binding.members.getText().toString();
-        if (usersSoFar.equals("")) {
+        if (usersSoFar.isEmpty()) {
             usersSoFar = item;
         } else {
             usersSoFar += String.format("; %s", item);

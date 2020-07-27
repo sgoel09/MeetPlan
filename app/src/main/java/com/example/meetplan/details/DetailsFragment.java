@@ -89,6 +89,7 @@ public class DetailsFragment extends Fragment {
 
         changeToView();
         displayMembers();
+        dispalyInvites();
         setDateTime();
 
         ParseQuery<ParseUser> query = ParseQuery.getQuery(ParseUser.class);
@@ -148,7 +149,7 @@ public class DetailsFragment extends Fragment {
         binding.title.setText(meetup.getName());
         binding.titleEdit.setVisibility(View.GONE);
 
-        if (meetup.getDescription() != null && !meetup.getDescription().equals("")) {
+        if (meetup.getDescription() != null && !meetup.getDescription().isEmpty()) {
             binding.description.setVisibility(View.VISIBLE);
             binding.description.setText(meetup.getDescription());
             binding.descriptionLabel.setVisibility(View.VISIBLE);
@@ -158,7 +159,7 @@ public class DetailsFragment extends Fragment {
         }
         binding.descriptionEdit.setVisibility(View.GONE);
 
-        if (meetup.getDate() != null && !Meetup.getDateFormatted(meetup).equals("")) {
+        if (meetup.getDate() != null && !Meetup.getDateFormatted(meetup).isEmpty()) {
             binding.date.setVisibility(View.VISIBLE);
             binding.date.setText(Meetup.getDateFormatted(meetup));
             binding.dateLabel.setVisibility(View.VISIBLE);
@@ -167,7 +168,7 @@ public class DetailsFragment extends Fragment {
             binding.dateLabel.setVisibility(View.GONE);
         }
 
-        if (meetup.getDate() != null && !Meetup.getTimeFormatted(meetup).equals("")) {
+        if (meetup.getDate() != null && !Meetup.getTimeFormatted(meetup).isEmpty()) {
             binding.time.setVisibility(View.VISIBLE);
             binding.time.setText(Meetup.getTimeFormatted(meetup));
             binding.timeLabel.setVisibility(View.VISIBLE);
@@ -201,7 +202,6 @@ public class DetailsFragment extends Fragment {
 
     private void displayMembers() {
         ArrayList<String> members = meetup.getMembers();
-        ArrayList<String> invites = meetup.getInvites();
         String allMembers = "";
         for (String username : members) {
             if (!members.get(members.size() - 1).equals(username)) {
@@ -211,6 +211,10 @@ public class DetailsFragment extends Fragment {
             }
         }
         binding.members.setText(allMembers);
+    }
+
+    private void dispalyInvites() {
+        ArrayList<String> invites = meetup.getInvites();
         String allInvites = "";
         if (invites != null && !invites.isEmpty()) {
             for (String username : invites) {

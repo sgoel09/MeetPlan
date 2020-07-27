@@ -7,33 +7,41 @@
 
     <Button
         android:id="@+id/createButton"
-        android:layout_width="wrap_content"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/expensesRecyclerView"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/padding"
+        android:layout_marginTop="@dimen/padding"
+        android:layout_marginEnd="@dimen/padding"
+        android:layout_marginBottom="@dimen/padding"
         android:background="@color/colorThemeMain"
+        android:padding="@dimen/padding"
         android:text="@string/create"
         android:textColor="@android:color/white" />
 
     <Button
         android:id="@+id/calculateButton"
-        android:layout_width="wrap_content"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/expensesRecyclerView"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/padding"
+        android:layout_marginEnd="@dimen/padding"
+        android:layout_marginBottom="@dimen/padding"
         android:background="@color/colorThemeMain"
         android:text="@string/calculate"
         android:textColor="@android:color/white" />
 
     <TextView
-        android:id="@+id/expenseLabel"
+        android:id="@+id/label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_med"
         android:layout_marginTop="@dimen/margin_med"
         android:layout_marginEnd="@dimen/margin_med"
         android:layout_marginBottom="@dimen/margin_med"
-        android:text="@string/expenses"
         android:fontFamily="@font/catamaran"
+        android:text="Manage Expenses"
         android:textColor="@android:color/black"
         android:textSize="@dimen/title_size"
         android:textStyle="normal|bold" />
@@ -42,19 +50,60 @@
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
-        android:layout_below="@id/expenseLabel"
+        android:layout_below="@id/label"
         android:background="@color/colorThemeMain" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/expensesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/divider" />
+        android:layout_above="@id/createButton"
+        android:layout_below="@id/expenseLabel"
+        android:layout_toLeftOf="@id/verticalDivider" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/transactionsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/createButton" />
+        android:layout_above="@id/calculateButton"
+        android:layout_below="@id/transactionLabel"
+        android:layout_toEndOf="@id/verticalDivider" />
+
+    <View
+        android:id="@+id/verticalDivider"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_below="@id/divider"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_med"
+        android:layout_marginRight="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_med"
+        android:background="?android:attr/listDivider" />
+
+    <TextView
+        android:id="@+id/expenseLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:layout_marginLeft="@dimen/margin_med"
+        android:layout_marginTop="@dimen/margin_small"
+        android:fontFamily="@font/catamaran"
+        android:text="@string/expenses"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_size" />
+
+    <TextView
+        android:id="@+id/transactionLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_toRightOf="@id/verticalDivider"
+        android:fontFamily="@font/catamaran"
+        android:text="Transactions"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_size" />
 
 </RelativeLayout>

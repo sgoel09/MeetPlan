@@ -47,7 +47,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private ItemExpenseBinding binding;
 
@@ -61,10 +61,11 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
             binding.name.setText(expense.getName());
             binding.amount.setText(String.format("$%s", expense.getAmount()));
             binding.paid.setText(expense.getSplitExpense().getPaid());
-            String membersString = "";
+            StringBuilder sb = new StringBuilder();
             for (Map.Entry<String, Integer> entry : expense.getSplitExpense().getSplit().entrySet()) {
-                membersString += String.format("%s (%s); ", entry.getKey(), entry.getValue());
+                sb.append(String.format("%s (%s); ", entry.getKey(), entry.getValue()));
             }
+            String membersString = sb.toString();
             membersString = membersString.substring(0, membersString.length() - 2);
             binding.members.setText(membersString);
         }

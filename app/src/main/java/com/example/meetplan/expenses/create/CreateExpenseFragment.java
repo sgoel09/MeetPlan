@@ -91,24 +91,7 @@ public class CreateExpenseFragment extends DialogFragment {
         binding.membersButton.setOnClickListener(addMemberClickListener);
 
         createExpenseClickListener = new CreateExpenseClickListener(binding, this, meetup, splits);
-        binding.createButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String name = binding.name.getText().toString();
-                String amount = binding.amount.getText().toString();
-                SplitExpense splitExpense = new SplitExpense(splits, ParseUser.getCurrentUser().getUsername());
-                splitExpense.saveInBackground();
-                Expense expense = new Expense(name, amount, splitExpense);
-                expense.saveInBackground();
-                ArrayList<Expense> expenses = meetup.getExpenses();
-                expenses.add(expense);
-                meetup.setExpenses(expenses);
-                meetup.saveInBackground();
-                QueryResponder mHost = (QueryResponder) getTargetFragment();
-                mHost.passNewExpense(expense);
-                dismiss();
-            }
-        });
+        binding.createButton.setOnClickListener(createExpenseClickListener);
     }
 
     private void setUpMembersList() {

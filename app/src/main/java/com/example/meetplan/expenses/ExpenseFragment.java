@@ -12,15 +12,19 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentExpenseBinding;
 import com.example.meetplan.models.Expense;
 import com.example.meetplan.models.Meetup;
 import com.example.meetplan.models.Transaction;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.common.collect.ImmutableList;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExpenseFragment extends Fragment implements QueryResponder {
@@ -116,9 +120,13 @@ public class ExpenseFragment extends Fragment implements QueryResponder {
         query.findInBackground(new FindCallback<Expense>() {
             @Override
             public void done(List<Expense> expenses, ParseException e) {
-                newExpense[0] = expenses.get(0);
-                allExpenses = ImmutableList.<Expense>builder().addAll(allExpenses).add(newExpense[0]).build();
-                expenseAdapter.updateData(allExpenses);
+                if (expenses != null) {
+                    newExpense[0] = expenses.get(0);
+                    allExpenses = ImmutableList.<Expense>builder().addAll(allExpenses).add(newExpense[0]).build();
+                    expenseAdapter.updateData(allExpenses);
+                } else {
+                    Snackbar.make(binding.getRoot(), getString(R.string.expense_error), BaseTransientBottomBar.LENGTH_SHORT).show();
+                }
             }
         });
         return newExpense[0];

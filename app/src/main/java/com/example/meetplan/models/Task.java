@@ -3,6 +3,8 @@ package com.example.meetplan.models;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
+import javax.annotation.Nullable;
+
 @ParseClassName("Task")
 public class Task extends ParseObject {
 
@@ -18,14 +20,17 @@ public class Task extends ParseObject {
         put(KEY_ADDRESS, address);
     }
 
+    @Nullable
     public String getName() {
         return getString(KEY_NAME);
     }
 
+    @Nullable
     public String getPlace() {
         return getString(KEY_PLACE);
     }
 
+    @Nullable
     public String getAddress() {
         return getString(KEY_ADDRESS);
     }

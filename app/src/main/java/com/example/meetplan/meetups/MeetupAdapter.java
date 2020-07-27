@@ -82,7 +82,7 @@ public class MeetupAdapter extends RecyclerView.Adapter<MeetupAdapter.ViewHolder
         public void bind(final Meetup meetup) {
             binding.title.setText(meetup.getName());
             binding.description.setText(meetup.getDescription());
-            if (meetup.getDescription() == null || meetup.getDescription().equals("")) {
+            if (meetup.getDescription() == null || meetup.getDescription().isEmpty()) {
                 binding.description.setText("No description");
                 binding.description.setTypeface(null, Typeface.ITALIC);
             }

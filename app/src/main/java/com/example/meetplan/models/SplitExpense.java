@@ -1,14 +1,11 @@
 package com.example.meetplan.models;
 
-import android.util.Pair;
-
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
-import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.List;
+
+import javax.annotation.Nullable;
 
 @ParseClassName("SplitExpense")
 public class SplitExpense extends ParseObject {
@@ -18,15 +15,18 @@ public class SplitExpense extends ParseObject {
 
     public SplitExpense() {}
 
+    @Nullable
     public SplitExpense(HashMap<String, Integer> splits, String paid) {
         put(KEY_SPLIT, splits);
         put(KEY_PAID, paid);
     }
 
+    @Nullable
     public HashMap<String, Integer> getSplit() {
         return (HashMap<String, Integer>) get(KEY_SPLIT);
     }
 
+    @Nullable
     public String getPaid() {
         return getString(KEY_PAID);
     }

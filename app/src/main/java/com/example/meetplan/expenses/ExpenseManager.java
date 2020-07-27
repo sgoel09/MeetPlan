@@ -27,19 +27,19 @@ public class ExpenseManager {
         allExpenses = expenses;
     }
 
-    private void calculateTransactions() {
-        allTransactions = ImmutableList.of();
-        while (allNets.size() > 1) {
-            makeTransaction();
-        }
-    }
-
     protected void calculateNetTotals() {
         allNets = new HashMap<>();
         for (Expense expense : allExpenses) {
             eachExpense(expense, expense.getSplitExpense());
         }
-        calculateTransactions();
+        findTransactions();
+    }
+
+    private void findTransactions() {
+        allTransactions = ImmutableList.of();
+        while (allNets.size() > 1) {
+            makeTransaction();
+        }
     }
 
     private void eachExpense(Expense expense, SplitExpense splitExpense) {
@@ -52,21 +52,28 @@ public class ExpenseManager {
         for (Map.Entry<String, Integer> entry : splitExpense.getSplit().entrySet()) {
             String user = entry.getKey();
             int share = entry.getValue();
-            double personalTotal = 0;
-            if (user.equals(paid)) {
-                personalTotal = amount - calculatePersonalTotal(share, total, amount);
-            } else {
-                personalTotal = -calculatePersonalTotal(share, total, amount);
-            }
-            if (allNets.containsKey(user)) {
-                allNets.put(user, personalTotal + allNets.get(user));
-            } else {
-                allNets.put(user, personalTotal);
-            }
+            double personalTotal = calculatePersonalTotal(user, paid, share, total, amount);
+            updateAllNets(user, personalTotal);
         }
     }
 
-    private Double calculatePersonalTotal(int share, int total, double amount) {
+    private void updateAllNets(String user, double personalTotal) {
+        if (allNets.containsKey(user)) {
+            allNets.put(user, personalTotal + allNets.get(user));
+        } else {
+            allNets.put(user, personalTotal);
+        }
+    }
+
+    private double calculatePersonalTotal(String user, String paid, int share, int total, double amount) {
+        if (user.equals(paid)) {
+            return amount - calculatePersonalExpenseTotal(share, total, amount);
+        } else {
+            return -calculatePersonalExpenseTotal(share, total, amount);
+        }
+    }
+
+    private Double calculatePersonalExpenseTotal(int share, int total, double amount) {
         return (amount/total) * share;
     }
 

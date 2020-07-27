@@ -37,7 +37,7 @@ public class SubmitDetailsClickListener implements View.OnClickListener {
         binding.title.setText(meetup.getName());
         binding.titleEdit.setVisibility(View.GONE);
 
-        if (meetup.getDescription() != null && !meetup.getDescription().equals("")) {
+        if (meetup.getDescription() != null && !meetup.getDescription().isEmpty()) {
             binding.description.setVisibility(View.VISIBLE);
             binding.description.setText(meetup.getDescription());
             binding.descriptionLabel.setVisibility(View.VISIBLE);
@@ -47,7 +47,7 @@ public class SubmitDetailsClickListener implements View.OnClickListener {
         }
         binding.descriptionEdit.setVisibility(View.GONE);
 
-        if (meetup.getDate() != null && !Meetup.getDateFormatted(meetup).equals("")) {
+        if (meetup.getDate() != null && !Meetup.getDateFormatted(meetup).isEmpty()) {
             binding.date.setVisibility(View.VISIBLE);
             binding.date.setText(Meetup.getDateFormatted(meetup));
             binding.dateLabel.setVisibility(View.VISIBLE);
@@ -56,7 +56,7 @@ public class SubmitDetailsClickListener implements View.OnClickListener {
             binding.dateLabel.setVisibility(View.GONE);
         }
 
-        if (meetup.getDate() != null && !Meetup.getTimeFormatted(meetup).equals("")) {
+        if (meetup.getDate() != null && !Meetup.getTimeFormatted(meetup).isEmpty()) {
             binding.time.setVisibility(View.VISIBLE);
             binding.time.setText(Meetup.getTimeFormatted(meetup));
             binding.timeLabel.setVisibility(View.VISIBLE);
