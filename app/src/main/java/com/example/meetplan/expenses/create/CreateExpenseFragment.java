@@ -1,5 +1,6 @@
 package com.example.meetplan.expenses.create;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
@@ -16,6 +18,7 @@ import com.example.meetplan.expenses.QueryResponder;
 import com.example.meetplan.models.Expense;
 import com.example.meetplan.models.Meetup;
 import com.example.meetplan.models.SplitExpense;
+import com.google.common.collect.ImmutableList;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -32,6 +35,10 @@ public class CreateExpenseFragment extends DialogFragment {
     private AddMemberClickListener addMemberClickListener;
     private SwitchChangeListener switchChangeListener;
     private SpinnerItemClick spinnerItemClick;
+    private LinearLayoutManager layoutManager;
+    private CreateExpenseAdapter createExpenseAdapter;
+    private CreateExpenseClickListener createExpenseClickListener;
+    private ImmutableList<String> usersList;
     private ArrayList<String> users = new ArrayList<>();
     HashMap<String, Integer> splits;
 
@@ -64,31 +71,32 @@ public class CreateExpenseFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         meetup = getArguments().getParcelable(KEY_MEETUP);
 
-        users = new ArrayList<>();
-        users.addAll(meetup.getMembers());
+        setUpAllUsers();
+        setUpMembersList();
 
         spinnerDialog = new SpinnerDialog((MainActivity) getContext(), meetup.getMembers(), getString(R.string.add_title), getString(R.string.cancel));
         spinnerDialog.setCancellable(true); // for cancellable
         spinnerDialog.setShowKeyboard(false);
 
-        spinnerItemClick = new SpinnerItemClick(binding, users);
+        spinnerItemClick = new SpinnerItemClick(binding, users, usersList, createExpenseAdapter, splits);
         spinnerDialog.bindOnSpinerListener(spinnerItemClick);
 
         binding.allSwitch.setChecked(true);
         binding.membersButton.setVisibility(View.GONE);
 
-        switchChangeListener = new SwitchChangeListener(binding, users, meetup);
+        switchChangeListener = new SwitchChangeListener(binding, users, usersList, meetup, createExpenseAdapter, splits);
         binding.allSwitch.setOnCheckedChangeListener(switchChangeListener);
 
         addMemberClickListener = new AddMemberClickListener(spinnerDialog);
         binding.membersButton.setOnClickListener(addMemberClickListener);
 
+        createExpenseClickListener = new CreateExpenseClickListener(binding, this, meetup, splits);
         binding.createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String name = binding.name.getText().toString();
                 String amount = binding.amount.getText().toString();
-                SplitExpense splitExpense = new SplitExpense(calculateSplits(), ParseUser.getCurrentUser().getUsername());
+                SplitExpense splitExpense = new SplitExpense(splits, ParseUser.getCurrentUser().getUsername());
                 splitExpense.saveInBackground();
                 Expense expense = new Expense(name, amount, splitExpense);
                 expense.saveInBackground();
@@ -103,11 +111,26 @@ public class CreateExpenseFragment extends DialogFragment {
         });
     }
 
-    private  HashMap<String, Integer>  calculateSplits() {
+    private void setUpMembersList() {
+        layoutManager = new LinearLayoutManager(getContext());
+        createExpenseAdapter = new CreateExpenseAdapter((Activity) getContext(), meetup, users, splits);
+        binding.membersRecyclerView.setAdapter(createExpenseAdapter);
+        binding.membersRecyclerView.setLayoutManager(layoutManager);
+        binding.membersRecyclerView.setVisibility(View.GONE);
+        binding.membersLabel.setVisibility(View.GONE);
+    }
+
+    private void setUpAllUsers() {
+        users = new ArrayList<>();
+        users.addAll(meetup.getMembers());
+        usersList = ImmutableList.<String>builder().addAll(meetup.getMembers()).build();
+        calculateSplits();
+    }
+
+    private void calculateSplits() {
         splits = new HashMap<>();
-        for (String user : users) {
+        for (String user : usersList) {
             splits.put(user, 1);
         }
-        return splits;
     }
 }
