@@ -55,6 +55,10 @@ public class ExpenseManager {
             double personalTotal = calculatePersonalTotal(user, splitExpense.getSplit(), paid, share, total, amount);
             updateAllNets(user, personalTotal);
         }
+        if (!splitExpense.getSplit().containsKey(paid)) {
+            updateAllNets(paid, amount);
+        }
+
     }
 
     private void updateAllNets(String user, double personalTotal) {
