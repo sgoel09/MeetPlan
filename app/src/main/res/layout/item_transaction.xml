@@ -15,32 +15,37 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/padding">
 
-    <TextView
-        android:id="@+id/debtor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="shefali" />
+        <TextView
+            android:id="@+id/debtor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:text="shefali" />
 
-    <ImageView
-        android:id="@+id/arrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/debtor"
-        app:srcCompat="@drawable/ic_baseline_double_arrow" />
+        <ImageView
+            android:id="@+id/arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_toRightOf="@id/debtor"
+            app:srcCompat="@drawable/ic_baseline_double_arrow" />
 
-    <TextView
-        android:id="@+id/creditor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/arrow"
-        tools:text="testing" />
+        <TextView
+            android:id="@+id/creditor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_toRightOf="@id/arrow"
+            tools:text="testing" />
 
         <TextView
             android:id="@+id/amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_extra"
-            android:layout_toRightOf="@id/creditor"
+            android:layout_below="@id/arrow"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_toRightOf="@id/debtor"
             tools:text="$15" />
 
     </RelativeLayout>

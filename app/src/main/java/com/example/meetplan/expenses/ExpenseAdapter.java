@@ -1,12 +1,14 @@
 package com.example.meetplan.expenses;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.meetplan.MainActivity;
 import com.example.meetplan.databinding.ItemExpenseBinding;
 import com.example.meetplan.expenses.models.Expense;
 import com.google.common.collect.ImmutableList;
@@ -15,10 +17,11 @@ import java.util.Map;
 
 public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHolder> {
 
-    private Activity context;
+    private static final String AMOUNT_FORMAT = "$%.2f";
+    private Context context;
     private ImmutableList<Expense> expenses;
 
-    public ExpenseAdapter(Activity context,  ImmutableList<Expense> expenses) {
+    public ExpenseAdapter(Context context,  ImmutableList<Expense> expenses) {
         this.context = context;
         this.expenses = expenses;
     }
@@ -26,7 +29,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemExpenseBinding binding = ItemExpenseBinding.inflate(context.getLayoutInflater());
+        ItemExpenseBinding binding = ItemExpenseBinding.inflate(((MainActivity) context).getLayoutInflater());
         View view = binding.getRoot();
         return new ViewHolder(view, binding);
     }
@@ -59,7 +62,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
 
         public void bind(Expense expense) {
             binding.name.setText(expense.getName());
-            binding.amount.setText(String.format("$%s", expense.getAmount()));
+            binding.amount.setText(String.format(AMOUNT_FORMAT, expense.getAmount()));
             binding.paid.setText(expense.getSplitExpense().getPaid());
             StringBuilder sb = new StringBuilder();
             for (Map.Entry<String, Integer> entry : expense.getSplitExpense().getSplit().entrySet()) {

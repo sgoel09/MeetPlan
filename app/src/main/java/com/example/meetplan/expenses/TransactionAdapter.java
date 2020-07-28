@@ -13,6 +13,7 @@ import com.google.common.collect.ImmutableList;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.ViewHolder> {
 
+    private static final String AMOUNT_FORMAT = "$%.2f";
     private Activity context;
     private ImmutableList<Transaction> transactions;
 
@@ -58,7 +59,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         public void bind(Transaction transaction) {
             binding.debtor.setText(transaction.getDebtor());
             binding.creditor.setText(transaction.getCreditor());
-            binding.amount.setText(String.format("$%s", transaction.getAmount()));
+            binding.amount.setText(String.format(AMOUNT_FORMAT, transaction.getAmount()));
         }
     }
 }

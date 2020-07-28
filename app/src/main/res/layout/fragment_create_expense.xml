@@ -87,23 +87,23 @@
         android:layout_toRightOf="@id/amountLabel" />
 
     <TextView
-        android:id="@+id/members"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/allSwitch"
-        android:layout_marginLeft="@dimen/margin_small"
-        android:layout_toRightOf="@id/membersLabel"
-        android:fontFamily="@font/catamaran"
-        android:textColor="@android:color/black"
-        tools:text="shefali; testing; ..." />
-
-    <TextView
         android:id="@+id/membersLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/allSwitch"
         android:fontFamily="@font/catamaran"
         android:text="@string/members_label"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/numPeopleLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/allSwitch"
+        android:layout_marginLeft="@dimen/margin_large"
+        android:layout_toRightOf="@id/membersLabel"
+        android:fontFamily="@font/catamaran"
+        android:text="@string/num_label"
         android:textColor="@android:color/black" />
 
     <androidx.recyclerview.widget.RecyclerView

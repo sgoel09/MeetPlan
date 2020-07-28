@@ -7,7 +7,7 @@
 
     <Button
         android:id="@+id/createButton"
-        android:layout_width="190dp"
+        android:layout_width="@dimen/expense_button"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="@dimen/padding"
@@ -21,7 +21,7 @@
 
     <Button
         android:id="@+id/calculateButton"
-        android:layout_width="190dp"
+        android:layout_width="@dimen/expense_button"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
@@ -71,7 +71,7 @@
 
     <View
         android:id="@+id/verticalDivider"
-        android:layout_width="1dp"
+        android:layout_width="@dimen/divider_height"
         android:layout_height="match_parent"
         android:layout_below="@id/divider"
         android:layout_centerHorizontal="true"

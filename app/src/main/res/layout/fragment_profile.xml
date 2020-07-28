@@ -106,32 +106,34 @@
 
     <EditText
         android:id="@+id/username"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/detailsLabel"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="@dimen/margin_med"
         android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginRight="@dimen/margin_medium"
         android:layout_toRightOf="@id/usernameLabel"
         android:fontFamily="@font/catamaran"
         tools:text="shefali" />
 
     <EditText
         android:id="@+id/email"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/username"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="@dimen/margin_med"
+        android:layout_marginRight="@dimen/margin_medium"
         android:layout_toRightOf="@id/emailLabel"
         android:fontFamily="@font/catamaran"
         tools:text="shefaligoel@gmail.com" />
 
     <Button
         android:id="@+id/changeInfoButton"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/captureButton"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/margin_med"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_large"
         android:layout_marginRight="@dimen/margin_med"
         android:text="@string/submit" />
 

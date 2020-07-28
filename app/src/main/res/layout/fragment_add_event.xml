@@ -42,8 +42,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_med"
             android:layout_marginTop="@dimen/margin_details"
-            android:textStyle="bold"
-            android:text="@string/type_label" />
+            android:fontFamily="@font/catamaran"
+            android:text="@string/type_label"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/locationLabel"
@@ -52,6 +53,8 @@
             android:layout_below="@id/activityLabel"
             android:layout_marginLeft="@dimen/margin_med"
             android:layout_marginTop="@dimen/margin_med"
+            android:fontFamily="@font/catamaran"
+
             android:textStyle="bold"
             android:text="@string/location_label" />
 
@@ -62,6 +65,7 @@
             android:layout_marginLeft="@dimen/margin_large"
             android:layout_marginTop="@dimen/margin_details"
             android:layout_toRightOf="@id/activityLabel"
+            android:fontFamily="@font/catamaran"
             tools:text="Event" />
 
         <TextView
@@ -72,6 +76,7 @@
             android:layout_marginLeft="@dimen/margin_med"
             android:layout_marginTop="@dimen/margin_med"
             android:layout_toRightOf="@id/locationLabel"
+            android:fontFamily="@font/catamaran"
             tools:text="Location" />
 
         <TextView
@@ -82,6 +87,7 @@
             android:layout_marginLeft="@dimen/margin_med"
             android:layout_marginTop="@dimen/margin_small"
             android:layout_toRightOf="@id/locationLabel"
+            android:fontFamily="@font/catamaran"
             tools:text="Location" />
 
         <TextView
@@ -91,6 +97,7 @@
             android:layout_below="@id/address"
             android:layout_marginTop="40dp"
             android:layout_marginRight="@dimen/margin_small"
+            android:fontFamily="@font/catamaran"
             android:layout_toLeftOf="@id/addButton" />
 
     </RelativeLayout>

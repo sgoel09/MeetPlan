@@ -35,12 +35,5 @@ public class SpinnerItemClick implements OnSpinerItemClick {
         usersImmutable = ImmutableList.<User>builder().addAll(usersImmutable).add(newUser).build();
         splits.put(item, SINGLE_SHARE);
         adapter.updateData(users);
-        String usersSoFar = binding.members.getText().toString();
-        if (usersSoFar.isEmpty()) {
-            usersSoFar = item;
-        } else {
-            usersSoFar += String.format("; %s", item);
-        }
-        binding.members.setText(usersSoFar);
     }
 }

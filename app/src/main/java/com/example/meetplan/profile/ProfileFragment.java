@@ -127,6 +127,7 @@ public class ProfileFragment extends Fragment {
         user.setUsername(username);
         user.setEmail(email);
         user.saveInBackground();
+        Snackbar.make(binding.getRoot(), getString(R.string.info_saved),BaseTransientBottomBar.LENGTH_SHORT).show();
     }
 
     @Override

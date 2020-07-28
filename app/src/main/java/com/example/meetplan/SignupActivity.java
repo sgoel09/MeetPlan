@@ -26,6 +26,7 @@ public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
     private static final String KEY_PROFILE_PIC = "profilepic";
     private static final String IMAGE_URL = "image_file.png";
+    private static final String KEY_NAME = "name";
     private SignupClickListener signupClickListener;
     private SignupCallBack signupCallBack;
     ActivitySignupBinding binding;
@@ -43,7 +44,7 @@ public class SignupActivity extends AppCompatActivity {
         binding.signupButton.setOnClickListener(signupClickListener);
     }
 
-    private void signupUser(String username, String email, String password) {
+    private void signupUser(String username, String email, String password, String name) {
         ParseUser user = new ParseUser();
         user.setUsername(username);
         user.setPassword(password);
@@ -52,6 +53,7 @@ public class SignupActivity extends AppCompatActivity {
         user.signUpInBackground(signupCallBack);
         Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.defaultprofilepic);
         user.put(KEY_PROFILE_PIC, convertToParseFile(imageBitmap));
+        user.put(KEY_NAME, name);
         user.saveInBackground();
     }
 
@@ -75,7 +77,8 @@ public class SignupActivity extends AppCompatActivity {
             String username = binding.username.getText().toString();
             String email = binding.email.getText().toString();
             String password = binding.password.getText().toString();
-            signupUser(username, email, password);
+            String name = binding.name.getText().toString();
+            signupUser(username, email, password, name);
         }
     }
 

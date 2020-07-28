@@ -100,6 +100,7 @@ public class CreateExpenseFragment extends DialogFragment {
         binding.membersRecyclerView.setLayoutManager(layoutManager);
         binding.membersRecyclerView.setVisibility(View.GONE);
         binding.membersLabel.setVisibility(View.GONE);
+        binding.numPeopleLabel.setVisibility(View.GONE);
     }
 
     private void setUpAllUsers() {
