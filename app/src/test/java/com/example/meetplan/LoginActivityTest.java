@@ -1,17 +1,21 @@
 package com.example.meetplan;
 
 import android.content.Intent;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowActivity;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -27,9 +31,22 @@ public class LoginActivityTest {
     }
 
     @Test
+    public void shouldNotBeNull() {
+        assertNotNull(activity);
+    }
+
+    @Test
     public void validateImageViewContent() {
         ImageView logo = (ImageView) activity.findViewById(R.id.logo);
         assertNotNull("Logo could not be found", logo);
+    }
+
+    @Test
+    public void shouldHaveLoginButton() {
+        Button loginButton = (Button) activity.findViewById(R.id.loginButton);
+        assertNotNull(loginButton);
+        assertEquals(View.VISIBLE, loginButton.getVisibility());
+        assertEquals(activity.getString(R.string.login), loginButton.getText());
     }
 
     @Test
@@ -41,6 +58,6 @@ public class LoginActivityTest {
         ShadowActivity shadowActivity = Shadows.shadowOf(activity);
         Intent actualIntent = shadowActivity.getNextStartedActivity();
 
-        assertTrue(actualIntent.filterEquals(expectedIntent));
+        assertTrue(expectedIntent.filterEquals(actualIntent));
     }
 }

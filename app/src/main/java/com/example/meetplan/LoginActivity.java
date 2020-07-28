@@ -69,11 +69,11 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void done(ParseUser user, ParseException e) {
             if (e != null) {
-                Log.e(TAG, "Issue with login", e);
+                Snackbar.make(binding.getRoot(), R.string.login_failed, BaseTransientBottomBar.LENGTH_SHORT).show();
                 return;
             }
             goMainActivity();
-            Snackbar.make(binding.getRoot(), "Success", BaseTransientBottomBar.LENGTH_SHORT).show();
+            Snackbar.make(binding.getRoot(), R.string.success, BaseTransientBottomBar.LENGTH_SHORT).show();
         }
     }
 
