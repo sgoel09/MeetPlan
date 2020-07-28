@@ -114,6 +114,8 @@
         android:layout_marginRight="@dimen/margin_medium"
         android:layout_toRightOf="@id/usernameLabel"
         android:fontFamily="@font/catamaran"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
         tools:text="shefali" />
 
     <EditText
@@ -125,6 +127,8 @@
         android:layout_marginRight="@dimen/margin_medium"
         android:layout_toRightOf="@id/emailLabel"
         android:fontFamily="@font/catamaran"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
         tools:text="shefaligoel@gmail.com" />
 
     <Button

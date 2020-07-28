@@ -81,6 +81,8 @@
         android:layout_below="@id/titleEdit"
         android:layout_marginLeft="@dimen/margin_small"
         android:layout_marginTop="@dimen/margin_small"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
         android:layout_toRightOf="@id/descriptionLabel" />
 
     <TextView
@@ -111,6 +113,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/divider"
         android:layout_marginLeft="@dimen/margin_small"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
         android:layout_toRightOf="@id/titleLabel" />
 
     <View

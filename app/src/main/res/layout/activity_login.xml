@@ -53,6 +53,8 @@
             android:layout_marginBottom="@dimen/margin_med"
             android:layout_weight="1"
             android:ems="10"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
             android:hint="@string/username" />
 
         <EditText
@@ -64,6 +66,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="@string/prompt_password"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
             android:inputType="textPassword" />
 
         <Button

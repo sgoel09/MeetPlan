@@ -24,6 +24,8 @@
         android:layout_marginLeft="@dimen/margin_med"
         android:layout_marginTop="@dimen/margin_small"
         android:layout_marginRight="@dimen/margin_med"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
         android:layout_toRightOf="@id/amountLabel" />
 
     <TextView
@@ -84,6 +86,8 @@
         android:layout_marginLeft="@dimen/margin_med"
         android:layout_marginTop="@dimen/margin_small"
         android:layout_marginRight="@dimen/margin_med"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
         android:layout_toRightOf="@id/amountLabel" />
 
     <TextView
