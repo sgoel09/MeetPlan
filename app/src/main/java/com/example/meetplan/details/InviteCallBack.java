@@ -18,17 +18,14 @@ import java.util.List;
 
 public class InviteCallBack implements FindCallback<ParseUser> {
 
-    private static final String TAG = "InviteCallBack";
     private static final String NONE_STRING = "None";
     private Meetup meetup;
-    private AppCompatActivity activity;
     FragmentDetailsBinding binding;
     private String invitee;
 
-    InviteCallBack(AppCompatActivity activity, FragmentDetailsBinding binding, Meetup meetup, String invitee) {
+    InviteCallBack(FragmentDetailsBinding binding, Meetup meetup, String invitee) {
         this.meetup = meetup;
         this.binding = binding;
-        this.activity = activity;
         this.invitee = invitee;
     }
 

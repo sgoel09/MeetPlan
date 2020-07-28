@@ -74,7 +74,7 @@ public class MeetupsFragment extends Fragment {
         ((MainActivity) getActivity()).showBottomNavigation(false);
         setUpAcceptedAdapter();
         setUpInvitedAdapter();
-        newClickListener = new NewClickListener((MainActivity) getContext());
+        newClickListener = new NewClickListener(getContext());
         binding.newButton.setOnClickListener(newClickListener);
     }
 

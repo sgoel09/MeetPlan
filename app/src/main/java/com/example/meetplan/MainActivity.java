@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         ParseQuery<ParseUser> query = ParseQuery.getQuery(ParseUser.class);
         query.include(PROFILE_PIC_KEY);
         query.setLimit(1);
-        query.whereEqualTo(OBJECT_ID_KEY, ParseUser.getCurrentUser().getObjectId());
+        query.whereEqualTo("username", ParseUser.getCurrentUser().getUsername());
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> objects, ParseException e) {

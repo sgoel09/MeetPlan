@@ -10,7 +10,7 @@ import com.google.android.material.snackbar.Snackbar;
 public class SubmitDetailsClickListener implements View.OnClickListener {
 
     private Meetup meetup;
-    FragmentDetailsBinding binding;
+    private FragmentDetailsBinding binding;
 
     SubmitDetailsClickListener(FragmentDetailsBinding binding, Meetup meetup) {
         this.binding = binding;

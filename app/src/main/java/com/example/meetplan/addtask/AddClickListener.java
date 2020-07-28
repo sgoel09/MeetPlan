@@ -1,4 +1,4 @@
-package com.example.meetplan.browse.addtask;
+package com.example.meetplan.addtask;
 
 import android.view.View;
 
@@ -12,21 +12,21 @@ import com.parse.SaveCallback;
 
 public class AddClickListener implements View.OnClickListener {
 
-    private AddTaskFragment fragment;
+    private FragmentDismisser dismisser;
     private FragmentAddEventBinding binding;
     private Meetup meetup;
     private String name;
     private String place;
     private String address;
 
-    public AddClickListener(AddTaskFragment fragment, FragmentAddEventBinding binding,
+    public AddClickListener(FragmentDismisser dismisser, FragmentAddEventBinding binding,
                             Meetup meetup, String name, String place, String address) {
         this.binding = binding;
         this.meetup = meetup;
         this.name = name;
         this.place = place;
         this.address = address;
-        this.fragment = fragment;
+        this.dismisser = dismisser;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class AddClickListener implements View.OnClickListener {
             @Override
             public void done(ParseException e) {
                 Snackbar.make(binding.getRoot(), "Task saved", BaseTransientBottomBar.LENGTH_SHORT).show();
-                fragment.dismiss();
+                dismisser.dismissFragment();
             }
         });
     }

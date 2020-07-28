@@ -104,7 +104,7 @@ public class ExpenseFragment extends Fragment implements QueryResponder {
 
         transactionLayoutManager = new LinearLayoutManager(getContext());
         allTransactions = ImmutableList.of();
-        transactionAdapter = new TransactionAdapter((Activity) getContext(), allTransactions);
+        transactionAdapter = new TransactionAdapter(getContext(), allTransactions);
         binding.transactionsRecyclerView.setAdapter(transactionAdapter);
         binding.transactionsRecyclerView.setLayoutManager(transactionLayoutManager);
     }

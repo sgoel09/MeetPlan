@@ -1,5 +1,6 @@
 package com.example.meetplan.meetups;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
@@ -7,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.details.DetailsFragment;
 import com.example.meetplan.models.Meetup;
@@ -21,9 +23,9 @@ public class NewClickListener implements View.OnClickListener {
 
 
     private static final String TAG = "NewClickListener";
-    private AppCompatActivity context;
+    private Context context;
 
-    public NewClickListener(AppCompatActivity context) {
+    public NewClickListener(Context context) {
         this.context = context;
     }
 
@@ -38,6 +40,6 @@ public class NewClickListener implements View.OnClickListener {
         meetup.setInvites(invites);
         meetup.saveInBackground();
         Fragment fragment = DetailsFragment.newInstance(meetup);
-        context.getSupportFragmentManager().beginTransaction().addSharedElement(view, "shared_element_container").replace(R.id.flContainer, fragment).commit();
+        ((MainActivity) context).getSupportFragmentManager().beginTransaction().addSharedElement(view, "shared_element_container").replace(R.id.flContainer, fragment).commit();
     }
 }

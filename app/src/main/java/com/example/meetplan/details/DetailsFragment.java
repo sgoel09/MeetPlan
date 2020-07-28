@@ -98,16 +98,16 @@ public class DetailsFragment extends Fragment {
         spinnerDialog.setCancellable(true); // for cancellable
         spinnerDialog.setShowKeyboard(false);
 
-        inviteItemClick = new InviteItemClick((MainActivity) getContext(), binding, inviteUsernames, meetup);
+        inviteItemClick = new InviteItemClick(binding, inviteUsernames, meetup);
         spinnerDialog.bindOnSpinerListener(inviteItemClick);
 
         inviteClickListener = new InviteClickListener(spinnerDialog);
         binding.inviteDialogButton.setOnClickListener(inviteClickListener);
 
-        datePickerClickListener = new DatePickerClickListener((MainActivity) getContext(), meetup);
+        datePickerClickListener = new DatePickerClickListener(((MainActivity) getContext()).getSupportFragmentManager(), meetup);
         binding.dateButton.setOnClickListener(datePickerClickListener);
 
-        timePickerClickListener = new TimePickerClickListener((MainActivity) getContext(), meetup);
+        timePickerClickListener = new TimePickerClickListener(((MainActivity) getContext()).getSupportFragmentManager(), meetup);
         binding.timeButton.setOnClickListener(timePickerClickListener);
 
         editDetailsClickListener = new EditDetailsClickListener(binding, meetup);

@@ -3,22 +3,23 @@ package com.example.meetplan.details;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.meetplan.models.Meetup;
 
 public class DatePickerClickListener implements View.OnClickListener {
 
     private Meetup meetup;
-    private AppCompatActivity activity;
+    private FragmentManager manager;
 
-    DatePickerClickListener(AppCompatActivity activity, Meetup meetup) {
-        this.activity = activity;
+    DatePickerClickListener(FragmentManager manager, Meetup meetup) {
         this.meetup = meetup;
+        this.manager = manager;
     }
 
     @Override
     public void onClick(View view) {
         DatePickerFragment newFragment = DatePickerFragment.newInstance(meetup);
-        newFragment.show(activity.getSupportFragmentManager(), DatePickerFragment.class.getSimpleName());
+        newFragment.show(manager, DatePickerFragment.class.getSimpleName());
     }
 }

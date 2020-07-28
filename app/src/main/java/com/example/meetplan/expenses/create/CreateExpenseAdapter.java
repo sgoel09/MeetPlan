@@ -1,6 +1,7 @@
 package com.example.meetplan.expenses.create;
 
 import android.app.Activity;
+import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ArrayAdapter;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.ItemExpenseMemberBinding;
 import com.example.meetplan.models.Meetup;
@@ -24,22 +26,20 @@ import java.util.Map;
 
 public class CreateExpenseAdapter extends RecyclerView.Adapter<CreateExpenseAdapter.ViewHolder> {
 
-    private Activity context;
+    private Context context;
     private List<User> users;
-    private Meetup meetup;
     private Map<String, Integer> splits;
 
-    public CreateExpenseAdapter(Activity context, Meetup meetup, List<User> users, Map<String, Integer> splits) {
+    public CreateExpenseAdapter(Context context, List<User> users, Map<String, Integer> splits) {
         this.context = context;
         this.users = users;
-        this.meetup = meetup;
         this.splits = splits;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemExpenseMemberBinding binding = ItemExpenseMemberBinding.inflate(context.getLayoutInflater());
+        ItemExpenseMemberBinding binding = ItemExpenseMemberBinding.inflate(((MainActivity) context).getLayoutInflater());
         View view = binding.getRoot();
         return new ViewHolder(view, binding);
     }

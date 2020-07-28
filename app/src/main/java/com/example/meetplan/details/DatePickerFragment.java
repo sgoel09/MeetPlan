@@ -17,7 +17,7 @@ import java.util.Date;
 
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
-    Meetup meetup;
+    private Meetup meetup;
 
     public DatePickerFragment() {
         // Required empty public constructor

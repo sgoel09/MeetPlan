@@ -77,7 +77,7 @@ public class CreateExpenseFragment extends DialogFragment {
         spinnerDialog.setCancellable(true); // for cancellable
         spinnerDialog.setShowKeyboard(false);
 
-        spinnerItemClick = new SpinnerItemClick(binding, users, usersImmutable, createExpenseAdapter, splits);
+        spinnerItemClick = new SpinnerItemClick(users, usersImmutable, createExpenseAdapter, splits);
         spinnerDialog.bindOnSpinerListener(spinnerItemClick);
 
         binding.allSwitch.setChecked(true);
@@ -95,7 +95,7 @@ public class CreateExpenseFragment extends DialogFragment {
 
     private void setUpMembersList() {
         layoutManager = new LinearLayoutManager(getContext());
-        createExpenseAdapter = new CreateExpenseAdapter((Activity) getContext(), meetup, users, splits);
+        createExpenseAdapter = new CreateExpenseAdapter(getContext(), users, splits);
         binding.membersRecyclerView.setAdapter(createExpenseAdapter);
         binding.membersRecyclerView.setLayoutManager(layoutManager);
         binding.membersRecyclerView.setVisibility(View.GONE);

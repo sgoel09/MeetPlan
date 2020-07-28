@@ -8,7 +8,7 @@ import com.example.meetplan.models.Meetup;
 public class EditDetailsClickListener implements View.OnClickListener {
 
     private Meetup meetup;
-    FragmentDetailsBinding binding;
+    private FragmentDetailsBinding binding;
 
     EditDetailsClickListener(FragmentDetailsBinding binding, Meetup meetup) {
         this.binding = binding;

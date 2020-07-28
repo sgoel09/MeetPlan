@@ -1,12 +1,14 @@
 package com.example.meetplan.expenses;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.meetplan.MainActivity;
 import com.example.meetplan.databinding.ItemTransactionBinding;
 import com.example.meetplan.expenses.models.Transaction;
 import com.google.common.collect.ImmutableList;
@@ -14,10 +16,10 @@ import com.google.common.collect.ImmutableList;
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.ViewHolder> {
 
     private static final String AMOUNT_FORMAT = "$%.2f";
-    private Activity context;
+    private Context context;
     private ImmutableList<Transaction> transactions;
 
-    public TransactionAdapter(Activity context,  ImmutableList<Transaction> transactions) {
+    public TransactionAdapter(Context context,  ImmutableList<Transaction> transactions) {
         this.context = context;
         this.transactions = transactions;
     }
@@ -25,7 +27,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemTransactionBinding binding = ItemTransactionBinding.inflate(context.getLayoutInflater());
+        ItemTransactionBinding binding = ItemTransactionBinding.inflate(((MainActivity) context).getLayoutInflater());
         View view = binding.getRoot();
         return new ViewHolder(view, binding);
     }

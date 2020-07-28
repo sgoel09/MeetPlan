@@ -1,4 +1,4 @@
-package com.example.meetplan.browse.addtask;
+package com.example.meetplan.addtask;
 
 import android.os.Bundle;
 
@@ -19,7 +19,7 @@ import com.example.meetplan.models.Meetup;
  * Use the {@link AddTaskFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddTaskFragment extends DialogFragment {
+public class AddTaskFragment extends DialogFragment implements FragmentDismisser {
 
     private static final String KEY_MEETUP = "meetup";
     private static final String KEY_NAME = "name";
@@ -77,5 +77,10 @@ public class AddTaskFragment extends DialogFragment {
 
         closeClickListener = new CloseClickListener(this);
         binding.close.setOnClickListener(closeClickListener);
+    }
+
+    @Override
+    public void dismissFragment() {
+        dismiss();
     }
 }
