@@ -72,7 +72,7 @@ public class CreateExpenseAdapter extends RecyclerView.Adapter<CreateExpenseAdap
 
         public void bind(final User user) {
             binding.member.setText(user.getUsername());
-            binding.numMembers.setText(splits.get(user.getUsername()).toString());
+            binding.numMembers.setHint(splits.get(user.getUsername()).toString());
             binding.numMembers.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

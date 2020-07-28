@@ -92,8 +92,8 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         loadProfilePic();
         ParseUser user = ParseUser.getCurrentUser();
-        binding.username.setText(user.getUsername());
-        binding.email.setText(user.getEmail());
+        binding.username.setHint(user.getUsername());
+        binding.email.setHint(user.getEmail());
 
         logoutClickListener = new LogoutClickListener(getContext());
         binding.logoutButton.setOnClickListener(logoutClickListener);
