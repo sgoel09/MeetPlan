@@ -8,10 +8,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.bumptech.glide.Glide;
 import com.example.meetplan.browse.BottomNavigationItemSelectedListener;
@@ -102,6 +105,15 @@ public class MainActivity extends AppCompatActivity {
         if(toggle.onOptionsItemSelected(item))
             return true;
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
     public void showBottomNavigation(Boolean show) {

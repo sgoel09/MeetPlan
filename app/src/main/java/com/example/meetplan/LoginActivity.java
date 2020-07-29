@@ -1,9 +1,11 @@
 package com.example.meetplan;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,6 +40,15 @@ public class LoginActivity extends AppCompatActivity {
 
         signupClickListener = new SignupClickListener();
         binding.signupButton.setOnClickListener(signupClickListener);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
     private void loginUser(String username, String password) {

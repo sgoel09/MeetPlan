@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:transitionName="shared_element_container"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
     tools:context=".details.DetailsFragment">
 
     <Button
