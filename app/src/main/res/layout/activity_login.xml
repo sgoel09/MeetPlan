@@ -82,9 +82,7 @@
             android:layout_marginRight="@dimen/margin_med"
             android:layout_marginBottom="@dimen/margin_med"
             android:layout_weight="1"
-            android:background="@color/colorThemeMain"
-            android:text="@string/login"
-            android:textColor="@android:color/white" />
+            android:text="@string/login"/>
 
     </RelativeLayout>
 

@@ -14,7 +14,6 @@
         android:layout_marginTop="@dimen/padding"
         android:layout_marginEnd="@dimen/padding"
         android:layout_marginBottom="@dimen/padding"
-        android:background="@color/colorThemeMain"
         android:padding="@dimen/padding"
         android:text="@string/create"
         android:textColor="@android:color/white" />
@@ -28,7 +27,6 @@
         android:layout_marginStart="@dimen/padding"
         android:layout_marginEnd="@dimen/padding"
         android:layout_marginBottom="@dimen/padding"
-        android:background="@color/colorThemeMain"
         android:text="@string/calculate"
         android:textColor="@android:color/white" />
 
@@ -51,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
         android:layout_below="@id/label"
-        android:background="@color/colorThemeMain" />
+        android:background="@color/colorOrange" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/expensesRecyclerView"

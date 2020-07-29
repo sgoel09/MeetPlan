@@ -11,13 +11,12 @@
 
     <Button
         android:id="@+id/timeButton"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/button_width"
         android:layout_height="@dimen/button_height"
         android:layout_below="@id/dateLabel"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_med"
-        android:background="@color/colorThemeMain"
         android:text="@string/time"
         android:textColor="@android:color/white" />
 
@@ -27,6 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/margin_med"
+        android:layout_marginBottom="@dimen/margin_med"
         android:text="@string/submit" />
 
     <TextView
@@ -124,7 +125,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
         android:layout_below="@id/detailsLabel"
-        android:background="@color/colorThemeMain" />
+        android:background="@color/colorOrange" />
 
     <Button
         android:id="@+id/editButton"
@@ -132,6 +133,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/margin_med"
+        android:layout_marginBottom="@dimen/margin_med"
         android:text="@string/edit" />
 
     <Button
@@ -140,6 +143,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="false"
         android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/margin_med"
+        android:layout_marginBottom="@dimen/margin_med"
         android:text="@string/expenses" />
 
     <TextView
@@ -166,14 +171,13 @@
 
     <Button
         android:id="@+id/dateButton"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/button_width"
         android:layout_height="@dimen/button_height"
         android:layout_below="@id/descriptionLabel"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_med"
-        android:background="@color/colorThemeMain"
-        android:text="@string/choose"
+        android:text="date"
         android:textColor="@android:color/white" />
 
     <TextView
@@ -266,14 +270,13 @@
 
     <Button
         android:id="@+id/browseButton"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/button_width"
         android:layout_height="@dimen/button_height"
         android:layout_below="@id/timeLabel"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_med"
-        android:background="@color/colorThemeMain"
-        android:text="@string/choose"
+        android:text="@string/browse"
         android:textColor="@android:color/white" />
 
     <TextView
@@ -289,13 +292,12 @@
 
     <Button
         android:id="@+id/inviteDialogButton"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/button_width"
         android:layout_height="@dimen/button_height"
         android:layout_below="@id/membersLabel"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_med"
-        android:background="@color/colorThemeMain"
         android:text="@string/invite"
         android:textColor="@android:color/white" />
 
