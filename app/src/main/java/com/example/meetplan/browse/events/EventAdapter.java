@@ -1,6 +1,6 @@
 package com.example.meetplan.browse.events;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.MotionEvent;
@@ -13,23 +13,36 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.example.meetplan.browse.addtask.AddTaskFragment;
 import com.example.meetplan.MainActivity;
-import com.example.meetplan.utilities.OnDoubleTapListener;
 import com.example.meetplan.R;
-import com.example.meetplan.databinding.ItemActivityBinding;
+import com.example.meetplan.browse.addtask.AddTaskFragment;
 import com.example.meetplan.browse.events.models.Event;
+import com.example.meetplan.databinding.ItemActivityBinding;
 import com.example.meetplan.models.Meetup;
+import com.example.meetplan.utilities.OnDoubleTapListener;
 import com.google.common.collect.ImmutableList;
 
-
+/**
+ * Adapter for the recyclerview of events when browsing.
+ * Each item holds fundamental event information and is displayed in a staggered layout.
+ * */
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
 
-    private Activity context;
+    /** Context of the recyclerview's fragment. */
+    private Context context;
+
+    /** List of events the adapter holds. */
     private ImmutableList<Event> events;
+
+    /** Selected meetup for which events are browsed. */
     private Meetup meetup;
 
-    public EventAdapter(Activity context, ImmutableList<Event> events, Meetup meetup) {
+    /** Constructor to create and set up an adapter for the events.
+     * @param context context of the recyclerview's fragment
+     * @param events list of events the adapter holds
+     * @param meetup selected meetup for which events are browsed
+     * */
+    public EventAdapter(Context context, ImmutableList<Event> events, Meetup meetup) {
         this.context = context;
         this.events = events;
         this.meetup = meetup;
@@ -38,7 +51,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemActivityBinding binding = ItemActivityBinding.inflate(context.getLayoutInflater(), parent, false);
+        ItemActivityBinding binding = ItemActivityBinding.inflate(((MainActivity) context).getLayoutInflater(), parent, false);
         View view = binding.getRoot();
         return new ViewHolder(view, binding);
     }
@@ -54,16 +67,28 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         return events.size();
     }
 
+    /** Updates the data for the adapter by setting the data list to the new list and notifying the adapter.
+     * @param events new list of events with updated information
+     * */
     public void updateData(ImmutableList<Event> events) {
         this.events = events;
         notifyDataSetChanged();
     }
 
+    /**
+     * ViewHolder for the container of views of one event.
+     * Binds all views in the ViewHolder to the corresponding event data.
+     * */
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        /** View binding for the event item. */
         final ItemActivityBinding binding;
+
+        /** Event of the specific ViewHolder. */
         private Event event;
 
+        /** Sets a double tap gesture listener for the ViewHolder,
+         * on which a new AddTaskFragment is created and displayed. */
         public ViewHolder(@NonNull View itemView, ItemActivityBinding bind) {
             super(bind.getRoot());
             binding = bind;
@@ -78,6 +103,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             });
         }
 
+        /** Binds the event information to the views in the ViewHolder.
+         * Sets a click listener of the url field to open up an internet browser with the url of the event.
+         * @param event event for which its data is binded to
+         * */
         public void bind(final Event event) {
             this.event = event;
             binding.name.setText(event.getName());
@@ -94,6 +123,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             });
         }
 
+        /** Loads the event image in the image view,
+         * with a crop and rounded corners transform applied. */
         private void loadImage() {
             int imageWidth = context.getResources().getInteger(R.integer.image_width);
             int imageHeight = context.getResources().getInteger(R.integer.image_height);

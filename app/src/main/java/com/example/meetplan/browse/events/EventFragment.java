@@ -37,32 +37,54 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link EventFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class EventFragment extends Fragment {
 
+    /** The base url for accessing the event search in the Ticketmaster API. */
     private static final String EVENT_BASE_URL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=";
+
+    /** The city parameter to filter event search in the Ticketmaster API. */
     private static final String PARAM_CITY = "&city=";
+
+    /** The page parameter to filter event search in the Ticketmaster API. */
     private static final String PARAM_PAGE = "&page=";
+
+    /** Key for the meetup of the task in the arguments. */
     private static final String KEY_MEETUP = "meetup";
+
+    /** Key for the city of the task in the arguments. */
     private static final String KEY_CITY = "city";
+
+    /** Field of the JSONArray to get events. */
     private static final String JSON_FIELD_EVENTS = "events";
+
+    /** Field of the JSONArray to get the embedded information of the event. */
     private static final String JSON_FIELD_EMBEDDED = "_embedded";
-    private static final String TAG = "BrowseFragment";
+
+    /** List of events for the recyclerview of events. */
     private ImmutableList<Event> events;
+
+    /** Staggered layout manager for layout of the recyclerview of events. */
     private StaggeredGridLayoutManager gridLayoutManager;
+
+    /** Event adapter for the recyclerview of events. */
     private EventAdapter adapter;
+
+    /** Selected metup for which events are being browsed. */
     private Meetup meetup;
+
+    /** Endless scroll listener for the recyclerview of events. */
     private EndlessRecyclerViewScrollListener scrollListener;
+
+    /** View binding of this fragment. */
     FragmentBrowseBinding binding;
 
-    public EventFragment() {
-        // Required empty public constructor
-    }
+    /** Required empty public constructor */
+    public EventFragment() {}
 
+    /** Creates a new instance of the fragment and saves meetup and city information in arguments.
+     * @param meetup selected meetup for which events are being browsed
+     * @param city city for which events are being browsed
+     * */
     public static EventFragment newInstance(Meetup meetup, String city) {
         EventFragment fragment = new EventFragment();
         Bundle args = new Bundle();
@@ -84,17 +106,19 @@ public class EventFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = FragmentBrowseBinding.inflate(getLayoutInflater(), container, false);
         View view = binding.getRoot();
         ((MainActivity) getActivity()).showBottomNavigation(true);
         return view;
     }
 
+    /** Get information from the arguments to set views and listeners. */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         meetup = getArguments().getParcelable(KEY_MEETUP);
         ((MainActivity) getActivity()).itemSelectedListener.addMeetup(meetup);
+
+        setUpRecyclerview();
 
         String city = getArguments().getString(KEY_CITY);
         if (city != null) {
@@ -115,12 +139,6 @@ public class EventFragment extends Fragment {
             }
         });
 
-        gridLayoutManager = new StaggeredGridLayoutManager(getResources().getInteger(R.integer.grid_layout), StaggeredGridLayoutManager.VERTICAL);
-        events = ImmutableList.of();
-        adapter = new EventAdapter((Activity) getContext(), events, meetup);
-        binding.itemRecyclerView.setAdapter(adapter);
-        binding.itemRecyclerView.setLayoutManager(gridLayoutManager);
-
         scrollListener = new EndlessRecyclerViewScrollListener(gridLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
@@ -130,18 +148,36 @@ public class EventFragment extends Fragment {
         binding.itemRecyclerView.addOnScrollListener(scrollListener);
     }
 
+    /** Sets of recyclerview by defining a manager, creating an adapter, and binding to the recyclerview. */
+    private void setUpRecyclerview() {
+        gridLayoutManager = new StaggeredGridLayoutManager(getResources().getInteger(R.integer.grid_layout), StaggeredGridLayoutManager.VERTICAL);
+        events = ImmutableList.of();
+        adapter = new EventAdapter((Activity) getContext(), events, meetup);
+        binding.itemRecyclerView.setAdapter(adapter);
+        binding.itemRecyclerView.setLayoutManager(gridLayoutManager);
+    }
+
+    /** Loads more event search data from the Ticketmaster API.
+     * @param page page of search to retrieve
+     * */
     private void loadMoreData(int page) {
         String city = binding.search.getQuery().toString();
         String url = EVENT_BASE_URL + getString(R.string.tm_api_key) + PARAM_CITY + city + PARAM_PAGE + page;
         populateEvents(url);
     }
 
+    /** Searches events from the Ticketmaster API for a given city.
+     * @param city city in which events should be searched
+     * */
     private void searchByCity(String city) {
         String url = EVENT_BASE_URL + getString(R.string.tm_api_key) + PARAM_CITY + city;
         populateEvents(url);
         ((MainActivity) getActivity()).itemSelectedListener.addCity(city);
     }
 
+    /** Creates a network call to the Ticketmaster API and updates the adapter with the new data.
+     * @param url url to access the Ticketmaster API
+     * */
     private void populateEvents(String url) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(url).build();
@@ -179,6 +215,10 @@ public class EventFragment extends Fragment {
         });
     }
 
+    /**
+     * Parses events from a JSONObject and updates the event adapter to bind the information to its ViewHolder.
+     * @param finalJsonObject JSONObject from which information is parsed.
+     * */
     private void extractData(JSONObject finalJsonObject) throws JSONException {
         JSONArray embedded = finalJsonObject.getJSONObject(JSON_FIELD_EMBEDDED).getJSONArray(JSON_FIELD_EVENTS);
         List<Event> allEvents = events;

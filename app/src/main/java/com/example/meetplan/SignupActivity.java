@@ -1,16 +1,17 @@
 package com.example.meetplan;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
+import android.view.inputmethod.InputMethodManager;
 
-import com.example.meetplan.databinding.ActivityLoginBinding;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.meetplan.databinding.ActivitySignupBinding;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -21,16 +22,38 @@ import com.parse.SignUpCallback;
 
 import java.io.ByteArrayOutputStream;
 
+/**
+ * @author Shefali Goel
+ * Activity to sign up for an account in MeetPlan.
+ * Users enter their name, username, email, password and directed into their account
+ * if sign up is successful.
+ * */
 public class SignupActivity extends AppCompatActivity {
 
+    /** Tag for this activity. */
     private static final String TAG = "SignupActivity";
+
+    /** Key for the user profile pic in the Parse database. */
     private static final String KEY_PROFILE_PIC = "profilepic";
-    private static final String IMAGE_URL = "image_file.png";
+
+    /** Key for the user name in the Parse database. */
     private static final String KEY_NAME = "name";
+
+    /** Key for the user profile pic in the Parse database. */
+    private static final String IMAGE_URL = "image_file.png";
+
+    /** Click listener that gets the user input from the text fields. */
     private SignupClickListener signupClickListener;
+
+    /** Callback that signs up the user with an account in the Parse database. */
     private SignupCallBack signupCallBack;
+
+    /** View binding for this activity. */
     ActivitySignupBinding binding;
 
+    /**
+     * Sets the click listener on the sign up button.
+     * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +67,23 @@ public class SignupActivity extends AppCompatActivity {
         binding.signupButton.setOnClickListener(signupClickListener);
     }
 
+    /** Hides the keyboard on the event of a touch outside of the keyboard. */
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    /**
+     * Signs up the user with the inputted information, then sets a default profile picture.
+     * @param username username that the user inputs
+     * @param email email that the user inputs
+     * @param password password that the user inputs
+     * @param name name that the user inputs
+     * */
     private void signupUser(String username, String email, String password, String name) {
         ParseUser user = new ParseUser();
         user.setUsername(username);
@@ -57,6 +97,11 @@ public class SignupActivity extends AppCompatActivity {
         user.saveInBackground();
     }
 
+    /**
+     * Converts the image from a bitmap to a new parse file by getting the byte stream
+     * @param imageBitmap bitmap of the image to covert
+     * @return parseFle new parse file of the image
+     * */
     private ParseFile convertToParseFile(Bitmap imageBitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         imageBitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
@@ -65,12 +110,17 @@ public class SignupActivity extends AppCompatActivity {
         return parseFile;
     }
 
+    /** Creates an intent to go to the main activity and finishes login activity. */
     private void goMainActivity() {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
         finish();
     }
 
+    /**
+     * Class for the click listener of the sign up button.
+     * Calls the sign up method to proceed with the inputted user information.
+     * */
     private class SignupClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
@@ -82,6 +132,10 @@ public class SignupActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Class for the callback of sign up.
+     * Goes to the main activity if the sign up is successful.
+     * */
     private class SignupCallBack implements SignUpCallback {
         @Override
         public void done(ParseException e) {

@@ -1,13 +1,5 @@
 package com.example.meetplan;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,13 +8,20 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 import com.bumptech.glide.Glide;
 import com.example.meetplan.browse.BottomNavigationItemSelectedListener;
 import com.example.meetplan.databinding.ActivityMainBinding;
 import com.example.meetplan.databinding.NavHeaderBinding;
 import com.example.meetplan.meetups.MeetupsFragment;
 import com.example.meetplan.profile.ProfileFragment;
-import com.example.meetplan.utilities.TabSelectedListener;
 import com.google.android.material.navigation.NavigationView;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -32,20 +31,37 @@ import com.parse.ParseUser;
 
 import java.util.List;
 
+/**
+ * Main activity in the MeetPlan app.
+ * Holds the drawer navigation, bottom navigation, and fragment container.
+ * */
 public class MainActivity extends AppCompatActivity {
 
+    /** Fragment manager of this activity. */
     final FragmentManager fragmentManager = getSupportFragmentManager();
-    private static final String TAG = "MainActivity";
+
+    /** Key for the user profile pic in the Parse database. */
     private static final String PROFILE_PIC_KEY = "profilepic";
-    private static final String OBJECT_ID_KEY = "objectId";
+
+    /** Key for the user name in the Parse database. */
     private static final String NAME_KEY = "name";
+
+    /** View binding for the header of the drawer navigation. */
     private NavHeaderBinding navHeaderBinding;
+
+    /** Layout for the drawer navigation. */
     private DrawerLayout drawerLayout;
+
+    /** Toggle for the drawer navigation to open and close. */
     private ActionBarDrawerToggle toggle;
+
+    /** Item selected listener for the bottom navigation in browsing tasks. */
     public BottomNavigationItemSelectedListener itemSelectedListener;
-    private TabSelectedListener tabSelectedListener;
+
+    /** View binding for this activity. */
     ActivityMainBinding binding;
 
+    /** Sets the navigations, toolbar, and item selected listener for the activity. */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /** Hides the keyboard on the event of a touch outside of the keyboard. */
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
@@ -116,6 +133,10 @@ public class MainActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
 
+    /**
+     * Sets the visibility of the bottom navigation.
+     * @param show boolean on whether to show the navigation or not.
+     * */
     public void showBottomNavigation(Boolean show) {
         if (show) {
             binding.bottomNavigation.setVisibility(View.VISIBLE);
@@ -124,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /** Queries information about current user to update drawer navigation header. */
     private void setUserInfo() {
         ParseUser user = ParseUser.getCurrentUser();
         navHeaderBinding.usernameLabel2.setText(user.getUsername());
