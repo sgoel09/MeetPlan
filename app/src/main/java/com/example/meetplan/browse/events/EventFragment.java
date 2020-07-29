@@ -123,12 +123,13 @@ public class EventFragment extends Fragment {
         String city = getArguments().getString(KEY_CITY);
         if (city != null) {
             searchByCity(city);
-            binding.search.setQuery(city, true);
+            binding.search.setQuery(city, false);
         }
 
         binding.search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
+                events = ImmutableList.of();
                 searchByCity(s);
                 return false;
             }

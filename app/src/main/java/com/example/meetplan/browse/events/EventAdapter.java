@@ -3,6 +3,8 @@ package com.example.meetplan.browse.events;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
+import com.example.meetplan.browse.TaskDetailsFragment;
 import com.example.meetplan.browse.addtask.AddTaskFragment;
 import com.example.meetplan.browse.events.models.Event;
 import com.example.meetplan.databinding.ItemActivityBinding;
@@ -86,19 +89,17 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
         /** Event of the specific ViewHolder. */
         private Event event;
+        private GestureDetector detector;
 
-        /** Sets a double tap gesture listener for the ViewHolder,
-         * on which a new AddTaskFragment is created and displayed. */
+        /** Sets a touch listener for the ViewHolder, with calls the gesture dector
+         * to determine what type of gesture occurred and proceed accordingly. */
         public ViewHolder(@NonNull View itemView, ItemActivityBinding bind) {
             super(bind.getRoot());
             binding = bind;
-            itemView.setOnTouchListener(new OnDoubleTapListener(context) {
+            itemView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
-                public void onDoubleTap(MotionEvent e) {
-                    FragmentManager fm = ((MainActivity) context).getSupportFragmentManager();
-                    AddTaskFragment editNameDialogFragment = AddTaskFragment.newInstance(meetup, event.getName(),
-                            event.getVenue().getName(), event.getVenue().getFullAddress());
-                    editNameDialogFragment.show(fm, "fragment_edit_name");
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    return detector.onTouchEvent(motionEvent);
                 }
             });
         }
@@ -108,6 +109,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
          * @param event event for which its data is binded to
          * */
         public void bind(final Event event) {
+            detector = new GestureDetector(context, new GestureListener(event));
             this.event = event;
             binding.name.setText(event.getName());
             binding.date.setText(event.getDate());
@@ -130,6 +132,53 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             int imageHeight = context.getResources().getInteger(R.integer.image_height);
             int round = context.getResources().getInteger(R.integer.round_corners);
             Glide.with(context).load(event.getImage()).override(imageWidth, imageHeight).centerCrop().transform(new RoundedCorners(round)).into(binding.image);
+        }
+    }
+
+    public class GestureListener extends GestureDetector.SimpleOnGestureListener {
+
+        private Event event;
+
+        public GestureListener(Event event) {
+            this.event = event;
+        }
+
+        @Override
+        public boolean onDown(MotionEvent e) {
+            Log.i("onDown", e.getAction() + "");
+            return true;
+        }
+
+        @Override
+        public boolean onSingleTapUp(MotionEvent e) {
+            Log.i("onSingleTapUp", e.getAction() + "");
+            return super.onSingleTapUp(e);
+        }
+
+        @Override
+        public boolean onSingleTapConfirmed(MotionEvent e) {
+            Log.i("onSingleTapConfirmed", e.getAction() + "");
+            TaskDetailsFragment fragment = new TaskDetailsFragment();
+            ((MainActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+            return super.onSingleTapConfirmed(e);
+        }
+
+        @Override
+        public boolean onDoubleTap(MotionEvent e) {
+            Log.i("onDoubleTap", e.getAction() + "");
+            return true;
+        }
+
+        @Override
+        public boolean onDoubleTapEvent(MotionEvent e) {
+            Log.i("onDoubleTapEvent", e.getAction() + "");
+            if (e.getAction() == 1) {
+                FragmentManager fm = ((MainActivity) context).getSupportFragmentManager();
+                AddTaskFragment editNameDialogFragment = AddTaskFragment.newInstance(meetup, event.getName(),
+                        event.getVenue().getName(), event.getVenue().getFullAddress());
+                editNameDialogFragment.show(fm, "fragment_edit_name");
+            }
+            return super.onDoubleTapEvent(e);
         }
     }
 }

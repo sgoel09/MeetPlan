@@ -206,7 +206,7 @@ public class ProfileFragment extends Fragment {
         startActivityForResult(intent, GALLERY_REQUEST_CODE);
     }
 
-    private void loadProfilePic() {
+    public void loadProfilePic() {
         ParseQuery<ParseUser> query = ParseQuery.getQuery(ParseUser.class);
         query.include(KEY_PROFILE_PIC);
         query.include(KEY_NAME);

@@ -1,5 +1,7 @@
 package com.example.meetplan.browse.events.models;
 
+import android.os.Parcelable;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
