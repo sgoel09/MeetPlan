@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.fragment.app.Fragment;
+import androidx.transition.Visibility;
 
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
@@ -232,5 +234,10 @@ public class DetailsFragment extends Fragment {
         } else {
             binding.invites.setText(NONE_STRING);
         }
+    }
+
+    @VisibleForTesting (otherwise = VisibleForTesting.PRIVATE)
+    public FragmentDetailsBinding getBinding() {
+        return binding;
     }
 }

@@ -49,6 +49,14 @@ public class LoginActivityTest {
     }
 
     @Test
+    public void shouldHaveSignupButton() {
+        Button signupButton = (Button) activity.findViewById(R.id.signupButton);
+        assertNotNull(signupButton);
+        assertEquals(View.VISIBLE, signupButton.getVisibility());
+        assertEquals(activity.getString(R.string.signup), signupButton.getText());
+    }
+
+    @Test
     public void signupActivityStartedOnClick() {
         activity.findViewById(R.id.signupButton).performClick();
 
