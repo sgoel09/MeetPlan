@@ -9,9 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.fragment.app.Fragment;
-import androidx.transition.Visibility;
 
-import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentDetailsBinding;
 import com.example.meetplan.models.Meetup;
@@ -80,22 +78,22 @@ public class DetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentDetailsBinding.inflate(getLayoutInflater(), container, false);
         View view = binding.getRoot();
-        ((MainActivity) getActivity()).showBottomNavigation(false);
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        //((MainActivity) getContext()).showBottomNavigation(false);
+
         meetup = getArguments().getParcelable(KEY_MEETUP);
 
         changeToView();
         displayMembers();
         dispalyInvites();
         setDateTime();
-
         updateInviteUsernames();
 
-        spinnerDialog = new SpinnerDialog((MainActivity) getContext(), inviteUsernames, getString(R.string.invite_title), getString(R.string.cancel));
+        spinnerDialog = new SpinnerDialog(getActivity(), inviteUsernames, getString(R.string.invite_title), getString(R.string.cancel));
         spinnerDialog.setCancellable(true); // for cancellable
         spinnerDialog.setShowKeyboard(false);
 
@@ -105,10 +103,10 @@ public class DetailsFragment extends Fragment {
         inviteClickListener = new InviteClickListener(spinnerDialog);
         binding.inviteDialogButton.setOnClickListener(inviteClickListener);
 
-        datePickerClickListener = new DatePickerClickListener(((MainActivity) getContext()).getSupportFragmentManager(), meetup);
+        datePickerClickListener = new DatePickerClickListener(getActivity().getSupportFragmentManager(), meetup);
         binding.dateButton.setOnClickListener(datePickerClickListener);
 
-        timePickerClickListener = new TimePickerClickListener(((MainActivity) getContext()).getSupportFragmentManager(), meetup);
+        timePickerClickListener = new TimePickerClickListener(getActivity().getSupportFragmentManager(), meetup);
         binding.timeButton.setOnClickListener(timePickerClickListener);
 
         editDetailsClickListener = new EditDetailsClickListener(binding, meetup);
@@ -120,7 +118,7 @@ public class DetailsFragment extends Fragment {
         browseClickListener = new BrowseClickListener(getContext(), meetup);
         binding.browseButton.setOnClickListener(browseClickListener);
 
-        expenseClickListener = new ExpenseClickListener(getContext(), meetup);
+        expenseClickListener = new ExpenseClickListener(getActivity().getSupportFragmentManager(), getContext(), meetup);
         binding.expenseButton.setOnClickListener(expenseClickListener);
 
     }
@@ -209,11 +207,13 @@ public class DetailsFragment extends Fragment {
     private void displayMembers() {
         ArrayList<String> members = meetup.getMembers();
         String allMembers = "";
-        for (String username : members) {
-            if (!members.get(members.size() - 1).equals(username)) {
-                allMembers += String.format("%s; ", username);
-            } else {
-                allMembers += username;
+        if (members != null) {
+            for (String username : members) {
+                if (!members.get(members.size() - 1).equals(username)) {
+                    allMembers += String.format("%s; ", username);
+                } else {
+                    allMembers += username;
+                }
             }
         }
         binding.members.setText(allMembers);
