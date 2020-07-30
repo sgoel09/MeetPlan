@@ -1,8 +1,5 @@
 package com.example.meetplan;
 
-import android.app.Activity;
-import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
@@ -28,6 +25,7 @@ public class DetailsFragmentTest {
 
     @Before
     public void setUp() throws Exception {
+        meetup = new Meetup();
         fragment = DetailsFragment.newInstance(meetup);
     }
 
@@ -47,5 +45,4 @@ public class DetailsFragmentTest {
     public void onExpenseClick() {
         fragment.getBinding().expenseButton.performClick();
     }
-
 }
