@@ -61,7 +61,7 @@ public class DetailsFragmentTest {
         scenario.onFragment(new OptionButtons());
     }
 
-    public class ExpenseAction implements FragmentScenario.FragmentAction<DetailsFragment> {
+    private static class ExpenseAction implements FragmentScenario.FragmentAction<DetailsFragment> {
         @Override
         public void perform(@NonNull DetailsFragment fragment) {
             Button expenseButton = fragment.getBinding().expenseButton;
@@ -70,7 +70,7 @@ public class DetailsFragmentTest {
         }
     }
 
-    public class ButtonViews implements FragmentScenario.FragmentAction<DetailsFragment> {
+    private static class ButtonViews implements FragmentScenario.FragmentAction<DetailsFragment> {
         private Button submitButton;
         private Button editButton;
 
@@ -98,7 +98,7 @@ public class DetailsFragmentTest {
         }
     }
 
-    public class OptionButtons implements FragmentScenario.FragmentAction<DetailsFragment> {
+    private static class OptionButtons implements FragmentScenario.FragmentAction<DetailsFragment> {
 
         private Button timeButton;
         private Button dateButton;

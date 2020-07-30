@@ -3,6 +3,7 @@ package com.example.meetplan.browse.addtask;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.fragment.app.DialogFragment;
 
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentAddEventBinding;
+import com.example.meetplan.databinding.FragmentDetailsBinding;
 import com.example.meetplan.models.Meetup;
 
 /**
@@ -106,5 +108,10 @@ public class AddTaskFragment extends DialogFragment implements FragmentDismisser
     @Override
     public void dismissFragment() {
         dismiss();
+    }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    public FragmentAddEventBinding getBinding() {
+        return binding;
     }
 }
