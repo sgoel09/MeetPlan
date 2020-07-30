@@ -61,10 +61,8 @@ public class LoginActivityTest {
         activity.findViewById(R.id.signupButton).performClick();
 
         Intent expectedIntent = new Intent(activity, SignupActivity.class);
-
         ShadowActivity shadowActivity = Shadows.shadowOf(activity);
         Intent actualIntent = shadowActivity.getNextStartedActivity();
-
         assertTrue(expectedIntent.filterEquals(actualIntent));
     }
 }

@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
@@ -23,6 +24,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.meetplan.LoginActivity;
 import com.example.meetplan.R;
+import com.example.meetplan.databinding.FragmentDetailsBinding;
 import com.example.meetplan.databinding.FragmentProfileBinding;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -92,8 +94,10 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         loadProfilePic();
         ParseUser user = ParseUser.getCurrentUser();
-        binding.username.setHint(user.getUsername());
-        binding.email.setHint(user.getEmail());
+        if (user != null) {
+            binding.username.setHint(user.getUsername());
+            binding.email.setHint(user.getEmail());
+        }
 
         logoutClickListener = new LogoutClickListener(getContext());
         binding.logoutButton.setOnClickListener(logoutClickListener);
@@ -207,12 +211,19 @@ public class ProfileFragment extends Fragment {
     }
 
     public void loadProfilePic() {
-        ParseQuery<ParseUser> query = ParseQuery.getQuery(ParseUser.class);
-        query.include(KEY_PROFILE_PIC);
-        query.include(KEY_NAME);
-        query.setLimit(1);
-        query.whereEqualTo(KEY_OBJECT_ID, ParseUser.getCurrentUser().getObjectId());
-        profilePicCallBack = new ProfilePicCallBack(getContext(), binding);
-        query.findInBackground(profilePicCallBack);
+        if (ParseUser.getCurrentUser() != null) {
+            ParseQuery<ParseUser> query = ParseQuery.getQuery(ParseUser.class);
+            query.include(KEY_PROFILE_PIC);
+            query.include(KEY_NAME);
+            query.setLimit(1);
+            query.whereEqualTo(KEY_OBJECT_ID, ParseUser.getCurrentUser().getObjectId());
+            profilePicCallBack = new ProfilePicCallBack(getContext(), binding);
+            query.findInBackground(profilePicCallBack);
+        }
+    }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    public FragmentProfileBinding getBinding() {
+        return binding;
     }
 }

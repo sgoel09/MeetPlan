@@ -27,8 +27,7 @@ import static org.robolectric.Shadows.shadowOf;
 @Config(manifest=Config.NONE, sdk=21)
 public class AddTaskFragmentTest {
 
-    @Mock
-    Meetup meetup;
+    @Mock Meetup meetup;
     AddTaskFragment fragment;
     Bundle fragmentArgs;
     FragmentFactory factory;
