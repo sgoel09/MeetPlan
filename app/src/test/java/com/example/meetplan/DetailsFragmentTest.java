@@ -56,6 +56,11 @@ public class DetailsFragmentTest {
         scenario.onFragment(new ButtonViews());
     }
 
+    @Test
+    public void optionsButtonsFunctionality() {
+        scenario.onFragment(new OptionButtons());
+    }
+
     public class ExpenseAction implements FragmentScenario.FragmentAction<DetailsFragment> {
         @Override
         public void perform(@NonNull DetailsFragment fragment) {
@@ -66,8 +71,8 @@ public class DetailsFragmentTest {
     }
 
     public class ButtonViews implements FragmentScenario.FragmentAction<DetailsFragment> {
-        Button submitButton;
-        Button editButton;
+        private Button submitButton;
+        private Button editButton;
 
         @Override
         public void perform(@NonNull DetailsFragment fragment) {
@@ -90,6 +95,30 @@ public class DetailsFragmentTest {
         private void validEditButton() {
             assertNotNull(editButton);
             assertEquals(View.VISIBLE, editButton.getVisibility());
+        }
+    }
+
+    public class OptionButtons implements FragmentScenario.FragmentAction<DetailsFragment> {
+
+        private Button timeButton;
+        private Button dateButton;
+        private Button inviteButton;
+
+        @Override
+        public void perform(@NonNull DetailsFragment fragment) {
+            fragment.getBinding().editButton.performClick();
+            timeButton = fragment.getBinding().timeButton;
+            dateButton = fragment.getBinding().dateButton;
+            inviteButton = fragment.getBinding().inviteDialogButton;
+            checkValidity(timeButton);
+            checkValidity(dateButton);
+            checkValidity(inviteButton);
+        }
+
+        private void checkValidity(Button button) {
+            assertNotNull(button);
+            assertEquals(View.VISIBLE, button.getVisibility());
+            button.performClick();
         }
     }
 }
