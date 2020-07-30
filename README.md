@@ -28,35 +28,46 @@ This app is designed to easily create and organize meetups among friends from st
 
 **Required Must-have Stories**
 
-* Be able to sign up for an account
-* Login into an existing account
-* Logout of an account
-* Users can launch and use camera to add a picture to their profile
-* Create a new meetup
-* View meetups that user is part of
-* View meetups the user is invited to attend
-* Pick a date for the meetup
-* Propose a restaurant to meet at by browsing different restaurants (pulled through an API)
-* Include a double tap gesture to select restaurant
-* Implement the material design library to add visual polish
-* Animate images to scale to different sizes
+- User account
+  - [x] Be able to sign up for an account
+  - [x] Launch and use camera to add a profile picture
+  - [x] Login into an existing account
+  - [x] Logout of an account
+- Create Meetup
+  - [x] Create a new meetup
+  - [x] Pick a date for the meetup
+  - [x] Pick a time for the meetup
+  - [x] Invite other memebers to the meetup
+- Pick a meetup activity - Restaurant
+  - [x] Propose a restaurant to meet at by browsing different restaurants (pulled through an API)
+  - [x] Include a double tap gesture to select restaurant
+- View Meetup
+  - [x] View existing meetups that user is part of
+  - [x] View meetups the user is invited to attend
+  - [x] Accept/decline meetups that user is invited to attend
+- [x] Implement the material design library to add visual polish
+- [x] Animate views for transitioning between different fragments 
 
 **Optional Nice-to-have Stories**
-* Pick a time for the meetup
-* Browse and select from different categories of activities - restaurants, parks, events, or movies
-* Invite other memebers to the meetup
-* Accept/decline meetups that user is invited to attend
-* View meetups that have completed
-* Include a details page for each activity to see more information (such as address, rating, phone etc.)
-* Implement unit testing for some features
-* Use Google Maps to see location of activity on map
-* Allow members to enter expenses
-* Create a shared expenses method for users
-* Picture gallery where members can upload pictures and shared with the rest of the group
-* Have a poll to determine best time to meet
-* Browse transportation options (i.e. bus and train schedules)
-* Receive notification when scheduled time is nearing
-* Users can change settings of their profile
+- Expense sharing
+  - [x] Allow members to enter their expenses
+  - [x] Tag all meetup members to an expense
+  - [x] Tag specific meetup member(s) to an expense
+  - [x] Allow members to pay on behalf of others for uneven splitting
+  - [x] Compute and display optimal transactions between members to settle expenses
+- [x] Implement unit testing for some fragments and activities
+- Additional meetup activities
+  - [x] Browse and select from an additional activity category (events, movies, parks etc.)
+  - [x] Filter activities displayed to user via search by city
+- User profile
+  - [x] Users can edit account information
+  - [X] Users can upload a profile picture from gallery
+- [ ] View meetups that have completed
+- [ ] Include a details page for each activity to see more information (such as address, rating, phone etc.)
+- [ ] Use Google Maps to see location of activity on map
+- [ ] Photo gallery where members can upload photos shared with the rest of the group
+- [ ] Have a poll to determine best time to meet
+- [ ] Browse transportation options (i.e. bus and train schedules)
 
 ### 2. Screen Archetypes
 
