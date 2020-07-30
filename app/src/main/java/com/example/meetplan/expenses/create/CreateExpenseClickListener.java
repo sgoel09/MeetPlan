@@ -3,14 +3,13 @@ package com.example.meetplan.expenses.create;
 import android.view.View;
 
 import com.example.meetplan.databinding.FragmentCreateExpenseBinding;
-import com.example.meetplan.expenses.QueryResponder;
+import com.example.meetplan.expenses.PassExpense;
 import com.example.meetplan.expenses.models.Expense;
 import com.example.meetplan.models.Meetup;
 import com.example.meetplan.expenses.models.SplitExpense;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class CreateExpenseClickListener implements View.OnClickListener {
@@ -39,7 +38,7 @@ public class CreateExpenseClickListener implements View.OnClickListener {
         expenses.add(expense);
         meetup.setExpenses(expenses);
         meetup.saveInBackground();
-        QueryResponder mHost = (QueryResponder) fragment.getTargetFragment();
+        PassExpense mHost = (PassExpense) fragment.getTargetFragment();
         mHost.passNewExpense(expense);
         fragment.dismiss();
     }

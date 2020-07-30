@@ -158,7 +158,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         @Override
         public boolean onSingleTapConfirmed(MotionEvent e) {
             Log.i("onSingleTapConfirmed", e.getAction() + "");
-            TaskDetailsFragment fragment = new TaskDetailsFragment();
+            TaskDetailsFragment fragment = TaskDetailsFragment.newInstance(event.getVenue());
             ((MainActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
             return super.onSingleTapConfirmed(e);
         }

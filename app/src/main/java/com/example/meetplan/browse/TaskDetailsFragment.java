@@ -1,10 +1,13 @@
 package com.example.meetplan.browse;
 
+import android.app.Activity;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,24 +15,33 @@ import androidx.fragment.app.Fragment;
 
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
+import com.example.meetplan.browse.events.models.Venue;
 import com.example.meetplan.databinding.FragmentTaskDetailsBinding;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-public class TaskDetailsFragment extends Fragment {
+import org.parceler.Parcels;
+
+public class TaskDetailsFragment extends Fragment implements OnMapReadyCallback {
 
     private static final String KEY_LOCATION = "location";
     Location mCurrentLocation;
     private FragmentTaskDetailsBinding binding;
+    private GoogleMap map;
+    private GoogleMap mMap;
+    private Venue venue;
 
     public TaskDetailsFragment() {
         // Required empty public constructor
     }
 
-    public static TaskDetailsFragment newInstance(String param1, String param2) {
+    public static TaskDetailsFragment newInstance(Venue venue) {
         TaskDetailsFragment fragment = new TaskDetailsFragment();
         Bundle args = new Bundle();
+        args.putParcelable("venue", Parcels.wrap(venue));
         fragment.setArguments(args);
         return fragment;
     }
@@ -42,7 +54,6 @@ public class TaskDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = FragmentTaskDetailsBinding.inflate(getLayoutInflater(), container, false);
         View view = binding.getRoot();
         ((MainActivity) getActivity()).showBottomNavigation(true);
@@ -51,25 +62,16 @@ public class TaskDetailsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        if (savedInstanceState != null && savedInstanceState.keySet().contains(KEY_LOCATION)) {
-            // Since KEY_LOCATION was found in the Bundle, we can be sure that mCurrentLocation
-            // is not null.
-            mCurrentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
-        }
+        venue = Parcels.unwrap(getArguments().getParcelable("venue"));
 
-        SupportMapFragment mapFragment = (SupportMapFragment) ((MainActivity) getContext()).getSupportFragmentManager().findFragmentById(R.id.map);
-        if (mapFragment != null) {
-            mapFragment.getMapAsync(new OnMapReadyCallback() {
-                @Override
-                public void onMapReady(GoogleMap map) {
-                    loadMap(map);
-                }
-            });
-        } else {
-
-        }
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
-    protected void loadMap(GoogleMap googleMap) {
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        mMap.addMarker(new MarkerOptions().position(venue.getCoordinates()).title("Marker in Sydney"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(venue.getCoordinates(), 15));
     }
 }

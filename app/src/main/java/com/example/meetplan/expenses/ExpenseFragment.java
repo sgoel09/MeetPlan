@@ -26,7 +26,7 @@ import com.parse.ParseQuery;
 
 import java.util.List;
 
-public class ExpenseFragment extends Fragment implements QueryResponder {
+public class ExpenseFragment extends Fragment implements PassExpense {
 
     private static final String KEY_MEETUP = "meetup";
     private static final String KEY_OBJECT_ID = "objectId";
