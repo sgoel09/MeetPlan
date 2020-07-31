@@ -5,11 +5,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.meetplan.MainActivity;
+import com.example.meetplan.R;
 import com.example.meetplan.databinding.ItemPictureBinding;
+import com.example.meetplan.details.DetailsFragment;
+import com.example.meetplan.models.Meetup;
 import com.google.common.collect.ImmutableList;
 import com.parse.ParseFile;
 
@@ -17,10 +21,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
 
     private Context context;
     private ImmutableList<ParseFile> pictures;
+    private Meetup meetup;
 
-    public GalleryAdapter(Context context, ImmutableList<ParseFile> pictures) {
+    public GalleryAdapter(Context context, ImmutableList<ParseFile> pictures, Meetup meetup) {
         this.context = context;
         this.pictures = pictures;
+        this.meetup = meetup;
     }
 
     @NonNull
@@ -47,7 +53,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         final ItemPictureBinding binding;
 
@@ -55,6 +61,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
             super(itemView);
             bind.getRoot();
             binding = bind;
+            itemView.setOnClickListener(this);
         }
 
         public void bind(final ParseFile picture) {
@@ -64,5 +71,13 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
             binding.picture.setVisibility(View.VISIBLE);
         }
 
+        @Override
+        public void onClick(View view) {
+            // Update the position.
+            MainActivity.currentPosition = getAdapterPosition();
+            Fragment imagePager = ImagePagerFragment.newInstance(meetup);
+            ((MainActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, imagePager, ImagePagerFragment.class.getSimpleName()).commit();
+
+        }
     }
 }

@@ -81,7 +81,7 @@ public class MeetupsFragment extends Fragment {
     private void setUpAcceptedAdapter() {
         acceptedLayoutManager = new LinearLayoutManager(getContext());
         acceptedMeetups = ImmutableList.of();
-        acceptedAdapter = new MeetupAdapter((Activity) getContext(), acceptedMeetups, false);
+        acceptedAdapter = new MeetupAdapter((Activity) getContext(), acceptedMeetups, false, getParentFragmentManager());
         binding.meetupsRecyclerView.setAdapter(acceptedAdapter);
         binding.meetupsRecyclerView.setLayoutManager(acceptedLayoutManager);
         queryAcceptedMeetups();
@@ -90,7 +90,7 @@ public class MeetupsFragment extends Fragment {
     private void setUpInvitedAdapter() {
         invitedLayoutManager = new LinearLayoutManager(getContext());
         invitedMeetups = ImmutableList.of();
-        invitedAdapter = new MeetupAdapter((Activity) getContext(), invitedMeetups, true);
+        invitedAdapter = new MeetupAdapter((Activity) getContext(), invitedMeetups, true, getParentFragmentManager());
         binding.invitedRecyclerView.setAdapter(invitedAdapter);
         binding.invitedRecyclerView.setLayoutManager(invitedLayoutManager);
         queryInvitedMeetups();

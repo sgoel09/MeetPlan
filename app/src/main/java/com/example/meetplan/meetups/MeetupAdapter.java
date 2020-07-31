@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.meetplan.MainActivity;
@@ -26,11 +27,13 @@ public class MeetupAdapter extends RecyclerView.Adapter<MeetupAdapter.ViewHolder
     private Context context;
     private ImmutableList<Meetup> meetups;
     private Boolean invited;
+    private FragmentManager fragmentManager;
 
-    public MeetupAdapter(Context context, ImmutableList<Meetup> meetups, Boolean invited) {
+    public MeetupAdapter(Context context, ImmutableList<Meetup> meetups, Boolean invited, FragmentManager fragmentManager) {
         this.context = context;
         this.meetups = meetups;
         this.invited = invited;
+        this.fragmentManager = fragmentManager;
     }
 
     @NonNull
@@ -75,7 +78,7 @@ public class MeetupAdapter extends RecyclerView.Adapter<MeetupAdapter.ViewHolder
             if (position != RecyclerView.NO_POSITION) {
                 Meetup meetup = meetups.get(position);
                 Fragment fragment = DetailsFragment.newInstance(meetup);
-                ((MainActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
 
             }
         }

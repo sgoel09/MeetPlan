@@ -93,7 +93,7 @@ public class GalleryFragment extends Fragment {
         meetup = getArguments().getParcelable(KEY_MEETUP);
         pictures = ImmutableList.<ParseFile>builder().addAll(meetup.getPicture()).build();
         layoutManager = new GridLayoutManager(getContext(),  3);
-        adapter = new GalleryAdapter(getContext(), pictures);
+        adapter = new GalleryAdapter(getContext(), pictures, meetup);
         binding.picturesRecyclerView.setAdapter(adapter);
         binding.picturesRecyclerView.setLayoutManager(layoutManager);
 

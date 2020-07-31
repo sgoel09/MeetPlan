@@ -37,6 +37,8 @@ import java.util.List;
  * */
 public class MainActivity extends AppCompatActivity {
 
+    public static int currentPosition;
+
     /** Fragment manager of this activity. */
     final FragmentManager fragmentManager = getSupportFragmentManager();
 
@@ -68,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        currentPosition = 0;
 
         View hview = binding.nv.getHeaderView(0);
         navHeaderBinding = NavHeaderBinding.bind(hview);

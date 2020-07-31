@@ -128,7 +128,7 @@ public class DetailsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 GalleryFragment fragment = GalleryFragment.newInstance(meetup);
-                ((MainActivity) getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+                getParentFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
             }
         });
 
