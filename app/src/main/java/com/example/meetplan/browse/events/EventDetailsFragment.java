@@ -1,13 +1,10 @@
-package com.example.meetplan.browse;
+package com.example.meetplan.browse.events;
 
-import android.app.Activity;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,7 +22,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.parceler.Parcels;
 
-public class TaskDetailsFragment extends Fragment implements OnMapReadyCallback {
+public class EventDetailsFragment extends Fragment implements OnMapReadyCallback {
 
     private static final String KEY_LOCATION = "location";
     Location mCurrentLocation;
@@ -34,12 +31,12 @@ public class TaskDetailsFragment extends Fragment implements OnMapReadyCallback 
     private GoogleMap mMap;
     private Venue venue;
 
-    public TaskDetailsFragment() {
+    public EventDetailsFragment() {
         // Required empty public constructor
     }
 
-    public static TaskDetailsFragment newInstance(Venue venue) {
-        TaskDetailsFragment fragment = new TaskDetailsFragment();
+    public static EventDetailsFragment newInstance(Venue venue) {
+        EventDetailsFragment fragment = new EventDetailsFragment();
         Bundle args = new Bundle();
         args.putParcelable("venue", Parcels.wrap(venue));
         fragment.setArguments(args);

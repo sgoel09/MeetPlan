@@ -17,12 +17,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
-import com.example.meetplan.browse.TaskDetailsFragment;
 import com.example.meetplan.browse.addtask.AddTaskFragment;
 import com.example.meetplan.browse.events.models.Event;
 import com.example.meetplan.databinding.ItemActivityBinding;
 import com.example.meetplan.models.Meetup;
-import com.example.meetplan.utilities.OnDoubleTapListener;
 import com.google.common.collect.ImmutableList;
 
 /**
@@ -158,7 +156,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         @Override
         public boolean onSingleTapConfirmed(MotionEvent e) {
             Log.i("onSingleTapConfirmed", e.getAction() + "");
-            TaskDetailsFragment fragment = TaskDetailsFragment.newInstance(event.getVenue());
+            EventDetailsFragment fragment = EventDetailsFragment.newInstance(event.getVenue());
             ((MainActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
             return super.onSingleTapConfirmed(e);
         }

@@ -1,38 +1,44 @@
 package com.example.meetplan.browse.restaurants.models;
 
-import android.content.Context;
-import android.widget.Toast;
-import android.widget.Toolbar;
-
-import com.example.meetplan.MainActivity;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
-import javax.annotation.Nullable;
-
+@Parcel
 public class Location {
 
-    private final String address;
-    private final String city;
-    private final String zipCode;
-    private final String state;
-    private static final String JSON_FIELD_ADDRESS1 = "address1";
-    private static final String JSON_FIELD_CITY = "city";
-    private static final String JSON_FIELD_ZIP_CODE = "zip_code";
-    private static final String JSON_FIELD_STATE = "state";
+    public String address;
+    public String city;
+    public String zipCode;
+    public String state;
+    public LatLng coordinates;
+    public static final String JSON_FIELD_ADDRESS1 = "address1";
+    public static final String JSON_FIELD_CITY = "city";
+    public static final String JSON_FIELD_ZIP_CODE = "zip_code";
+    public static final String JSON_FIELD_STATE = "state";
+    public static final String JSON_FIELD_LATITUDE = "latitude";
+    public static final String JSON_FIELD_LONGITUDE = "longitude";
 
-    public Location(JSONObject jsonObject) throws JSONException {
-        address = checkValue(jsonObject, JSON_FIELD_ADDRESS1);
-        city = checkValue(jsonObject, JSON_FIELD_CITY);
-        zipCode = checkValue(jsonObject, JSON_FIELD_ZIP_CODE);
-        state = checkValue(jsonObject, JSON_FIELD_STATE);
+    public Location() {}
+
+    public Location(JSONObject jsonLocation, JSONObject jsonCoordinates) throws JSONException {
+        address = checkValue(jsonLocation, JSON_FIELD_ADDRESS1);
+        city = checkValue(jsonLocation, JSON_FIELD_CITY);
+        zipCode = checkValue(jsonLocation, JSON_FIELD_ZIP_CODE);
+        state = checkValue(jsonLocation, JSON_FIELD_STATE);
+        double latitude = Double.parseDouble(checkValue(jsonCoordinates, JSON_FIELD_LATITUDE));
+        double longitude = Double.parseDouble(checkValue(jsonCoordinates, JSON_FIELD_LONGITUDE));
+        coordinates = new LatLng(latitude, longitude);
     }
 
     public String getFullAddress() {
         return String.format("%s, %s, %s %s", address, city, state, zipCode);
+    }
+
+    public LatLng getCoordinates() {
+        return coordinates;
     }
 
     private String checkValue(JSONObject jsonObject, String field) {

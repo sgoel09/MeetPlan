@@ -19,6 +19,7 @@ public class Restaurant {
     private static final String JSON_FIELD_IMAGE_URL = "image_url";
     private static final String JSON_FIELD_PRICE = "price";
     private static final String JSON_FIELD_LOCATION = "location";
+    private static final String JSON_FIELD_COORDINATES = "coordinates";
     private final Location location;
 
     public Restaurant(JSONObject jsonObject) {
@@ -39,7 +40,7 @@ public class Restaurant {
 
     private Location createLocation(JSONObject jsonObject) {
         try {
-            Location location = new Location(jsonObject.getJSONObject(JSON_FIELD_LOCATION));
+            Location location = new Location(jsonObject.getJSONObject(JSON_FIELD_LOCATION), jsonObject.getJSONObject(JSON_FIELD_COORDINATES));
             return location;
         } catch (JSONException e) {
             return null;

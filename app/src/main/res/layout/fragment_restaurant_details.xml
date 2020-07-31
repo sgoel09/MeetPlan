@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".browse.events.EventDetailsFragment">
+    tools:context=".browse.restaurants.RestaurantDetailsFragment">
 
     <TextView
         android:id="@+id/info"
@@ -40,4 +39,5 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/image"
         android:text="TextView" />
-</RelativeLayout>
+
+</FrameLayout>
