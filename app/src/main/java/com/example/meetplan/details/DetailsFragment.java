@@ -128,7 +128,7 @@ public class DetailsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 GalleryFragment fragment = GalleryFragment.newInstance(meetup);
-                getParentFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+                getParentFragmentManager().beginTransaction().addToBackStack(DetailsFragment.class.getSimpleName()).replace(R.id.flContainer, fragment).commit();
             }
         });
 

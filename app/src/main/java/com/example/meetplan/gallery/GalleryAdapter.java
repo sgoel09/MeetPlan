@@ -76,7 +76,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
             // Update the position.
             MainActivity.currentPosition = getAdapterPosition();
             Fragment imagePager = ImagePagerFragment.newInstance(meetup);
-            ((MainActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, imagePager, ImagePagerFragment.class.getSimpleName()).commit();
+            ((MainActivity) context).getSupportFragmentManager().beginTransaction().addToBackStack(GalleryAdapter.class.getSimpleName()).replace(R.id.flContainer, imagePager, ImagePagerFragment.class.getSimpleName()).commit();
 
         }
     }

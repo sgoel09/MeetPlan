@@ -78,7 +78,7 @@ public class MeetupAdapter extends RecyclerView.Adapter<MeetupAdapter.ViewHolder
             if (position != RecyclerView.NO_POSITION) {
                 Meetup meetup = meetups.get(position);
                 Fragment fragment = DetailsFragment.newInstance(meetup);
-                fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+                fragmentManager.beginTransaction().addToBackStack("third").replace(R.id.flContainer, fragment).commit();
 
             }
         }

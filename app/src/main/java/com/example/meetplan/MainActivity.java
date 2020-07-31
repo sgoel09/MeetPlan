@@ -2,6 +2,7 @@ package com.example.meetplan;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         toggle.syncState();
 
-        fragmentManager.beginTransaction().replace(R.id.flContainer, new MeetupsFragment()).commit();
+        fragmentManager.beginTransaction().addToBackStack(getLocalClassName()).replace(R.id.flContainer, new MeetupsFragment()).commit();
 
         setUserInfo();
 
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new ProfileFragment();
                         break;
                 }
-                fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+                fragmentManager.beginTransaction().addToBackStack(getLocalClassName()).replace(R.id.flContainer, fragment).commit();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }
