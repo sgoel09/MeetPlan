@@ -1,6 +1,7 @@
 package com.example.meetplan.meetups;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Typeface;
 import android.util.Log;
 import android.view.View;
@@ -22,11 +23,11 @@ import java.util.ArrayList;
 
 public class MeetupAdapter extends RecyclerView.Adapter<MeetupAdapter.ViewHolder> {
 
-    private Activity context;
+    private Context context;
     private ImmutableList<Meetup> meetups;
     private Boolean invited;
 
-    public MeetupAdapter(Activity context,  ImmutableList<Meetup> meetups, Boolean invited) {
+    public MeetupAdapter(Context context, ImmutableList<Meetup> meetups, Boolean invited) {
         this.context = context;
         this.meetups = meetups;
         this.invited = invited;
@@ -35,7 +36,7 @@ public class MeetupAdapter extends RecyclerView.Adapter<MeetupAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemMeetupBinding binding = ItemMeetupBinding.inflate(context.getLayoutInflater());
+        ItemMeetupBinding binding = ItemMeetupBinding.inflate(((MainActivity) context).getLayoutInflater());
         View view = binding.getRoot();
         return new ViewHolder(view, binding);
     }

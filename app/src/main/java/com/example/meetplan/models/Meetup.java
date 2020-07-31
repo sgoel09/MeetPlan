@@ -2,6 +2,7 @@ package com.example.meetplan.models;
 
 import com.example.meetplan.expenses.models.Expense;
 import com.parse.ParseClassName;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 
 import java.text.SimpleDateFormat;
@@ -18,6 +19,7 @@ public class Meetup extends ParseObject {
     public static final String KEY_DATE = "date";
     public static final String KEY_TASK = "task";
     public static final String KEY_EXPENSES = "expenses";
+    public static final String KEY_PICTURES = "pictures";
     public static final String DATE_FORMAT = "EE, MMM d, y";
     public static final String TIME_FORMAT = "h:mm a";
 
@@ -53,6 +55,14 @@ public class Meetup extends ParseObject {
 
     public void setMembers(ArrayList<String> members) {
         put(KEY_MEMBERS, members);
+    }
+
+    public ArrayList<ParseFile> getPicture() {
+        return (ArrayList<ParseFile>) get(KEY_PICTURES);
+    }
+
+    public void setPictures(ArrayList<ParseFile> pictures) {
+        put(KEY_PICTURES, pictures);
     }
 
     public ArrayList<String> getInvites() {

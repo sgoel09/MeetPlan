@@ -10,8 +10,11 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.fragment.app.Fragment;
 
+import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentDetailsBinding;
+import com.example.meetplan.expenses.ExpenseFragment;
+import com.example.meetplan.gallery.GalleryFragment;
 import com.example.meetplan.models.Meetup;
 import com.google.android.material.transition.MaterialContainerTransform;
 import com.parse.FindCallback;
@@ -120,6 +123,14 @@ public class DetailsFragment extends Fragment {
 
         expenseClickListener = new ExpenseClickListener(getActivity().getSupportFragmentManager(), getContext(), meetup);
         binding.expenseButton.setOnClickListener(expenseClickListener);
+
+        binding.galleryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GalleryFragment fragment = GalleryFragment.newInstance(meetup);
+                ((MainActivity) getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+            }
+        });
 
     }
 
