@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
+import com.example.meetplan.browse.events.EventFragment;
 import com.example.meetplan.models.Meetup;
 import com.example.meetplan.browse.restaurants.RestaurantFragment;
 
@@ -23,6 +24,6 @@ public class BrowseClickListener implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         Fragment fragment = RestaurantFragment.newInstance(meetup, null);
-        ((MainActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+        ((MainActivity) context).getSupportFragmentManager().beginTransaction().addToBackStack(RestaurantFragment.class.getSimpleName()).replace(R.id.flContainer, fragment).commit();
     }
 }

@@ -25,6 +25,6 @@ public class ExpenseClickListener implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         ExpenseFragment fragment = ExpenseFragment.newInstance(meetup);
-        fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+        fragmentManager.beginTransaction().addToBackStack(ExpenseFragment.class.getSimpleName()).replace(R.id.flContainer, fragment).commit();
     }
 }

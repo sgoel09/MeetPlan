@@ -8,16 +8,20 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.SharedElementCallback;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Environment;
 import android.provider.MediaStore;
+import androidx.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentGalleryBinding;
 import com.example.meetplan.databinding.FragmentMeetupsBinding;
@@ -35,6 +39,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -85,6 +91,7 @@ public class GalleryFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentGalleryBinding.inflate(getLayoutInflater(), container, false);
         View view = binding.getRoot();
+        prepareTransitions();
         return view;
     }
 
@@ -184,5 +191,27 @@ public class GalleryFragment extends Fragment {
             Snackbar.make(binding.getRoot(), getString(R.string.profile_pic_error), BaseTransientBottomBar.LENGTH_SHORT).show();
         }
         return new File(mediaStorageDir.getPath() + File.separator + fileName);
+    }
+
+    private void prepareTransitions() {
+        setExitTransition(TransitionInflater.from(getContext())
+                .inflateTransition(R.transition.grid_exit_transition));
+
+        // A similar mapping is set at the ImagePagerFragment with a setEnterSharedElementCallback.
+        setExitSharedElementCallback(new SharedElementCallback() {
+            @Override
+            public void onMapSharedElements(List<String> names, Map<String, View> sharedElements) {
+                //super.onMapSharedElements(names, sharedElements);
+                RecyclerView.ViewHolder selectedViewHolder = binding.picturesRecyclerView
+                        .findViewHolderForAdapterPosition(MainActivity.currentPosition);
+                if (selectedViewHolder == null) {
+                    return;
+                }
+
+                // Map the first shared element name to the child ImageView.
+                sharedElements
+                        .put(names.get(0), selectedViewHolder.itemView.findViewById(R.id.picture));
+            }
+        });
     }
 }

@@ -1,5 +1,6 @@
 package com.example.meetplan.gallery;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentGalleryBinding;
 import com.example.meetplan.databinding.FragmentImageBinding;
@@ -43,13 +48,36 @@ public class ImageFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentImageBinding.inflate(getLayoutInflater(), container, false);
         View view = binding.getRoot();
+        binding.imageView.setTransitionName(String.valueOf(getArguments().getParcelable(KEY_IMAGE_RES)));
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         Bundle arguments = getArguments();
-        ParseFile image = arguments.getParcelable(KEY_IMAGE_RES);
-        Glide.with(this).load(image.getUrl()).into(binding.image);
+        ParseFile imageFile = arguments.getParcelable(KEY_IMAGE_RES);
+        Glide.with(this).load(imageFile.getUrl())
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable>
+                            target, boolean isFirstResource) {
+                        // The postponeEnterTransition is called on the parent ImagePagerFragment, so the
+                        // startPostponedEnterTransition() should also be called on it to get the transition
+                        // going in case of a failure.
+                        getParentFragment().startPostponedEnterTransition();
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable>
+                            target, DataSource dataSource, boolean isFirstResource) {
+                        // The postponeEnterTransition is called on the parent ImagePagerFragment, so the
+                        // startPostponedEnterTransition() should also be called on it to get the transition
+                        // going when the image is ready.
+                        getParentFragment().startPostponedEnterTransition();
+                        return false;
+                    }
+                })
+                .into(binding.imageView);
     }
 }

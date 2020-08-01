@@ -1,6 +1,7 @@
 package com.example.meetplan.gallery;
 
 import android.content.Context;
+import android.transition.TransitionSet;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -66,9 +67,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
 
         public void bind(final ParseFile picture) {
             binding.picture.setVisibility(View.GONE);
-            String url = picture.getUrl();
             Glide.with(context).load(picture.getUrl()).into(binding.picture);
             binding.picture.setVisibility(View.VISIBLE);
+            binding.picture.setTransitionName(String.valueOf(meetup.getPicture().get(getAdapterPosition())));
         }
 
         @Override
@@ -76,7 +77,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
             // Update the position.
             MainActivity.currentPosition = getAdapterPosition();
             Fragment imagePager = ImagePagerFragment.newInstance(meetup);
-            ((MainActivity) context).getSupportFragmentManager().beginTransaction().addToBackStack(GalleryAdapter.class.getSimpleName()).replace(R.id.flContainer, imagePager, ImagePagerFragment.class.getSimpleName()).commit();
+            ((MainActivity) context).getSupportFragmentManager().beginTransaction().setReorderingAllowed(true).addSharedElement(binding.picture, binding.picture.getTransitionName()).addToBackStack(null).replace(R.id.flContainer, imagePager, ImagePagerFragment.class.getSimpleName()).commit();
 
         }
     }

@@ -40,6 +40,6 @@ public class NewClickListener implements View.OnClickListener {
         meetup.setInvites(invites);
         meetup.saveInBackground();
         Fragment fragment = DetailsFragment.newInstance(meetup);
-        ((MainActivity) context).getSupportFragmentManager().beginTransaction().addSharedElement(view, "shared_element_container").replace(R.id.flContainer, fragment).commit();
+        ((MainActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
     }
 }

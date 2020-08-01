@@ -86,7 +86,7 @@ public class DetailsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        //((MainActivity) getContext()).showBottomNavigation(false);
+        ((MainActivity) getContext()).showBottomNavigation(false);
 
         meetup = getArguments().getParcelable(KEY_MEETUP);
 

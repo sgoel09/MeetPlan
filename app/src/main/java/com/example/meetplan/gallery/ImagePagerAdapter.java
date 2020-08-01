@@ -12,7 +12,7 @@ public class ImagePagerAdapter extends FragmentStatePagerAdapter {
 
     public ImagePagerAdapter(Fragment fragment, Meetup meetup) {
         // Note: Initialize with the child fragment manager.
-        super(fragment.getParentFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        super(fragment.getChildFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.meetup = meetup;
     }
 
