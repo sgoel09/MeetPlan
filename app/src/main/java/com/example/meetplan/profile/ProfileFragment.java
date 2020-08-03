@@ -23,9 +23,12 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.meetplan.LoginActivity;
+import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentDetailsBinding;
 import com.example.meetplan.databinding.FragmentProfileBinding;
+import com.example.meetplan.gallery.AddPhotoFragment;
+import com.example.meetplan.gallery.PassNewPhoto;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.parse.FindCallback;
@@ -33,6 +36,7 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -47,7 +51,7 @@ import static android.app.Activity.RESULT_OK;
  * Use the {@link ProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements PassNewPhoto {
 
     private FragmentProfileBinding binding;
     private static final int GALLERY_REQUEST_CODE = 20;
@@ -59,6 +63,7 @@ public class ProfileFragment extends Fragment {
     private static final String IMAGE_TYPE = "image/*";
     private static final String[] mimeTypes = {"image/jpeg", "image/png"};
     private ProfilePicCallBack profilePicCallBack;
+    private ProfileFragment thisFragment = this;
     private LogoutClickListener logoutClickListener;
     @Nullable
     private File file;
@@ -102,24 +107,19 @@ public class ProfileFragment extends Fragment {
         logoutClickListener = new LogoutClickListener(getContext());
         binding.logoutButton.setOnClickListener(logoutClickListener);
 
-        binding.chooseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pickFromGallery();
-            }
-        });
-
-        binding.captureButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onLaunchCamera();
-            }
-        });
-
         binding.changeInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setUserInfo();
+            }
+        });
+
+        binding.profilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddPhotoFragment addPhotoBottomDialogFragment = new AddPhotoFragment();
+                addPhotoBottomDialogFragment.setTargetFragment(thisFragment, 0);
+                addPhotoBottomDialogFragment.show(((MainActivity) getContext()).getSupportFragmentManager(), "add_photo_dialog_fragment");
             }
         });
     }
@@ -225,5 +225,17 @@ public class ProfileFragment extends Fragment {
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     public FragmentProfileBinding getBinding() {
         return binding;
+    }
+
+    @Override
+    public void passCreatedParseFile(ParseFile file) {
+        ParseUser user = ParseUser.getCurrentUser();
+        user.put(KEY_PROFILE_PIC, file);
+        user.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                loadProfilePic();
+            }
+        });
     }
 }

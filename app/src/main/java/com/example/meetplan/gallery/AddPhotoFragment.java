@@ -88,7 +88,9 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        meetup = getArguments().getParcelable(KEY_MEETUP);
+        if (getArguments() != null) {
+            meetup = getArguments().getParcelable(KEY_MEETUP);
+        }
 
         binding.takeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,13 +115,21 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
             uriToParse(selectedImageUri);
         } else if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                if (file != null) {
+                if (file != null && meetup != null) {
                     saveNewPicture();
+                } else {
+                    saveNewProfilePicture();
                 }
             } else {
                 Snackbar.make(binding.getRoot(), getString(R.string.take_pic_error), BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void saveNewProfilePicture() {
+        PassNewPhoto mHost = (PassNewPhoto) thisFragment.getTargetFragment();
+        mHost.passCreatedParseFile(photoFile);
+        dismiss();
     }
 
     private void saveNewPicture() {

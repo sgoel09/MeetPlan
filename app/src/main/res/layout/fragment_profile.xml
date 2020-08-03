@@ -8,6 +8,17 @@
     android:layout_alignParentBottom="true"
     tools:context=".profile.ProfileFragment">
 
+    <TextView
+        android:id="@+id/nameEditLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/detailsLabel"
+        android:layout_marginLeft="@dimen/margin_med"
+        android:layout_marginTop="@dimen/margin_details"
+        android:fontFamily="@font/catamaran"
+        android:textColor="@android:color/black"
+        android:text="Name:" />
+
     <RelativeLayout
         android:id="@+id/innerLayout"
         android:layout_width="match_parent"
@@ -17,7 +28,7 @@
             android:id="@+id/background"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:src="@drawable/background" />
+            android:background="@drawable/polkadot" />
 
         <ImageView
             android:id="@+id/profilePic"
@@ -41,26 +52,27 @@
             android:textSize="@dimen/title_size"
             tools:text="Shefali" />
 
-    </RelativeLayout>
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/nameLabel"
+            android:layout_alignStart="@+id/profilePic"
+            android:layout_marginStart="80dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_baseline_add_circle_outline" />
 
-    <Button
-        android:id="@+id/captureButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/emailLabel"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="@dimen/margin_details"
-        android:layout_toRightOf="@id/chooseButton"
-        android:text="Take" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/usernameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/detailsLabel"
+        android:layout_below="@id/nameEditLabel"
         android:layout_marginLeft="@dimen/margin_med"
-        android:layout_marginTop="@dimen/margin_large"
+        android:layout_marginTop="@dimen/margin_details"
         android:fontFamily="@font/catamaran"
+        android:textColor="@android:color/black"
         android:text="@string/username_label" />
 
     <TextView
@@ -69,29 +81,21 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/usernameLabel"
         android:layout_marginLeft="@dimen/margin_med"
-        android:layout_marginTop="@dimen/margin_details"
+        android:layout_marginTop="@dimen/margin_extra"
         android:fontFamily="@font/catamaran"
+        android:textColor="@android:color/black"
         android:text="@string/email_label" />
 
     <Button
-        android:id="@+id/chooseButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/emailLabel"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="@dimen/margin_details"
-        android:layout_toRightOf="@id/profilePicLabel"
-        android:text="Choose" />
-
-    <Button
         android:id="@+id/logoutButton"
-        android:layout_width="match_parent"
+        android:layout_width="195dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="@dimen/margin_details"
+        android:layout_marginStart="@dimen/margin_small"
         android:layout_marginTop="@dimen/margin_details"
         android:layout_marginEnd="@dimen/margin_details"
-        android:layout_marginBottom="@dimen/margin_details"
+        android:layout_marginBottom="@dimen/margin_small"
         android:text="@string/logout"
         android:textColor="@android:color/white" />
 
@@ -104,6 +108,20 @@
 
     <EditText
         android:id="@+id/username"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name"
+        android:layout_marginLeft="@dimen/margin_med"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginRight="@dimen/margin_medium"
+        android:layout_toRightOf="@id/usernameLabel"
+        android:fontFamily="@font/catamaran"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
+        tools:text="shefali" />
+
+    <EditText
+        android:id="@+id/name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/detailsLabel"
@@ -121,7 +139,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/username"
-        android:layout_marginLeft="@dimen/margin_med"
+        android:layout_marginLeft="@dimen/margin_extra"
+        android:layout_marginTop="@dimen/margin_small"
         android:layout_marginRight="@dimen/margin_medium"
         android:layout_toRightOf="@id/emailLabel"
         android:fontFamily="@font/catamaran"
@@ -131,12 +150,12 @@
 
     <Button
         android:id="@+id/changeInfoButton"
-        android:layout_width="300dp"
+        android:layout_width="195dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/captureButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/margin_large"
-        android:layout_marginRight="@dimen/margin_med"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_small"
         android:text="@string/submit" />
 
     <TextView
@@ -145,20 +164,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/divider"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/margin_extra"
         android:fontFamily="@font/catamaran"
         android:text="@string/account_info"
         android:textColor="@android:color/black"
-        android:textSize="@dimen/text_size" />
-
-    <TextView
-        android:id="@+id/profilePicLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/emailLabel"
-        android:layout_marginLeft="@dimen/margin_med"
-        android:layout_marginTop="@dimen/margin_extra"
-        android:fontFamily="@font/catamaran"
-        android:text="@string/profile_pic_label" />
+        android:textSize="@dimen/text_size"
+        android:textStyle="bold" />
 
 </RelativeLayout>
