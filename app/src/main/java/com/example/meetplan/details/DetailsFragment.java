@@ -205,6 +205,7 @@ public class DetailsFragment extends Fragment {
             binding.activityLabel.setVisibility(View.GONE);
             binding.location.setVisibility(View.GONE);
             binding.locationLabel.setVisibility(View.GONE);
+            binding.address.setVisibility(View.GONE);
         }
 
         binding.browseButton.setVisibility(View.GONE);

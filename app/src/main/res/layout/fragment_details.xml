@@ -11,25 +11,16 @@
     tools:context=".details.DetailsFragment">
 
     <Button
-        android:id="@+id/timeButton"
-        android:layout_width="@dimen/button_width"
-        android:layout_height="@dimen/button_height"
-        android:layout_below="@id/dateLabel"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_med"
-        android:text="@string/time"
-        android:textColor="@android:color/white" />
-
-    <Button
         android:id="@+id/submitButton"
-        android:layout_width="@dimen/expense_button"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/margin_med"
         android:layout_marginRight="@dimen/margin_med"
         android:layout_marginBottom="@dimen/margin_med"
-        android:text="@string/submit" />
+        android:text="@string/submit"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/timeLabel"
@@ -102,6 +93,7 @@
         android:layout_marginTop="@dimen/margin_details"
         android:layout_toRightOf="@id/descriptionLabel"
         android:fontFamily="@font/catamaran"
+        android:textColor="@android:color/black"
         tools:text="Sample Title" />
 
     <TextView
@@ -131,7 +123,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
         android:layout_below="@id/detailsLabel"
-        android:background="@color/colorOrange" />
+        android:background="@color/colorThemeAccent" />
 
     <TextView
         android:id="@+id/title"
@@ -156,17 +148,6 @@
         android:text="@string/members_label"
         android:textColor="@android:color/black"
         android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/dateButton"
-        android:layout_width="@dimen/button_width"
-        android:layout_height="@dimen/button_height"
-        android:layout_below="@id/descriptionLabel"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_med"
-        android:text="date"
-        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/date"
@@ -264,17 +245,6 @@
         android:textColor="@android:color/black"
         tools:text="Salt and Straw" />
 
-    <Button
-        android:id="@+id/browseButton"
-        android:layout_width="@dimen/button_width"
-        android:layout_height="@dimen/button_height"
-        android:layout_below="@id/timeLabel"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_med"
-        android:text="@string/browse"
-        android:textColor="@android:color/white" />
-
     <TextView
         android:id="@+id/locationLabel"
         android:layout_width="wrap_content"
@@ -284,18 +254,8 @@
         android:layout_marginTop="@dimen/margin_details"
         android:fontFamily="@font/catamaran"
         android:text="@string/location_label"
+        android:textColor="@android:color/black"
         android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/inviteDialogButton"
-        android:layout_width="@dimen/button_width"
-        android:layout_height="@dimen/button_height"
-        android:layout_below="@id/membersLabel"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_med"
-        android:text="@string/invite"
-        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/activityLabel"
@@ -319,27 +279,104 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="@dimen/margin_med"
         android:layout_marginTop="@dimen/margin_med"
-        android:layout_marginEnd="@dimen/margin_med"
+        android:layout_marginRight="@dimen/margin_med"
         android:layout_marginBottom="@dimen/margin_med"
         android:src="@drawable/ic_baseline_edit" />
 
     <ImageView
-        android:id="@+id/galleryButton"
+        android:id="@+id/dateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp"
-        app:srcCompat="@drawable/ic_baseline_photo_library"
-        tools:src="@tools:sample/avatars" />
+        android:layout_below="@id/descriptionLabel"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/margin_details"
+        android:layout_marginRight="@dimen/margin_med"
+        android:src="@drawable/ic_baseline_add_circle_outline" />
 
     <ImageView
-        android:id="@+id/expenseButton"
+        android:id="@+id/timeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/dateLabel"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/margin_details"
+        android:layout_marginRight="@dimen/margin_med"
+        android:src="@drawable/ic_baseline_add_circle_outline" />
+
+    <ImageView
+        android:id="@+id/browseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/timeLabel"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/margin_details"
+        android:layout_marginRight="@dimen/margin_med"
+        android:src="@drawable/ic_baseline_add_circle_outline" />
+
+    <ImageView
+        android:id="@+id/inviteDialogButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/membersLabel"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/margin_details"
+        android:layout_marginRight="@dimen/margin_med"
+        android:src="@drawable/ic_baseline_add_circle_outline" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@id/galleryButton"
-        android:src="@drawable/ic_baseline_attach_money" />
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:id="@+id/galleryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/margin_details"
+            android:layout_toRightOf="@id/titleExpense"
+            android:paddingBottom="@dimen/margin_small"
+            app:srcCompat="@drawable/ic_baseline_photo_library"
+            tools:src="@tools:sample/avatars" />
+
+        <ImageView
+            android:id="@+id/expenseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@id/titleAdd"
+            android:paddingBottom="@dimen/margin_small"
+            android:src="@drawable/ic_baseline_attach_money" />
+
+        <TextView
+            android:id="@+id/titleAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:paddingBottom="@dimen/margin_medium"
+            android:text="Add/View: "
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/titleGallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@id/galleryButton"
+            android:paddingBottom="@dimen/margin_medium"
+            android:text="Photo Gallery" />
+
+        <TextView
+            android:id="@+id/titleExpense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@id/expenseButton"
+            android:paddingBottom="@dimen/margin_medium"
+            android:text="Expenses" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

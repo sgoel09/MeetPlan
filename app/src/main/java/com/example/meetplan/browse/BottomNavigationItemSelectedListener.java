@@ -52,7 +52,7 @@ public class BottomNavigationItemSelectedListener
                 fragment = RestaurantFragment.newInstance(meetup, city);
                 break;
         }
-        fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+        fragmentManager.beginTransaction().addToBackStack("Event").replace(R.id.flContainer, fragment).commit();
         return true;
     }
 

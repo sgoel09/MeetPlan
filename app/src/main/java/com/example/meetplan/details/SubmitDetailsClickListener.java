@@ -26,9 +26,13 @@ public class SubmitDetailsClickListener implements View.OnClickListener {
 
     private void saveMeetupInfo() {
         String title = binding.titleEdit.getText().toString();
+        if (!title.isEmpty()) {
+            meetup.setName(title);
+        }
         String description = binding.descriptionEdit.getText().toString();
-        meetup.setName(title);
-        meetup.setDescription(description);
+        if (!description.isEmpty()) {
+            meetup.setDescription(description);
+        }
         meetup.saveInBackground();
     }
 
@@ -71,7 +75,7 @@ public class SubmitDetailsClickListener implements View.OnClickListener {
             binding.activity.setText(meetup.getTask().getName());
             binding.location.setVisibility(View.VISIBLE);
             binding.locationLabel.setVisibility(View.VISIBLE);
-            binding.locationLabel.setText(meetup.getTask().getPlace());
+            binding.location.setText(meetup.getTask().getPlace());
         } else {
             binding.activity.setVisibility(View.GONE);
             binding.activityLabel.setVisibility(View.GONE);
@@ -87,5 +91,9 @@ public class SubmitDetailsClickListener implements View.OnClickListener {
         binding.submitButton.setVisibility(View.GONE);
         binding.galleryButton.setVisibility(View.VISIBLE);
         binding.expenseButton.setVisibility(View.VISIBLE);
+        binding.titleAdd.setVisibility(View.VISIBLE);
+        binding.titleGallery.setVisibility(View.VISIBLE);
+        binding.titleExpense.setVisibility(View.VISIBLE);
+
     }
 }

@@ -6,8 +6,10 @@
     <color name="colorDarkGray">#838383</color>
     <color name="colorThemeBackground">#FDFCFC</color>
     <color name="colorThemeMain">#ED7F7F</color>
-    <color name="colorThemeSecondary" tools:ignore="MissingDefaultResource">#F1A16B</color>
     <color name="colorBottomNavChecked">#FFF7DD</color>
     <color name="colorBottomNavDefault">#E1D5B2</color>
+    <color name="colorThemePrimary">#FF8F6C</color>
+    <color name="colorThemeSecondary">#FBCC85</color>
+    <color name="colorThemeAccent">#7C0F8A</color>
     <color name="colorOrange">#F1A16B</color>
 </resources>
