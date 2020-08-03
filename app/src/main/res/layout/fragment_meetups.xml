@@ -17,7 +17,8 @@
         android:layout_marginBottom="@dimen/margin_small"
         android:text="Upcoming Meetups"
         android:textColor="@android:color/black"
-        android:textSize="@dimen/label_size" />
+        android:textSize="@dimen/label_size"
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/meetupsRecyclerView"
@@ -35,7 +36,8 @@
         android:layout_marginBottom="@dimen/margin_small"
         android:text="@string/invited_meetups"
         android:textColor="@android:color/black"
-        android:textSize="@dimen/label_size" />
+        android:textSize="@dimen/label_size"
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/invitedRecyclerView"
@@ -53,7 +55,8 @@
         android:layout_marginTop="@dimen/margin_medium"
         android:layout_marginEnd="@dimen/margin_medium"
         android:layout_marginBottom="@dimen/margin_medium"
-        android:transitionName="shared_element_container"
-        android:src="@drawable/ic_baseline_add" />
+        android:backgroundTint="#FF9979"
+        android:src="@drawable/ic_baseline_add"
+        android:transitionName="shared_element_container" />
 
 </RelativeLayout>

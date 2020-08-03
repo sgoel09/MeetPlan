@@ -40,5 +40,7 @@ public class EditDetailsClickListener implements View.OnClickListener {
         binding.timeButton.setVisibility(View.VISIBLE);
         binding.editButton.setVisibility(View.GONE);
         binding.submitButton.setVisibility(View.VISIBLE);
+        binding.galleryButton.setVisibility(View.GONE);
+        binding.expenseButton.setVisibility(View.GONE);
     }
 }

@@ -49,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
         android:layout_below="@id/label"
-        android:background="@color/colorOrange" />
+        android:background="#7C0F8A" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/expensesRecyclerView"

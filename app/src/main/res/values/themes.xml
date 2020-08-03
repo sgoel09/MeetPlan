@@ -7,19 +7,22 @@
         <!--colorPrimary colors map to components and elements, such as app bars and buttons. -->
         <!--colorSecondary colors are most often used as accents on components, such as FABs and -->
         <!--selection controls.-->
-        <item name="colorPrimary">@color/colorThemeMain</item>
-        <item name="colorSecondary">#F1A16B</item>
-        <item name="colorPrimaryDark">@color/colorDarkGray</item>
+        <item name="colorPrimary">#FF8F6C</item>
+        <item name="colorSecondary">#FBCC85</item>
+        <item name="colorAccent">#7C0F8A</item>
+        <item name="android:textColorPrimary">@android:color/black</item>
         <item name="android:statusBarColor">@color/colorDarkGray</item>
         <!--colorBackground appears behind scrollable content and is used for the default window-->
         <!--background. colorSurface is mapped to the surface of components such as cards, sheets-->
         <!--and menus. colorError is used to indicate an error state for components such as-->
         <!--text fields.-->
-        <item name="android:colorBackground">@color/colorThemeBackground</item>
+        <item name="android:colorBackground">#FFFFFF</item>
+        <item name="android:navigationBarColor">#FBF9FF</item>
         <!--"On" colors define how text, icons and strokes are colored in relation to the surface-->
         <!--on which they appear.-->
         <item name="colorOnPrimary">@android:color/white</item>
         <item name="colorOnBackground">@android:color/black</item>
+        <item name="colorOnSecondary">@android:color/black</item>
     </style>
     <style name="Base.Theme.MaterialThemeBuilder" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:statusBarColor" tools:ignore="NewApi">?attr/colorSurface</item>

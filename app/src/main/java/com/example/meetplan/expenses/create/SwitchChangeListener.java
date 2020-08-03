@@ -61,5 +61,7 @@ public class SwitchChangeListener implements CompoundButton.OnCheckedChangeListe
         binding.membersLabel.setVisibility(visibility);
         binding.membersRecyclerView.setVisibility(visibility);
         binding.numPeopleLabel.setVisibility(visibility);
+        binding.divider.setVisibility(visibility);
+        binding.divider2.setVisibility(visibility);
     }
 }

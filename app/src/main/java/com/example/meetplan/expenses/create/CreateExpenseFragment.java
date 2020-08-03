@@ -62,6 +62,7 @@ public class CreateExpenseFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        setStyle(DialogFragment.STYLE_NO_TITLE, R.style.Base_Theme_MyApp);
         binding = FragmentCreateExpenseBinding.inflate(getLayoutInflater(), container, false);
         return binding.getRoot();
     }
@@ -82,6 +83,8 @@ public class CreateExpenseFragment extends DialogFragment {
 
         binding.allSwitch.setChecked(true);
         binding.membersButton.setVisibility(View.GONE);
+        binding.divider.setVisibility(View.GONE);
+        binding.divider2.setVisibility(View.GONE);
 
         switchChangeListener = new SwitchChangeListener(binding, users, usersImmutable, meetup, createExpenseAdapter, splits);
         binding.allSwitch.setOnCheckedChangeListener(switchChangeListener);

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="@dimen/margin_small"
     app:cardElevation="@dimen/margin_small"
     app:cardPreventCornerOverlap="true"
@@ -19,8 +19,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/catamaran"
+            android:textColor="@android:color/black"
             android:textSize="@dimen/text_size"
-            android:textStyle="bold"
             tools:text="Dinner" />
 
         <TextView
@@ -30,6 +30,7 @@
             android:layout_marginLeft="@dimen/margin_details"
             android:layout_marginTop="@dimen/margin_small"
             android:layout_toRightOf="@id/name"
+            android:textColor="@android:color/black"
             android:textSize="@dimen/text_size"
             tools:text="$15" />
 
@@ -40,6 +41,7 @@
             android:layout_below="@id/name"
             android:fontFamily="@font/catamaran"
             android:text="@string/paid_label"
+            android:textColor="@color/colorDarkGray"
             android:textStyle="bold" />
 
         <TextView
@@ -50,6 +52,7 @@
             android:layout_marginLeft="@dimen/margin_small"
             android:layout_toRightOf="@id/paidLabel"
             android:fontFamily="@font/catamaran"
+            android:textColor="@color/colorDarkGray"
             tools:text="shefali" />
 
         <TextView
@@ -60,6 +63,7 @@
             android:layout_marginLeft="@dimen/margin_small"
             android:layout_toRightOf="@id/membersLabel"
             android:fontFamily="@font/catamaran"
+            android:textColor="@color/colorDarkGray"
             tools:text="testing; signup" />
 
         <TextView
@@ -69,6 +73,7 @@
             android:layout_below="@id/paidLabel"
             android:fontFamily="@font/catamaran"
             android:text="@string/members_label"
+            android:textColor="@color/colorDarkGray"
             android:textStyle="bold" />
 
         <TextView
@@ -79,6 +84,7 @@
             android:layout_marginTop="@dimen/margin_small"
             android:layout_toRightOf="@id/name"
             android:text="•"
+            android:textColor="@android:color/black"
             android:textSize="@dimen/label_size" />
 
     </RelativeLayout>

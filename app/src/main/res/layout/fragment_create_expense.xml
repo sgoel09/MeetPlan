@@ -24,18 +24,19 @@
         android:layout_marginLeft="@dimen/margin_med"
         android:layout_marginTop="@dimen/margin_small"
         android:layout_marginRight="@dimen/margin_med"
+        android:layout_toRightOf="@id/amountLabel"
         android:imeOptions="actionDone"
-        android:singleLine="true"
-        android:layout_toRightOf="@id/amountLabel" />
+        android:singleLine="true" />
 
     <TextView
         android:id="@+id/createLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/catamaran"
+        android:text="@string/new_expense"
         android:textColor="@android:color/black"
         android:textSize="@dimen/text_size"
-        android:text="@string/new_expense" />
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/membersButton"
@@ -86,15 +87,16 @@
         android:layout_marginLeft="@dimen/margin_med"
         android:layout_marginTop="@dimen/margin_small"
         android:layout_marginRight="@dimen/margin_med"
+        android:layout_toRightOf="@id/amountLabel"
         android:imeOptions="actionDone"
-        android:singleLine="true"
-        android:layout_toRightOf="@id/amountLabel" />
+        android:singleLine="true" />
 
     <TextView
         android:id="@+id/membersLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/allSwitch"
+        android:layout_below="@id/divider"
+        android:layout_marginTop="@dimen/margin_small"
         android:fontFamily="@font/catamaran"
         android:text="@string/members_label"
         android:textColor="@android:color/black" />
@@ -103,12 +105,28 @@
         android:id="@+id/numPeopleLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/allSwitch"
+        android:layout_below="@id/divider"
         android:layout_marginLeft="@dimen/margin_large"
+        android:layout_marginTop="@dimen/margin_small"
         android:layout_toRightOf="@id/membersLabel"
         android:fontFamily="@font/catamaran"
         android:text="@string/num_label"
         android:textColor="@android:color/black" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_below="@id/allSwitch"
+        android:background="#7C0F8A" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_below="@id/membersRecyclerView"
+        android:layout_marginTop="@dimen/margin_med"
+        android:background="#7C0F8A" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/membersRecyclerView"

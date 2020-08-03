@@ -14,7 +14,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:background="#FBCC85"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             <ImageView
@@ -44,7 +44,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            app:backgroundTint="@color/colorThemeMain"
             app:elevation="@dimen/padding"
             app:itemIconTint="@color/bottomnav_selector"
             app:itemTextColor="@color/bottomnav_selector"

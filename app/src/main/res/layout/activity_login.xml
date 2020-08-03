@@ -20,7 +20,6 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="@dimen/margin_small"
             android:layout_marginRight="@dimen/margin_med"
-            android:background="@color/colorThemeBackground"
             android:text="@string/signup" />
 
         <ImageView

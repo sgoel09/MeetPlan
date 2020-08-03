@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -39,6 +40,7 @@
         android:layout_marginTop="@dimen/margin_details"
         android:fontFamily="@font/catamaran"
         android:textStyle="bold"
+        android:textColor="@android:color/black"
         android:text="@string/time_label" />
 
     <TextView
@@ -50,6 +52,7 @@
         android:layout_marginTop="@dimen/margin_details"
         android:fontFamily="@font/catamaran"
         android:textStyle="bold"
+        android:textColor="@android:color/black"
         android:text="@string/date_label" />
 
     <TextView
@@ -61,6 +64,7 @@
         android:layout_marginTop="@dimen/margin_details"
         android:fontFamily="@font/catamaran"
         android:textStyle="bold"
+        android:textColor="@android:color/black"
         android:text="@string/description_label" />
 
     <TextView
@@ -86,6 +90,7 @@
         android:layout_marginTop="@dimen/margin_small"
         android:imeOptions="actionDone"
         android:singleLine="true"
+        android:textColor="@android:color/black"
         android:layout_toRightOf="@id/descriptionLabel" />
 
     <TextView
@@ -108,6 +113,7 @@
         android:layout_marginTop="@dimen/margin_med"
         android:fontFamily="@font/catamaran"
         android:text="@string/title_label"
+        android:textColor="@android:color/black"
         android:textStyle="bold" />
 
     <EditText
@@ -127,26 +133,6 @@
         android:layout_below="@id/detailsLabel"
         android:background="@color/colorOrange" />
 
-    <Button
-        android:id="@+id/editButton"
-        android:layout_width="@dimen/expense_button"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="@dimen/margin_med"
-        android:layout_marginBottom="@dimen/margin_med"
-        android:text="@string/edit" />
-
-    <Button
-        android:id="@+id/expenseButton"
-        android:layout_width="@dimen/expense_button"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="false"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/margin_med"
-        android:layout_marginBottom="@dimen/margin_med"
-        android:text="@string/expenses" />
-
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -156,6 +142,7 @@
         android:layout_marginTop="@dimen/margin_med"
         android:layout_toRightOf="@id/titleLabel"
         android:fontFamily="@font/catamaran"
+        android:textColor="@android:color/black"
         tools:text="Sample Title" />
 
     <TextView
@@ -167,6 +154,7 @@
         android:layout_marginTop="@dimen/margin_details"
         android:fontFamily="@font/catamaran"
         android:text="@string/members_label"
+        android:textColor="@android:color/black"
         android:textStyle="bold" />
 
     <Button
@@ -189,6 +177,7 @@
         android:layout_marginTop="@dimen/margin_details"
         android:layout_toRightOf="@id/dateLabel"
         android:fontFamily="@font/catamaran"
+        android:textColor="@android:color/black"
         tools:text="Fri Jun 24" />
 
     <TextView
@@ -200,6 +189,7 @@
         android:layout_marginTop="@dimen/margin_details"
         android:fontFamily="@font/catamaran"
         android:textStyle="bold"
+        android:textColor="@android:color/black"
         android:text="@string/invited_label" />
 
     <TextView
@@ -211,6 +201,7 @@
         android:layout_marginTop="@dimen/margin_details"
         android:layout_toRightOf="@id/membersLabel"
         android:fontFamily="@font/catamaran"
+        android:textColor="@android:color/black"
         tools:text="shefali, test, ..." />
 
     <TextView
@@ -222,6 +213,7 @@
         android:layout_marginTop="@dimen/margin_details"
         android:layout_toRightOf="@id/invitedLabel"
         android:fontFamily="@font/catamaran"
+        android:textColor="@android:color/black"
         tools:text="shefali, test, ..." />
 
     <TextView
@@ -233,6 +225,7 @@
         android:layout_marginTop="@dimen/margin_details"
         android:layout_toRightOf="@id/timeLabel"
         android:fontFamily="@font/catamaran"
+        android:textColor="@android:color/black"
         tools:text="1:00 PM to 3:00 PM" />
 
     <TextView
@@ -244,6 +237,7 @@
         android:layout_marginTop="@dimen/margin_details"
         android:layout_toRightOf="@id/activityLabel"
         android:fontFamily="@font/catamaran"
+        android:textColor="@android:color/black"
         tools:text="@string/restaurants" />
 
     <TextView
@@ -255,6 +249,7 @@
         android:layout_marginTop="@dimen/margin_small"
         android:layout_toRightOf="@id/locationLabel"
         android:fontFamily="@font/catamaran"
+        android:textColor="@android:color/black"
         tools:text="16828 NW Madrone St" />
 
     <TextView
@@ -266,6 +261,7 @@
         android:layout_marginTop="@dimen/margin_details"
         android:layout_toRightOf="@id/locationLabel"
         android:fontFamily="@font/catamaran"
+        android:textColor="@android:color/black"
         tools:text="Salt and Straw" />
 
     <Button
@@ -310,13 +306,40 @@
         android:layout_marginTop="@dimen/margin_details"
         android:fontFamily="@font/catamaran"
         android:text="@string/type_label"
+        android:textColor="@android:color/black"
         android:textStyle="bold" />
 
-    <Button
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/editButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="@dimen/margin_med"
+        android:layout_marginTop="@dimen/margin_med"
+        android:layout_marginEnd="@dimen/margin_med"
+        android:layout_marginBottom="@dimen/margin_med"
+        android:src="@drawable/ic_baseline_edit" />
+
+    <ImageView
         android:id="@+id/galleryButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/expenseButton"
-        android:text="@string/menu_gallery" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        app:srcCompat="@drawable/ic_baseline_photo_library"
+        tools:src="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/expenseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/galleryButton"
+        android:src="@drawable/ic_baseline_attach_money" />
 
 </RelativeLayout>
