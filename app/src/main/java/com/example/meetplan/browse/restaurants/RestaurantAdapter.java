@@ -119,7 +119,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         @Override
         public boolean onSingleTapConfirmed(MotionEvent e) {
             Log.i("onSingleTapConfirmed", e.getAction() + "");
-            RestaurantDetailsFragment fragment = RestaurantDetailsFragment.newInstance(restaurant.getLocation());
+            RestaurantDetailsFragment fragment = RestaurantDetailsFragment.newInstance(restaurant.getLocation(), restaurant);
             ((MainActivity) context).getSupportFragmentManager().beginTransaction().addToBackStack(RestaurantFragment.class.getSimpleName()).replace(R.id.flContainer, fragment).commit();
             return super.onSingleTapConfirmed(e);
         }

@@ -92,7 +92,6 @@
         android:layout_marginTop="@dimen/margin_details"
         android:layout_marginEnd="@dimen/margin_details"
         android:layout_marginBottom="@dimen/margin_details"
-        android:background="@color/colorThemeMain"
         android:text="@string/logout"
         android:textColor="@android:color/white" />
 
@@ -101,7 +100,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
         android:layout_below="@id/innerLayout"
-        android:background="@color/colorThemeMain" />
+        android:background="@color/colorThemeAccent" />
 
     <EditText
         android:id="@+id/username"

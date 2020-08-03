@@ -3,30 +3,36 @@ package com.example.meetplan.browse.restaurants.models;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Parcel
 public class Restaurant {
 
-    private final String name;
-    private final String id;
-    private final String price;
-    private final String image;
-    private static final String JSON_FIELD_NAME = "name";
-    private static final String JSON_FIELD_ID = "id";
-    private static final String JSON_FIELD_URL = "url";
-    private static final String JSON_FIELD_IMAGE_URL = "image_url";
-    private static final String JSON_FIELD_PRICE = "price";
-    private static final String JSON_FIELD_LOCATION = "location";
-    private static final String JSON_FIELD_COORDINATES = "coordinates";
-    private final Location location;
+    public String name;
+    public String id;
+    public String price;
+    public String image;
+    public String url;
+    public final String JSON_FIELD_NAME = "name";
+    public final String JSON_FIELD_ID = "id";
+    public final String JSON_FIELD_URL = "url";
+    public final String JSON_FIELD_IMAGE_URL = "image_url";
+    public final String JSON_FIELD_PRICE = "price";
+    public final String JSON_FIELD_LOCATION = "location";
+    public final String JSON_FIELD_COORDINATES = "coordinates";
+    public Location location;
+
+    public Restaurant() {}
 
     public Restaurant(JSONObject jsonObject) {
         name = checkValue(jsonObject, JSON_FIELD_NAME);
         id = checkValue(jsonObject, JSON_FIELD_ID);
         image = checkValue(jsonObject, JSON_FIELD_IMAGE_URL);
         price = checkValue(jsonObject, JSON_FIELD_PRICE);
+        url = checkValue(jsonObject, JSON_FIELD_URL);
         location = createLocation(jsonObject);
     }
 
@@ -66,6 +72,10 @@ public class Restaurant {
 
     public String getImage() {
         return image;
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     public Location getLocation() {

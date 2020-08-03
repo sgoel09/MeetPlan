@@ -13,7 +13,7 @@
         android:layout_below="@id/createLabel"
         android:layout_marginTop="@dimen/margin_med"
         android:fontFamily="@font/catamaran"
-        android:text="@string/name_label"
+        android:text="@string/title_label"
         android:textColor="@android:color/black" />
 
     <EditText
@@ -106,11 +106,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/divider"
-        android:layout_marginLeft="@dimen/margin_large"
+        android:layout_marginLeft="@dimen/margin_extra"
         android:layout_marginTop="@dimen/margin_small"
         android:layout_toRightOf="@id/membersLabel"
         android:fontFamily="@font/catamaran"
-        android:text="@string/num_label"
+        android:text="# Paying For"
         android:textColor="@android:color/black" />
 
     <View
