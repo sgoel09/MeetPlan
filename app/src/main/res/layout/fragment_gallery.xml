@@ -14,8 +14,7 @@
         android:layout_marginTop="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_med"
         android:layout_marginBottom="@dimen/margin_med"
-        android:src="@drawable/ic_baseline_edit"
-        app:srcCompat="@drawable/ic_baseline_add_circle_outline" />
+        android:src="@drawable/ic_baseline_edit" />
 
     <TextView
         android:id="@+id/galleryLabel"
@@ -42,22 +41,7 @@
         android:id="@+id/picturesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/chooseButton"
         android:layout_below="@id/divider3"
         android:layout_marginTop="@dimen/margin_med" />
 
-    <Button
-        android:id="@+id/chooseButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="@string/choose" />
-
-    <Button
-        android:id="@+id/takeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:text="Take" />
 </RelativeLayout>

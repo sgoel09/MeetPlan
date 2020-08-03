@@ -42,8 +42,5 @@ public class EditDetailsClickListener implements View.OnClickListener {
         binding.submitButton.setVisibility(View.VISIBLE);
         binding.galleryButton.setVisibility(View.GONE);
         binding.expenseButton.setVisibility(View.GONE);
-        binding.titleAdd.setVisibility(View.GONE);
-        binding.titleGallery.setVisibility(View.GONE);
-        binding.titleExpense.setVisibility(View.GONE);
     }
 }

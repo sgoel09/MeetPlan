@@ -16,6 +16,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.browse.events.EventAdapter;
 import com.example.meetplan.browse.events.EventDetailsFragment;
+import com.example.meetplan.browse.events.EventFragment;
 import com.example.meetplan.utilities.OnDoubleTapListener;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.ItemRestaurantBinding;
@@ -119,7 +120,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         public boolean onSingleTapConfirmed(MotionEvent e) {
             Log.i("onSingleTapConfirmed", e.getAction() + "");
             RestaurantDetailsFragment fragment = RestaurantDetailsFragment.newInstance(restaurant.getLocation());
-            ((MainActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+            ((MainActivity) context).getSupportFragmentManager().beginTransaction().addToBackStack(RestaurantFragment.class.getSimpleName()).replace(R.id.flContainer, fragment).commit();
             return super.onSingleTapConfirmed(e);
         }
 

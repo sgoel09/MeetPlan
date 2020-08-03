@@ -105,19 +105,19 @@ public class GalleryFragment extends Fragment implements PassNewPhoto {
         binding.picturesRecyclerView.setAdapter(adapter);
         binding.picturesRecyclerView.setLayoutManager(layoutManager);
 
-        binding.chooseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pickFromGallery();
-            }
-        });
-
-        binding.takeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onLaunchCamera();
-            }
-        });
+//        binding.chooseButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                pickFromGallery();
+//            }
+//        });
+//
+//        binding.takeButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                onLaunchCamera();
+//            }
+//        });
 
         binding.editButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -91,9 +91,5 @@ public class SubmitDetailsClickListener implements View.OnClickListener {
         binding.submitButton.setVisibility(View.GONE);
         binding.galleryButton.setVisibility(View.VISIBLE);
         binding.expenseButton.setVisibility(View.VISIBLE);
-        binding.titleAdd.setVisibility(View.VISIBLE);
-        binding.titleGallery.setVisibility(View.VISIBLE);
-        binding.titleExpense.setVisibility(View.VISIBLE);
-
     }
 }

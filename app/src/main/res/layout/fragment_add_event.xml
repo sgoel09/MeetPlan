@@ -25,7 +25,6 @@
             android:layout_below="@id/address"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="@dimen/respond_image"
-            android:background="@color/colorThemeMain"
             android:text="@string/add"
             android:textColor="@android:color/white" />
 
@@ -44,6 +43,7 @@
             android:layout_marginTop="@dimen/margin_details"
             android:fontFamily="@font/catamaran"
             android:text="@string/type_label"
+            android:textColor="@android:color/black"
             android:textStyle="bold" />
 
         <TextView
@@ -53,6 +53,7 @@
             android:layout_below="@id/activityLabel"
             android:layout_marginLeft="@dimen/margin_med"
             android:layout_marginTop="@dimen/margin_med"
+            android:textColor="@android:color/black"
             android:fontFamily="@font/catamaran"
 
             android:textStyle="bold"
@@ -66,6 +67,7 @@
             android:layout_marginTop="@dimen/margin_details"
             android:layout_toRightOf="@id/activityLabel"
             android:fontFamily="@font/catamaran"
+            android:textColor="@android:color/black"
             tools:text="Event" />
 
         <TextView
@@ -77,6 +79,7 @@
             android:layout_marginTop="@dimen/margin_med"
             android:layout_toRightOf="@id/locationLabel"
             android:fontFamily="@font/catamaran"
+            android:textColor="@android:color/black"
             tools:text="Location" />
 
         <TextView
@@ -88,6 +91,7 @@
             android:layout_marginTop="@dimen/margin_small"
             android:layout_toRightOf="@id/locationLabel"
             android:fontFamily="@font/catamaran"
+            android:textColor="@android:color/black"
             tools:text="Location" />
 
         <TextView
@@ -98,6 +102,7 @@
             android:layout_marginTop="40dp"
             android:layout_marginRight="@dimen/margin_small"
             android:fontFamily="@font/catamaran"
+            android:textColor="@android:color/black"
             android:layout_toLeftOf="@id/addButton" />
 
     </RelativeLayout>

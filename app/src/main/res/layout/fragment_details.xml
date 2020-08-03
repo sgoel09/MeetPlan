@@ -292,7 +292,8 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/margin_details"
         android:layout_marginRight="@dimen/margin_med"
-        android:src="@drawable/ic_baseline_add_circle_outline" />
+        android:src="@drawable/ic_baseline_arrow_forward"
+        app:srcCompat="@drawable/ic_baseline_arrow_forward" />
 
     <ImageView
         android:id="@+id/timeButton"
@@ -302,7 +303,8 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/margin_details"
         android:layout_marginRight="@dimen/margin_med"
-        android:src="@drawable/ic_baseline_add_circle_outline" />
+        android:src="@drawable/ic_baseline_arrow_forward"
+        app:srcCompat="@drawable/ic_baseline_arrow_forward" />
 
     <ImageView
         android:id="@+id/browseButton"
@@ -312,7 +314,8 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/margin_details"
         android:layout_marginRight="@dimen/margin_med"
-        android:src="@drawable/ic_baseline_add_circle_outline" />
+        android:src="@drawable/ic_baseline_arrow_forward"
+        app:srcCompat="@drawable/ic_baseline_arrow_forward" />
 
     <ImageView
         android:id="@+id/inviteDialogButton"
@@ -322,61 +325,37 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/margin_details"
         android:layout_marginRight="@dimen/margin_med"
-        android:src="@drawable/ic_baseline_add_circle_outline" />
+        android:src="@drawable/ic_baseline_arrow_forward"
+        app:srcCompat="@drawable/ic_baseline_arrow_forward" />
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true">
 
-        <ImageView
-            android:id="@+id/galleryButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="@dimen/margin_details"
-            android:layout_toRightOf="@id/titleExpense"
-            android:paddingBottom="@dimen/margin_small"
-            app:srcCompat="@drawable/ic_baseline_photo_library"
-            tools:src="@tools:sample/avatars" />
-
-        <ImageView
+        <Button
             android:id="@+id/expenseButton"
-            android:layout_width="wrap_content"
+            android:layout_width="195dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@id/titleAdd"
-            android:paddingBottom="@dimen/margin_small"
-            android:src="@drawable/ic_baseline_attach_money" />
-
-        <TextView
-            android:id="@+id/titleAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:paddingBottom="@dimen/margin_medium"
-            android:text="Add/View: "
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/titleGallery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@id/galleryButton"
-            android:paddingBottom="@dimen/margin_medium"
-            android:text="Photo Gallery" />
-
-        <TextView
-            android:id="@+id/titleExpense"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@id/expenseButton"
-            android:paddingBottom="@dimen/margin_medium"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:drawableLeft="@drawable/ic_baseline_attach_money"
             android:text="Expenses" />
 
+        <Button
+            android:id="@+id/galleryButton"
+            android:layout_width="195dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:drawableLeft="@drawable/ic_baseline_photo_library"
+            android:text="Gallery" />
+
     </RelativeLayout>
+
 
 </RelativeLayout>
