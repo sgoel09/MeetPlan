@@ -62,12 +62,13 @@ This app is designed to easily create and organize meetups among friends from st
 - User profile
   - [x] Users can edit account information
   - [X] Users can upload a profile picture from gallery
-- [ ] View meetups that have completed
-- [ ] Include a details page for each activity to see more information (such as address, rating, phone etc.)
-- [ ] Use Google Maps to see location of activity on map
-- [ ] Photo gallery where members can upload photos shared with the rest of the group
+- [x] View meetups that have completed
+- [x] Include a details page for each activity to see more information (such as address, rating, phone etc.)
+- [x] Use Google Maps to see location of activity on map
+- [x] Photo gallery where members can upload photos shared with the rest of the group
 - [ ] Have a poll to determine best time to meet
 - [ ] Browse transportation options (i.e. bus and train schedules)
+- [ ] Receive notification when scheduled time is nearing
 
 ### 2. Screen Archetypes
 
