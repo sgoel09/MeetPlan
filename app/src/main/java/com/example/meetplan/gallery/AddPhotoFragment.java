@@ -127,9 +127,9 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
     }
 
     private void saveNewProfilePicture() {
+        dismiss();
         PassNewPhoto mHost = (PassNewPhoto) thisFragment.getTargetFragment();
         mHost.passCreatedParseFile(photoFile);
-        dismiss();
     }
 
     private void saveNewPicture() {

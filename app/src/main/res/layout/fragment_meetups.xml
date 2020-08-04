@@ -6,44 +6,86 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".meetups.MeetupsFragment">
 
-    <TextView
-        android:id="@+id/acceptedLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/invitedRecyclerView"
-        android:layout_marginStart="@dimen/margin_small"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_marginEnd="@dimen/margin_small"
-        android:layout_marginBottom="@dimen/margin_small"
-        android:text="Upcoming Meetups"
-        android:textColor="@android:color/black"
-        android:textSize="@dimen/label_size"
-        android:textStyle="bold" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/meetupsRecyclerView"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/acceptedLabel" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/invitedLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_small"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_marginEnd="@dimen/margin_small"
-        android:layout_marginBottom="@dimen/margin_small"
-        android:text="@string/invited_meetups"
-        android:textColor="@android:color/black"
-        android:textSize="@dimen/label_size"
-        android:textStyle="bold" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="75dp">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/invitedRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/invitedLabel" />
+            <TextView
+                android:id="@+id/acceptedLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/invitedRecyclerView"
+                android:layout_marginStart="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin_small"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:text="Upcoming Meetups"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/label_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/pastLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/meetupsRecyclerView"
+                android:layout_marginStart="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin_small"
+                android:text="Past Meetups"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/label_size"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/meetupsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/acceptedLabel" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/pastRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pastLabel">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/invitedLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin_small"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:text="@string/invited_meetups"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/label_size"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/invitedRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/invitedLabel" />
+
+            <Switch
+                android:id="@+id/pastSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/meetupsRecyclerView"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/margin_small"
+                android:text="See Past Meetups" />
+
+        </RelativeLayout>
+    </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/newButton"

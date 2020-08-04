@@ -11,13 +11,13 @@
         <item name="colorSecondary">#FBCC85</item>
         <item name="colorAccent">#7C0F8A</item>
         <item name="android:textColorPrimary">@android:color/black</item>
-        <item name="android:statusBarColor">@color/colorDarkGray</item>
+        <item name="android:statusBarColor">#BABABA</item>
         <!--colorBackground appears behind scrollable content and is used for the default window-->
         <!--background. colorSurface is mapped to the surface of components such as cards, sheets-->
         <!--and menus. colorError is used to indicate an error state for components such as-->
         <!--text fields.-->
         <item name="android:colorBackground">#FFFFFF</item>
-        <item name="android:navigationBarColor">#FBF9FF</item>
+        <item name="android:navigationBarColor">#FFFFFF</item>
         <!--"On" colors define how text, icons and strokes are colored in relation to the surface-->
         <!--on which they appear.-->
         <item name="colorOnPrimary">@android:color/white</item>

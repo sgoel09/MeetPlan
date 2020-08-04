@@ -187,5 +187,6 @@ public class RestaurantFragment extends Fragment {
         List<Restaurant> allRestaurants = restaurants;
         restaurants = ImmutableList.<Restaurant>builder().addAll(allRestaurants).addAll(Restaurant.fromJsonArray(businesses)).build();;
         adapter.updateData(restaurants);
+        Snackbar.make(binding.getRoot(), getString(R.string.add_restaurant), BaseTransientBottomBar.LENGTH_SHORT).show();
     }
 }

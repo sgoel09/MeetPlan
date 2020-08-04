@@ -1,6 +1,7 @@
 package com.example.meetplan.details;
 
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 
 import com.example.meetplan.databinding.FragmentDetailsBinding;
 import com.example.meetplan.models.Meetup;

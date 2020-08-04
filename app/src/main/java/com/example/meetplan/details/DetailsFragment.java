@@ -17,6 +17,7 @@ import com.example.meetplan.expenses.ExpenseFragment;
 import com.example.meetplan.gallery.GalleryFragment;
 import com.example.meetplan.models.Meetup;
 import com.google.android.material.transition.MaterialContainerTransform;
+import com.google.common.collect.ImmutableList;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -67,6 +68,15 @@ public class DetailsFragment extends Fragment {
         return fragment;
     }
 
+    public static DetailsFragment newInstance(Meetup meetup, boolean resume) {
+        DetailsFragment fragment = new DetailsFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(KEY_MEETUP, meetup);
+        args.putBoolean("resume", resume);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,11 +100,17 @@ public class DetailsFragment extends Fragment {
 
         meetup = getArguments().getParcelable(KEY_MEETUP);
 
-        changeToView();
-        displayMembers();
-        dispalyInvites();
-        setDateTime();
-        updateInviteUsernames();
+        queryIncludes(meetup.getObjectId());
+
+        if (getArguments().getBoolean("resume") == true) {
+            changeToEdit();
+        } else {
+            changeToView();
+            displayMembers();
+            dispalyInvites();
+            setDateTime();
+            updateInviteUsernames();
+        }
 
         spinnerDialog = new SpinnerDialog(getActivity(), inviteUsernames, getString(R.string.invite_title), getString(R.string.cancel));
         spinnerDialog.setCancellable(true); // for cancellable
@@ -132,6 +148,54 @@ public class DetailsFragment extends Fragment {
             }
         });
 
+    }
+
+    private void queryIncludes(String objectId) {
+        ParseQuery<Meetup> query = ParseQuery.getQuery(Meetup.class);
+        query.whereEqualTo("objectId", objectId);
+        query.include("task");
+        query.include("expenses");
+        try {
+            List<Meetup> objects  = query.find();
+            if (objects.size() > 0) {
+                meetup = objects.get(0);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void changeToEdit() {
+        binding.title.setVisibility(View.GONE);
+        binding.description.setVisibility(View.GONE);
+        binding.titleEdit.setVisibility(View.VISIBLE);
+        binding.descriptionLabel.setVisibility(View.VISIBLE);
+        binding.descriptionEdit.setVisibility(View.VISIBLE);
+        binding.titleEdit.setHint(meetup.getName());
+        binding.descriptionEdit.setHint(meetup.getDescription());
+        binding.dateLabel.setVisibility(View.VISIBLE);
+        binding.timeLabel.setVisibility(View.VISIBLE);
+        binding.date.setVisibility(View.VISIBLE);
+        binding.date.setText(meetup.getDateFormatted(meetup));
+        binding.time.setVisibility(View.VISIBLE);
+        binding.time.setText(meetup.getTimeFormatted(meetup));
+        binding.location.setVisibility(View.VISIBLE);
+        binding.locationLabel.setVisibility(View.VISIBLE);
+        binding.activity.setVisibility(View.VISIBLE);
+        binding.activityLabel.setVisibility(View.VISIBLE);
+        if (meetup.getTask() != null) {
+            binding.activity.setText(meetup.getTask().getName());
+            binding.location.setText(meetup.getTask().getPlace());
+            binding.address.setText(meetup.getTask().getAddress());
+        }
+        binding.browseButton.setVisibility(View.VISIBLE);
+        binding.inviteDialogButton.setVisibility(View.VISIBLE);
+        binding.dateButton.setVisibility(View.VISIBLE);
+        binding.timeButton.setVisibility(View.VISIBLE);
+        binding.editButton.setVisibility(View.GONE);
+        binding.submitButton.setVisibility(View.VISIBLE);
+        binding.galleryButton.setVisibility(View.GONE);
+        binding.expenseButton.setVisibility(View.GONE);
     }
 
     private void updateInviteUsernames() {

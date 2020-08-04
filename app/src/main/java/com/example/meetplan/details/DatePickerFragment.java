@@ -2,6 +2,7 @@ package com.example.meetplan.details;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.DatePicker;
 
@@ -11,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.models.Meetup;
+import com.parse.ParseException;
+import com.parse.SaveCallback;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -49,8 +52,14 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         c.set(year, month, day);
         Date date = c.getTime();
         meetup.setDate(date);
-        meetup.saveInBackground();
-        Fragment fragment = DetailsFragment.newInstance(meetup);
-        ((MainActivity) getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+        final Context context = getContext();
+        meetup.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                dismiss();
+                Fragment fragment = DetailsFragment.newInstance(meetup, true);
+                ((MainActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+            }
+        });
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -38,14 +39,18 @@
         android:textSize="@dimen/text_size"
         android:textStyle="bold" />
 
-    <Button
+    <ImageView
         android:id="@+id/membersButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/amount"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="@dimen/margin_small"
-        android:text="@string/add_members" />
+        android:layout_marginTop="@dimen/margin_med"
+        android:layout_marginRight="@dimen/margin_med"
+        android:text="@string/add_members"
+        android:background="?android:attr/selectableItemBackground"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:srcCompat="@drawable/ic_baseline_group_add" />
 
     <Button
         android:id="@+id/createButton"

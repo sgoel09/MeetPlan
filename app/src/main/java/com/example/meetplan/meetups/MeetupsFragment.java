@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.databinding.FragmentMeetupsBinding;
+import com.example.meetplan.expenses.create.SwitchChangeListener;
 import com.example.meetplan.models.Meetup;
 import com.google.common.collect.ImmutableList;
 import com.parse.FindCallback;
@@ -21,6 +23,9 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,12 +38,16 @@ public class MeetupsFragment extends Fragment {
     private static final String KEY_MEMBERS = "members";
     private static final String TAG = "MeetupsFragment";
     private static final String KEY_INVITED = "invites";
+    private static final String KEY_DATE = "date";
     private LinearLayoutManager acceptedLayoutManager;
     private LinearLayoutManager invitedLayoutManager;
+    private LinearLayoutManager pastLayoutManager;
     private MeetupAdapter acceptedAdapter;
     private ImmutableList<Meetup> acceptedMeetups;
     private MeetupAdapter invitedAdapter;
     private ImmutableList<Meetup> invitedMeetups;
+    private MeetupAdapter pastAdapter;
+    private ImmutableList<Meetup> pastMeetups;
     private NewClickListener newClickListener;
     FragmentMeetupsBinding binding;
 
@@ -61,8 +70,6 @@ public class MeetupsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_meetups, container, false);
         binding = FragmentMeetupsBinding.inflate(getLayoutInflater(), container, false);
         View view = binding.getRoot();
         return view;
@@ -74,8 +81,29 @@ public class MeetupsFragment extends Fragment {
         ((MainActivity) getActivity()).showBottomNavigation(false);
         setUpAcceptedAdapter();
         setUpInvitedAdapter();
+        setUpPastAdapter();
+        setPastSwitch();
         newClickListener = new NewClickListener(getContext());
         binding.newButton.setOnClickListener(newClickListener);
+        binding.pastSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+                if (checked) {
+                    binding.pastLabel.setVisibility(View.VISIBLE);
+                    binding.pastRecyclerView.setVisibility(View.VISIBLE);
+                    queryPastMeetups();
+                } else {
+                    binding.pastLabel.setVisibility(View.GONE);
+                    binding.pastRecyclerView.setVisibility(View.GONE);
+                }
+            }
+        });
+    }
+
+    private void setPastSwitch() {
+        binding.pastSwitch.setChecked(false);
+        binding.pastLabel.setVisibility(View.GONE);
+        binding.pastRecyclerView.setVisibility(View.GONE);
     }
 
     private void setUpAcceptedAdapter() {
@@ -96,10 +124,44 @@ public class MeetupsFragment extends Fragment {
         queryInvitedMeetups();
     }
 
+    private void setUpPastAdapter() {
+        pastLayoutManager = new LinearLayoutManager(getContext());
+        pastMeetups = ImmutableList.of();
+        pastAdapter = new MeetupAdapter((Activity) getContext(), pastMeetups, false, getParentFragmentManager());
+        binding.pastRecyclerView.setAdapter(pastAdapter);
+        binding.pastRecyclerView.setLayoutManager(pastLayoutManager);
+    }
+
+    private void queryPastMeetups() {
+        ParseQuery<Meetup> query = ParseQuery.getQuery(Meetup.class);
+        query.whereContains(KEY_MEMBERS, ParseUser.getCurrentUser().getUsername());
+        query.whereLessThan(KEY_DATE, new Date());
+        query.orderByAscending(KEY_DATE);
+        query.findInBackground(new FindCallback<Meetup>() {
+            @Override
+            public void done(List<Meetup> meetups, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting posts", e);
+                    return;
+                }
+                for (Meetup meetup : meetups) {
+                    Log.i(TAG, "Meetup: " + meetup.getName());
+                }
+                pastMeetups = ImmutableList.<Meetup>builder().addAll(meetups).build();
+                pastAdapter.updateData(pastMeetups);
+                if (pastMeetups.isEmpty()) {
+                    binding.pastLabel.setVisibility(View.GONE);
+                } else {
+                    binding.pastLabel.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
     private void queryInvitedMeetups() {
         ParseQuery<Meetup> query = ParseQuery.getQuery(Meetup.class);
         query.whereContains(KEY_INVITED, ParseUser.getCurrentUser().getUsername());
-        query.orderByAscending("date");
+        query.orderByAscending(KEY_DATE);
         query.findInBackground(new FindCallback<Meetup>() {
             @Override
             public void done(List<Meetup> meetups, ParseException e) {
@@ -122,11 +184,15 @@ public class MeetupsFragment extends Fragment {
     }
 
     private void queryAcceptedMeetups() {
-        ParseQuery<Meetup> query = ParseQuery.getQuery(Meetup.class);
-        query.whereContains(KEY_MEMBERS, ParseUser.getCurrentUser().getUsername());
-        query.include("task");
-        query.include("expenses");
-        query.orderByAscending("date");
+        ParseQuery<Meetup> firstQuery = ParseQuery.getQuery(Meetup.class);
+        firstQuery.whereContains(KEY_MEMBERS, ParseUser.getCurrentUser().getUsername());
+        firstQuery.whereGreaterThanOrEqualTo(KEY_DATE, new Date());
+        ParseQuery<Meetup> secondQuerry = ParseQuery.getQuery(Meetup.class);
+        secondQuerry.whereEqualTo(KEY_DATE, null);
+        List<ParseQuery<Meetup>> queries = new ArrayList<>();
+        queries.add(firstQuery);
+        queries.add(secondQuerry);
+        ParseQuery<Meetup> query = ParseQuery.or(queries);
         query.findInBackground(new FindCallback<Meetup>() {
             @Override
             public void done(List<Meetup> meetups, ParseException e) {
@@ -142,5 +208,4 @@ public class MeetupsFragment extends Fragment {
             }
         });
     }
-
 }

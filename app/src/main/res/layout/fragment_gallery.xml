@@ -14,6 +14,8 @@
         android:layout_marginTop="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_med"
         android:layout_marginBottom="@dimen/margin_med"
+        android:background="?android:attr/selectableItemBackground"
+        android:foreground="?android:attr/selectableItemBackground"
         android:src="@drawable/ic_baseline_edit" />
 
     <TextView

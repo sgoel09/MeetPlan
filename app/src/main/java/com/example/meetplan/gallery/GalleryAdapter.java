@@ -67,7 +67,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
 
         public void bind(final ParseFile picture) {
             binding.picture.setVisibility(View.GONE);
-            Glide.with(context).load(picture.getUrl()).into(binding.picture);
+            Glide.with(context).load(picture.getUrl()).placeholder(R.drawable.camera_shadow_fill).into(binding.picture);
             binding.picture.setVisibility(View.VISIBLE);
             binding.picture.setTransitionName(String.valueOf(meetup.getPicture().get(getAdapterPosition())));
         }
