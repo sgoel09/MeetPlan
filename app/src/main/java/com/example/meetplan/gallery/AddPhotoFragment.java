@@ -113,12 +113,11 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
         if (requestCode == GALLERY_REQUEST_CODE) {
             Uri selectedImageUri = data.getData();
             uriToParse(selectedImageUri);
+            saveNewPicture();
         } else if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                if (file != null && meetup != null) {
+                if (file != null) {
                     saveNewPicture();
-                } else {
-                    saveNewProfilePicture();
                 }
             } else {
                 Snackbar.make(binding.getRoot(), getString(R.string.take_pic_error), BaseTransientBottomBar.LENGTH_SHORT).show();
@@ -126,24 +125,10 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
         }
     }
 
-    private void saveNewProfilePicture() {
+    private void saveNewPicture() {
         dismiss();
         PassNewPhoto mHost = (PassNewPhoto) thisFragment.getTargetFragment();
         mHost.passCreatedParseFile(photoFile);
-    }
-
-    private void saveNewPicture() {
-        ArrayList<ParseFile> picturesList = meetup.getPicture();
-        picturesList.add(photoFile);
-        meetup.put("pictures", picturesList);
-        meetup.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                PassNewPhoto mHost = (PassNewPhoto) thisFragment.getTargetFragment();
-                mHost.passCreatedParseFile(photoFile);
-                dismiss();
-            }
-        });
     }
 
     private void uriToParse(Uri selectedImageUri) {
@@ -159,7 +144,6 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] bitmapBytes = stream.toByteArray();
         photoFile =  new ParseFile(bitmapBytes);
-        saveNewPicture();
     }
 
     private void pickFromGallery() {

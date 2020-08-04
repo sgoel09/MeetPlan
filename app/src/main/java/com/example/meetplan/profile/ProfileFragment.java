@@ -65,6 +65,7 @@ public class ProfileFragment extends Fragment implements PassNewPhoto {
     private ProfilePicCallBack profilePicCallBack;
     private ProfileFragment thisFragment = this;
     private LogoutClickListener logoutClickListener;
+    private Snackbar snackbar;
     @Nullable
     private File file;
     @Nullable
@@ -229,12 +230,15 @@ public class ProfileFragment extends Fragment implements PassNewPhoto {
 
     @Override
     public void passCreatedParseFile(ParseFile file) {
+        snackbar = Snackbar.make(binding.getRoot(), R.string.image_load, BaseTransientBottomBar.LENGTH_INDEFINITE);
+        snackbar.show();
         ParseUser user = ParseUser.getCurrentUser();
         user.put(KEY_PROFILE_PIC, file);
         user.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 loadProfilePic();
+                snackbar.dismiss();
             }
         });
     }

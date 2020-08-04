@@ -115,32 +115,19 @@ public class GalleryFragment extends Fragment implements PassNewPhoto {
         });
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == GALLERY_REQUEST_CODE) {
-            Uri selectedImageUri = data.getData();
-            uriToParse(selectedImageUri);
-        } else if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                if (file != null) {
-                    saveNewPicture();
-                }
-            } else {
-                Snackbar.make(binding.getRoot(), getString(R.string.take_pic_error), BaseTransientBottomBar.LENGTH_SHORT).show();
-            }
-        }
-    }
 
-    private void saveNewPicture() {
+    private void saveNewPicture(ParseFile file) {
+        final Snackbar snackbar = Snackbar.make(binding.getRoot(), getString(R.string.image_load), BaseTransientBottomBar.LENGTH_INDEFINITE);
+        snackbar.show();
         ArrayList<ParseFile> picturesList = meetup.getPicture();
-        picturesList.add(photoFile);
+        picturesList.add(file);
         meetup.put("pictures", picturesList);
         meetup.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 pictures = ImmutableList.<ParseFile>builder().addAll(meetup.getPicture()).build();
                 adapter.updateData(pictures);
+                snackbar.dismiss();
             }
         });
     }
@@ -158,7 +145,7 @@ public class GalleryFragment extends Fragment implements PassNewPhoto {
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] bitmapBytes = stream.toByteArray();
         photoFile =  new ParseFile(bitmapBytes);
-        saveNewPicture();
+        saveNewPicture(photoFile);
     }
 
     private void pickFromGallery() {
@@ -213,7 +200,6 @@ public class GalleryFragment extends Fragment implements PassNewPhoto {
 
     @Override
     public void passCreatedParseFile(ParseFile file) {
-        pictures = ImmutableList.<ParseFile>builder().addAll(meetup.getPicture()).build();
-        adapter.updateData(pictures);
+        saveNewPicture(file);
     }
 }
