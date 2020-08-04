@@ -62,7 +62,7 @@ public class EditTitleFragment extends DialogFragment {
         meetup = getArguments().getParcelable(KEY_MEETUP);
         type = getArguments().getString(KEY_TYPE);
         binding.label.setText(String.format("%s %s", edit, type));
-        binding.infoField.setHint(type);
+        binding.infoField.setHint(type.toLowerCase());
 
         binding.save.setOnClickListener(new View.OnClickListener() {
             @Override

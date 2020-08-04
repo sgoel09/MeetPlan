@@ -27,6 +27,6 @@ public class ProfilePicCallBack implements FindCallback<ParseUser> {
     public void done(List<ParseUser> objects, ParseException e) {
         ParseFile file = objects.get(0).getParseFile(KEY_PROFILE_PIC);
         Glide.with(context).load(file.getUrl()).circleCrop().into(binding.profilePic);
-        binding.nameLabel.setText(objects.get(0).getString(KEY_NAME));
+        binding.name.setHint(objects.get(0).getString(KEY_NAME));
     }
 }

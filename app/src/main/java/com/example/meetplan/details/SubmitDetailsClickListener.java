@@ -19,27 +19,14 @@ public class SubmitDetailsClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        saveMeetupInfo();
         changeToView();
         Snackbar.make(binding.getRoot(), "Changes saved", Snackbar.LENGTH_SHORT).show();
     }
 
-    private void saveMeetupInfo() {
-//        String title = binding.titleEdit.getText().toString();
-//        if (!title.isEmpty()) {
-//            meetup.setName(title);
-//        }
-//        String description = binding.descriptionEdit.getText().toString();
-//        if (!description.isEmpty()) {
-//            meetup.setDescription(description);
-//        }
-//        meetup.saveInBackground();
-    }
 
     private void changeToView() {
         binding.title.setVisibility(View.VISIBLE);
         binding.title.setText(meetup.getName());
-        //binding.titleEdit.setVisibility(View.GONE);
 
         if (meetup.getDescription() != null && !meetup.getDescription().isEmpty()) {
             binding.description.setVisibility(View.VISIBLE);
@@ -49,7 +36,6 @@ public class SubmitDetailsClickListener implements View.OnClickListener {
             binding.description.setVisibility(View.GONE);
             binding.descriptionLabel.setVisibility(View.GONE);
         }
-        //binding.descriptionEdit.setVisibility(View.GONE);
 
         if (meetup.getDate() != null && !Meetup.getDateFormatted(meetup).isEmpty()) {
             binding.date.setVisibility(View.VISIBLE);
