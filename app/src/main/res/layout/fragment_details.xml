@@ -19,7 +19,7 @@
         android:layout_marginLeft="@dimen/margin_med"
         android:layout_marginRight="@dimen/margin_med"
         android:layout_marginBottom="@dimen/margin_med"
-        android:text="@string/submit"
+        android:text="@string/done"
         android:visibility="gone" />
 
     <TextView
@@ -72,18 +72,6 @@
         android:textSize="@dimen/title_size"
         android:textStyle="normal|bold"/>
 
-    <EditText
-        android:id="@+id/descriptionEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/titleEdit"
-        android:layout_marginLeft="@dimen/margin_small"
-        android:layout_marginTop="@dimen/margin_small"
-        android:imeOptions="actionDone"
-        android:singleLine="true"
-        android:textColor="@android:color/black"
-        android:layout_toRightOf="@id/descriptionLabel" />
-
     <TextView
         android:id="@+id/description"
         android:layout_width="wrap_content"
@@ -107,16 +95,6 @@
         android:text="@string/title_label"
         android:textColor="@android:color/black"
         android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/titleEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/divider"
-        android:layout_marginLeft="@dimen/margin_small"
-        android:imeOptions="actionDone"
-        android:singleLine="true"
-        android:layout_toRightOf="@id/titleLabel" />
 
     <View
         android:id="@+id/divider"
@@ -298,6 +276,32 @@
         android:src="@drawable/ic_baseline_arrow_forward"
         android:background="?android:attr/selectableItemBackground"
         android:foreground="?android:attr/selectableItemBackground"
+        app:srcCompat="@drawable/ic_baseline_arrow_forward" />
+
+    <ImageView
+        android:id="@+id/titleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_med"
+        android:background="?android:attr/selectableItemBackground"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:src="@drawable/ic_baseline_arrow_forward"
+        app:srcCompat="@drawable/ic_baseline_arrow_forward" />
+
+    <ImageView
+        android:id="@+id/descriptionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleLabel"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/margin_details"
+        android:layout_marginRight="@dimen/margin_med"
+        android:background="?android:attr/selectableItemBackground"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:src="@drawable/ic_baseline_arrow_forward"
         app:srcCompat="@drawable/ic_baseline_arrow_forward" />
 
     <ImageView

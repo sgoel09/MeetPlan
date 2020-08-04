@@ -25,21 +25,21 @@ public class SubmitDetailsClickListener implements View.OnClickListener {
     }
 
     private void saveMeetupInfo() {
-        String title = binding.titleEdit.getText().toString();
-        if (!title.isEmpty()) {
-            meetup.setName(title);
-        }
-        String description = binding.descriptionEdit.getText().toString();
-        if (!description.isEmpty()) {
-            meetup.setDescription(description);
-        }
-        meetup.saveInBackground();
+//        String title = binding.titleEdit.getText().toString();
+//        if (!title.isEmpty()) {
+//            meetup.setName(title);
+//        }
+//        String description = binding.descriptionEdit.getText().toString();
+//        if (!description.isEmpty()) {
+//            meetup.setDescription(description);
+//        }
+//        meetup.saveInBackground();
     }
 
     private void changeToView() {
         binding.title.setVisibility(View.VISIBLE);
         binding.title.setText(meetup.getName());
-        binding.titleEdit.setVisibility(View.GONE);
+        //binding.titleEdit.setVisibility(View.GONE);
 
         if (meetup.getDescription() != null && !meetup.getDescription().isEmpty()) {
             binding.description.setVisibility(View.VISIBLE);
@@ -49,7 +49,7 @@ public class SubmitDetailsClickListener implements View.OnClickListener {
             binding.description.setVisibility(View.GONE);
             binding.descriptionLabel.setVisibility(View.GONE);
         }
-        binding.descriptionEdit.setVisibility(View.GONE);
+        //binding.descriptionEdit.setVisibility(View.GONE);
 
         if (meetup.getDate() != null && !Meetup.getDateFormatted(meetup).isEmpty()) {
             binding.date.setVisibility(View.VISIBLE);
@@ -91,5 +91,7 @@ public class SubmitDetailsClickListener implements View.OnClickListener {
         binding.submitButton.setVisibility(View.GONE);
         binding.galleryButton.setVisibility(View.VISIBLE);
         binding.expenseButton.setVisibility(View.VISIBLE);
+        binding.descriptionButton.setVisibility(View.GONE);
+        binding.titleButton.setVisibility(View.GONE);
     }
 }

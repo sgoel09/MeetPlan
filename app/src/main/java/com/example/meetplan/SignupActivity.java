@@ -60,9 +60,6 @@ public class SignupActivity extends AppCompatActivity {
         binding = ActivitySignupBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
-        getSupportActionBar().hide();
-
         signupClickListener = new SignupClickListener();
         binding.signupButton.setOnClickListener(signupClickListener);
     }

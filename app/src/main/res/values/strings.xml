@@ -29,6 +29,7 @@
     <string name="calculate">Calculate</string>
     <string name="name">Name</string>
     <string name="success">Success</string>
+    <string name="done">Done</string>
 
     <string name="meetup_details">Meetup Details</string>
     <string name="choose">Choose</string>

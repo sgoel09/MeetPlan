@@ -1,5 +1,6 @@
 package com.example.meetplan.details;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
+import com.example.meetplan.browse.addtask.AddTaskFragment;
 import com.example.meetplan.databinding.FragmentDetailsBinding;
 import com.example.meetplan.expenses.ExpenseFragment;
 import com.example.meetplan.gallery.GalleryFragment;
@@ -22,6 +25,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,7 +38,7 @@ import in.galaxyofandroid.spinerdialog.SpinnerDialog;
  * Use the {@link DetailsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DetailsFragment extends Fragment {
+public class DetailsFragment extends Fragment implements PassNewInfo {
 
     private static final String TAG = "DetailsFragment";
     private static final int TRANSITION_DURATION = 500;
@@ -128,7 +132,7 @@ public class DetailsFragment extends Fragment {
         timePickerClickListener = new TimePickerClickListener(getActivity().getSupportFragmentManager(), meetup);
         binding.timeButton.setOnClickListener(timePickerClickListener);
 
-        editDetailsClickListener = new EditDetailsClickListener(binding, meetup);
+        editDetailsClickListener = new EditDetailsClickListener(binding, meetup, getActivity().getSupportFragmentManager());
         binding.editButton.setOnClickListener(editDetailsClickListener);
 
         submitDetailsClickListener = new SubmitDetailsClickListener(binding, meetup);
@@ -145,6 +149,27 @@ public class DetailsFragment extends Fragment {
             public void onClick(View view) {
                 GalleryFragment fragment = GalleryFragment.newInstance(meetup);
                 getParentFragmentManager().beginTransaction().addToBackStack(DetailsFragment.class.getSimpleName()).replace(R.id.flContainer, fragment).commit();
+            }
+        });
+
+        final FragmentManager fm = ((MainActivity) getContext()).getSupportFragmentManager();
+        final Fragment thisFragment = this;
+        binding.titleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditTitleFragment fragment = EditTitleFragment.newInstance(meetup, "Name");
+                fragment.setTargetFragment(thisFragment, 0);
+                fragment.show(fm, "fragment_edit_name");
+            }
+        });
+
+        binding.descriptionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = getParentFragmentManager();
+                EditTitleFragment fragment = EditTitleFragment.newInstance(meetup, "Description");
+                fragment.setTargetFragment(thisFragment, 0);
+                fragment.show(fm, "fragment_edit_name");
             }
         });
 
@@ -166,19 +191,19 @@ public class DetailsFragment extends Fragment {
     }
 
     private void changeToEdit() {
-        binding.title.setVisibility(View.GONE);
-        binding.description.setVisibility(View.GONE);
-        binding.titleEdit.setVisibility(View.VISIBLE);
+        binding.title.setVisibility(View.VISIBLE);
+        binding.description.setVisibility(View.VISIBLE);
+        binding.title.setText(meetup.getName());
+        binding.description.setText(meetup.getDescription());
         binding.descriptionLabel.setVisibility(View.VISIBLE);
-        binding.descriptionEdit.setVisibility(View.VISIBLE);
-        binding.titleEdit.setHint(meetup.getName());
-        binding.descriptionEdit.setHint(meetup.getDescription());
         binding.dateLabel.setVisibility(View.VISIBLE);
         binding.timeLabel.setVisibility(View.VISIBLE);
         binding.date.setVisibility(View.VISIBLE);
-        binding.date.setText(meetup.getDateFormatted(meetup));
         binding.time.setVisibility(View.VISIBLE);
-        binding.time.setText(meetup.getTimeFormatted(meetup));
+        if (meetup.getDate() != null) {
+            binding.date.setText(meetup.getDateFormatted(meetup));
+            binding.time.setText(meetup.getTimeFormatted(meetup));
+        }
         binding.location.setVisibility(View.VISIBLE);
         binding.locationLabel.setVisibility(View.VISIBLE);
         binding.activity.setVisibility(View.VISIBLE);
@@ -196,6 +221,8 @@ public class DetailsFragment extends Fragment {
         binding.submitButton.setVisibility(View.VISIBLE);
         binding.galleryButton.setVisibility(View.GONE);
         binding.expenseButton.setVisibility(View.GONE);
+        binding.titleButton.setVisibility(View.VISIBLE);
+        binding.descriptionButton.setVisibility(View.VISIBLE);
     }
 
     private void updateInviteUsernames() {
@@ -226,7 +253,6 @@ public class DetailsFragment extends Fragment {
     private void changeToView() {
         binding.title.setVisibility(View.VISIBLE);
         binding.title.setText(meetup.getName());
-        binding.titleEdit.setVisibility(View.GONE);
 
         if (meetup.getDescription() != null && !meetup.getDescription().isEmpty()) {
             binding.description.setVisibility(View.VISIBLE);
@@ -236,7 +262,6 @@ public class DetailsFragment extends Fragment {
             binding.description.setVisibility(View.GONE);
             binding.descriptionLabel.setVisibility(View.GONE);
         }
-        binding.descriptionEdit.setVisibility(View.GONE);
 
         if (meetup.getDate() != null && !Meetup.getDateFormatted(meetup).isEmpty()) {
             binding.date.setVisibility(View.VISIBLE);
@@ -278,6 +303,8 @@ public class DetailsFragment extends Fragment {
         binding.timeButton.setVisibility(View.GONE);
         binding.editButton.setVisibility(View.VISIBLE);
         binding.submitButton.setVisibility(View.GONE);
+        binding.titleButton.setVisibility(View.GONE);
+        binding.descriptionButton.setVisibility(View.GONE);
     }
 
     private void displayMembers() {
@@ -315,5 +342,16 @@ public class DetailsFragment extends Fragment {
     @VisibleForTesting (otherwise = VisibleForTesting.PRIVATE)
     public FragmentDetailsBinding getBinding() {
         return binding;
+    }
+
+    @Override
+    public void passMeetupInformation(String type, String info) {
+        meetup.put(type, info);
+        meetup.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                changeToEdit();
+            }
+        });
     }
 }

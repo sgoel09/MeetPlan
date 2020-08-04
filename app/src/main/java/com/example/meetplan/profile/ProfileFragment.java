@@ -128,9 +128,17 @@ public class ProfileFragment extends Fragment implements PassNewPhoto {
     private void setUserInfo() {
         String username = binding.username.getText().toString();
         String email = binding.email.getText().toString();
+        String name = binding.name.getText().toString();
         ParseUser user = ParseUser.getCurrentUser();
-        user.setUsername(username);
-        user.setEmail(email);
+        if (!username.isEmpty()) {
+            user.setUsername(username);
+        }
+        if (!email.isEmpty()) {
+            user.setEmail(email);
+        }
+        if (!name.isEmpty()) {
+            user.put(KEY_NAME, name);
+        }
         user.saveInBackground();
         Snackbar.make(binding.getRoot(), getString(R.string.info_saved),BaseTransientBottomBar.LENGTH_SHORT).show();
     }
@@ -139,76 +147,6 @@ public class ProfileFragment extends Fragment implements PassNewPhoto {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode,int resultCode,Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == GALLERY_REQUEST_CODE) {
-            Uri selectedImageUri = data.getData();
-            uriToParse(selectedImageUri);
-            saveProfilePic();
-            binding.profilePic.setImageURI(selectedImageUri);
-        } else if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                if (file != null) {
-                    Bitmap takenImage = BitmapFactory.decodeFile(file.getAbsolutePath());
-                    saveProfilePic();
-                    binding.profilePic.setImageBitmap(takenImage);
-                }
-            } else {
-                Snackbar.make(binding.getRoot(), getString(R.string.take_pic_error),BaseTransientBottomBar.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    private void onLaunchCamera() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        file = getPhotoFileUri(photoFileName);
-        photoFile = new ParseFile(file);
-
-        Uri fileProvider = FileProvider.getUriForFile(getContext(), "com.codepath.fileprovidermeetplan", file);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
-
-        if (intent.resolveActivity(getContext().getPackageManager()) != null) {
-            startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-        }
-    }
-
-    public File getPhotoFileUri(String fileName) {
-        File mediaStorageDir = new File(getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
-        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
-            Snackbar.make(binding.getRoot(), getString(R.string.profile_pic_error), BaseTransientBottomBar.LENGTH_SHORT).show();
-        }
-        return new File(mediaStorageDir.getPath() + File.separator + fileName);
-    }
-
-    private void saveProfilePic() {
-        ParseUser user = ParseUser.getCurrentUser();
-        user.put(KEY_PROFILE_PIC, photoFile);
-        user.saveInBackground();
-    }
-
-    private void uriToParse(Uri selectedImageUri) {
-        InputStream imageStream = null;
-        try {
-            imageStream = getContext().getContentResolver().openInputStream(selectedImageUri);
-        } catch (FileNotFoundException e) {
-            Snackbar.make(binding.getRoot(), getString(R.string.profile_pic_error), BaseTransientBottomBar.LENGTH_SHORT).show();
-            return;
-        }
-        Bitmap bmp = BitmapFactory.decodeStream(imageStream);
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        byte[] bitmapBytes = stream.toByteArray();
-        photoFile = new ParseFile(bitmapBytes);
-    }
-
-    private void pickFromGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType(IMAGE_TYPE);
-        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-        startActivityForResult(intent, GALLERY_REQUEST_CODE);
     }
 
     public void loadProfilePic() {
