@@ -5,9 +5,14 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.ShareActionProvider;
+import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -49,6 +54,7 @@ public class ImageFragment extends Fragment {
         binding = FragmentImageBinding.inflate(getLayoutInflater(), container, false);
         View view = binding.getRoot();
         binding.imageView.setTransitionName(String.valueOf(getArguments().getParcelable(KEY_IMAGE_RES)));
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -79,5 +85,15 @@ public class ImageFragment extends Fragment {
                     }
                 })
                 .into(binding.imageView);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Inflate menu resource file.
+        inflater.inflate(R.menu.menu_main, menu);
+        // Locate MenuItem with ShareActionProvider
+        MenuItem item = menu.findItem(R.id.menu_item_share);
+        // Fetch reference to the share action provider
+        ShareActionProvider miShareAction = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
     }
 }
