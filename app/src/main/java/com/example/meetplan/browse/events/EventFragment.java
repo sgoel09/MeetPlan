@@ -37,6 +37,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/**
+ * Allows user to search and display events, filter by city.
+ * For each event, user can add to meetup and view details/location on map
+ * */
 public class EventFragment extends Fragment {
 
     /** The base url for accessing the event search in the Ticketmaster API. */

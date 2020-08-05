@@ -14,16 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.meetplan.MainActivity;
-import com.example.meetplan.browse.events.EventAdapter;
-import com.example.meetplan.browse.events.EventDetailsFragment;
-import com.example.meetplan.browse.events.EventFragment;
-import com.example.meetplan.utilities.OnDoubleTapListener;
 import com.example.meetplan.R;
-import com.example.meetplan.databinding.ItemRestaurantBinding;
 import com.example.meetplan.browse.addtask.AddTaskFragment;
-import com.example.meetplan.models.Meetup;
 import com.example.meetplan.browse.restaurants.models.Restaurant;
+import com.example.meetplan.databinding.ItemRestaurantBinding;
+import com.example.meetplan.models.Meetup;
 import com.google.common.collect.ImmutableList;
+
 
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.ViewHolder> {
 

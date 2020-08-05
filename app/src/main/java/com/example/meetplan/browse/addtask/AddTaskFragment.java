@@ -110,6 +110,7 @@ public class AddTaskFragment extends DialogFragment implements FragmentDismisser
         dismiss();
     }
 
+    /** Method to return view binding for unit tests to access views in fragment. */
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     public FragmentAddEventBinding getBinding() {
         return binding;

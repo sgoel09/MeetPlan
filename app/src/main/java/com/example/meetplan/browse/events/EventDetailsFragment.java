@@ -1,6 +1,5 @@
 package com.example.meetplan.browse.events;
 
-import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,19 +21,27 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.parceler.Parcels;
 
+/**
+ * Displays the details for an event, including name, date, venue address,
+ * and venue location on a Google Map.
+ * */
 public class EventDetailsFragment extends Fragment implements OnMapReadyCallback {
 
-    private static final String KEY_LOCATION = "location";
-    Location mCurrentLocation;
+    /** View binding for this fragment. */
     private FragmentTaskDetailsBinding binding;
-    private GoogleMap map;
+
+    /** Google map to display venue location. */
     private GoogleMap mMap;
+
+    /** Venue object that holds all the information related to a venue. */
     private Venue venue;
 
-    public EventDetailsFragment() {
-        // Required empty public constructor
-    }
+    /** Required empty public constructor. */
+    public EventDetailsFragment() {}
 
+    /** Creates a new instance of the fragment and saves the venue in arguments.
+     * @param venue venue for the selected event
+     * */
     public static EventDetailsFragment newInstance(Venue venue) {
         EventDetailsFragment fragment = new EventDetailsFragment();
         Bundle args = new Bundle();
