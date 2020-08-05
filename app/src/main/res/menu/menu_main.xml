@@ -5,6 +5,7 @@
         android:id="@+id/menu_item_share"
         app:showAsAction="ifRoom"
         android:icon="@android:drawable/ic_menu_share"
+        android:iconTint="@android:color/black"
         app:actionProviderClass="androidx.appcompat.widget.ShareActionProvider"
         android:title="Share" />
 </menu>

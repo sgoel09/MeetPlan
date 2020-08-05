@@ -80,9 +80,6 @@ public class ImageFragment extends Fragment {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable>
                             target, boolean isFirstResource) {
-                        // The postponeEnterTransition is called on the parent ImagePagerFragment, so the
-                        // startPostponedEnterTransition() should also be called on it to get the transition
-                        // going in case of a failure.
                         getParentFragment().startPostponedEnterTransition();
                         return false;
                     }
@@ -90,9 +87,6 @@ public class ImageFragment extends Fragment {
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable>
                             target, DataSource dataSource, boolean isFirstResource) {
-                        // The postponeEnterTransition is called on the parent ImagePagerFragment, so the
-                        // startPostponedEnterTransition() should also be called on it to get the transition
-                        // going when the image is ready.
                         getParentFragment().startPostponedEnterTransition();
                         prepareShareIntent(((BitmapDrawable) resource).getBitmap());
                         attachShareIntentAction();
@@ -108,8 +102,7 @@ public class ImageFragment extends Fragment {
     }
 
     private void prepareShareIntent(Bitmap bitmap) {
-        Uri bmpUri = getBitmapFromDrawable(bitmap);// see previous remote images section and notes for API > 23
-        // Construct share intent as described above based on bitmap
+        Uri bmpUri = getBitmapFromDrawable(bitmap);
         shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri);
@@ -119,18 +112,13 @@ public class ImageFragment extends Fragment {
     private Uri getBitmapFromDrawable(Bitmap bmp) {
         Uri bmpUri = null;
         try {
-            // Use methods on Context to access package-specific directories on external storage.
-            // This way, you don't need to request external read/write permission.
-            // See https://youtu.be/5xVh-7ywKpE?t=25m25s
+
             File file =  new File(getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image_" + System.currentTimeMillis() + ".png");
             FileOutputStream out = new FileOutputStream(file);
             bmp.compress(Bitmap.CompressFormat.PNG, 90, out);
             out.close();
 
-            // wrap File object into a content provider. NOTE: authority here should match authority in manifest declaration
-            bmpUri = FileProvider.getUriForFile(getContext(), "com.codepath.fileprovidermeetplan", file);  // use this version for API >= 24
-
-            // **Note:** For API < 24, you may use bmpUri = Uri.fromFile(file);
+            bmpUri = FileProvider.getUriForFile(getContext(), "com.codepath.fileprovidermeetplan", file);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -140,11 +128,8 @@ public class ImageFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        // Inflate menu resource file.
         inflater.inflate(R.menu.menu_main, menu);
-        // Locate MenuItem with ShareActionProvider
         MenuItem item = menu.findItem(R.id.menu_item_share);
-        // Fetch reference to the share action provider
         miShareAction = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
         attachShareIntentAction();
     }
