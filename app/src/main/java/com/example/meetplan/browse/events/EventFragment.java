@@ -38,24 +38,24 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * Allows user to search and display events, filter by city.
+ * Allows user to search and display events, filtered by city.
  * For each event, user can add to meetup and view details/location on map
  * */
 public class EventFragment extends Fragment {
 
-    /** The base url for accessing the event search in the Ticketmaster API. */
+    /** Base url for accessing the event search in the Ticketmaster API. */
     private static final String EVENT_BASE_URL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=";
 
-    /** The city parameter to filter event search in the Ticketmaster API. */
+    /** City parameter to filter event search in the Ticketmaster API. */
     private static final String PARAM_CITY = "&city=";
 
-    /** The page parameter to filter event search in the Ticketmaster API. */
+    /** Page parameter to filter event search in the Ticketmaster API. */
     private static final String PARAM_PAGE = "&page=";
 
-    /** Key for the meetup of the task in the arguments. */
+    /** Key for the meetup of the task in the fragment arguments. */
     private static final String KEY_MEETUP = "meetup";
 
-    /** Key for the city of the task in the arguments. */
+    /** Key for the city of the task in the fragment arguments. */
     private static final String KEY_CITY = "city";
 
     /** Field of the JSONArray to get events. */
@@ -73,7 +73,7 @@ public class EventFragment extends Fragment {
     /** Event adapter for the recyclerview of events. */
     private EventAdapter adapter;
 
-    /** Selected metup for which events are being browsed. */
+    /** Selected meetup for which events are being browsed. */
     private Meetup meetup;
 
     /** Endless scroll listener for the recyclerview of events. */
@@ -85,7 +85,8 @@ public class EventFragment extends Fragment {
     /** Required empty public constructor */
     public EventFragment() {}
 
-    /** Creates a new instance of the fragment and saves meetup and city information in arguments.
+    /**
+     * Creates a new instance of the fragment and saves meetup and city information in arguments.
      * @param meetup selected meetup for which events are being browsed
      * @param city city for which events are being browsed
      * */
@@ -163,8 +164,7 @@ public class EventFragment extends Fragment {
     }
 
     /** Loads more event search data from the Ticketmaster API.
-     * @param page page of search to retrieve
-     * */
+     * @param page page of search to retrieve */
     private void loadMoreData(int page) {
         String city = binding.search.getQuery().toString();
         String url = EVENT_BASE_URL + getString(R.string.tm_api_key) + PARAM_CITY + city + PARAM_PAGE + page;
@@ -172,8 +172,7 @@ public class EventFragment extends Fragment {
     }
 
     /** Searches events from the Ticketmaster API for a given city.
-     * @param city city in which events should be searched
-     * */
+     * @param city city in which events should be searched */
     private void searchByCity(String city) {
         String url = EVENT_BASE_URL + getString(R.string.tm_api_key) + PARAM_CITY + city;
         populateEvents(url);
@@ -181,8 +180,7 @@ public class EventFragment extends Fragment {
     }
 
     /** Creates a network call to the Ticketmaster API and updates the adapter with the new data.
-     * @param url url to access the Ticketmaster API
-     * */
+     * @param url url to access the Ticketmaster API */
     private void populateEvents(String url) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(url).build();

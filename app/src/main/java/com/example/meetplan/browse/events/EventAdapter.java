@@ -87,9 +87,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
         /** Event of the specific ViewHolder. */
         private Event event;
+
+        /** Gesture detector for the ViewHolder. */
         private GestureDetector detector;
 
-        /** Sets a touch listener for the ViewHolder, with calls the gesture dector
+        /** Sets a touch listener for the ViewHolder, with calls the gesture detector
          * to determine what type of gesture occurred and proceed accordingly. */
         public ViewHolder(@NonNull View itemView, ItemActivityBinding bind) {
             super(bind.getRoot());
@@ -133,10 +135,20 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         }
     }
 
+    /**
+     * Gesture listener to determine difference between single tap and double tap.
+     * Moves to the event details fragment on single tap, and add task fragment
+     * on double tap.
+     * */
     public class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
+        /** Event for which the gesture detector is set for. */
         private Event event;
 
+        /**
+         * Constructor to initialize the gesture detector.
+         * @param event event for which gesture detector is set for
+         * */
         public GestureListener(Event event) {
             this.event = event;
         }
@@ -153,6 +165,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             return super.onSingleTapUp(e);
         }
 
+        /** When a single tap is confirmed, replace current fragment with the event
+         * details fragment to display specific event information. */
         @Override
         public boolean onSingleTapConfirmed(MotionEvent e) {
             Log.i("onSingleTapConfirmed", e.getAction() + "");
@@ -167,6 +181,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             return true;
         }
 
+        /** On a double tap, show the add task dialog fragment to prompt users to add this
+         * event to their selected meetup. */
         @Override
         public boolean onDoubleTapEvent(MotionEvent e) {
             Log.i("onDoubleTapEvent", e.getAction() + "");

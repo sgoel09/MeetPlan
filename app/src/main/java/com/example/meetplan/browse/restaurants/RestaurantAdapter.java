@@ -1,6 +1,7 @@
 package com.example.meetplan.browse.restaurants;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -21,15 +22,30 @@ import com.example.meetplan.databinding.ItemRestaurantBinding;
 import com.example.meetplan.models.Meetup;
 import com.google.common.collect.ImmutableList;
 
-
+/**
+ * Adapter for the recyclerview of restaurants when browsing.
+ * Each item holds fundamental restaurant information and is displayed in a staggered layout.
+ * */
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.ViewHolder> {
 
-    private Activity context;
+    /** Context of the recyclerview's fragment. */
+    private Context context;
+
+    /** List of restaurants the adapter holds. */
     private ImmutableList<Restaurant> restaurants;
+
+    /** Selected meetup for which events are browsed. */
     private Meetup meetup;
+
+    /** Tag name for the restaurant items. */
     private final String RESTAURANT_TAG = "Restaurant";
 
-    public RestaurantAdapter(Activity context, Meetup meetup, ImmutableList<Restaurant> restaurants) {
+    /** Constructor to create and set up an adapter for the events.
+     * @param context context of the recyclerview's fragment
+     * @param restaurants list of restaurants the adapter holds
+     * @param meetup selected meetup for which restaurants are browsed
+     * */
+    public RestaurantAdapter(Context context, Meetup meetup, ImmutableList<Restaurant> restaurants) {
         this.context = context;
         this.restaurants = restaurants;
         this.meetup = meetup;
@@ -38,7 +54,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemRestaurantBinding binding = ItemRestaurantBinding.inflate(context.getLayoutInflater(), parent, false);
+        ItemRestaurantBinding binding = ItemRestaurantBinding.inflate(((MainActivity) context).getLayoutInflater(), parent, false);
         View view = binding.getRoot();
         return new ViewHolder(view, binding);
     }
@@ -54,17 +70,31 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         return restaurants.size();
     }
 
+    /** Updates the data for the adapter by setting the data list to the new list and notifying the adapter.
+     * @param restaurants new list of restaurants with updated information
+     * */
     public void updateData(ImmutableList<Restaurant> restaurants) {
         this.restaurants = restaurants;
         notifyDataSetChanged();
     }
 
+    /**
+     * ViewHolder for the container of views of one restaurant.
+     * Binds all views in the ViewHolder to the corresponding event data.
+     * */
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        /** View binding for the restaurant item. */
         final ItemRestaurantBinding binding;
+
+        /** Restaurant of the specific ViewHolder. */
         private Restaurant restaurant;
+
+        /** Gesture detector for the ViewHolder. */
         private GestureDetector detector;
 
+        /** Sets a touch listener for the ViewHolder, with calls the gesture detector
+         * to determine what type of gesture occurred and proceed accordingly. */
         public ViewHolder(View itemView, ItemRestaurantBinding bind) {
             super(bind.getRoot());
             binding = bind;
@@ -76,6 +106,9 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
             });
         }
 
+        /** Binds the restaurant information to the views in the ViewHolder.
+         * @param restaurant restaurant for which its data is binded to
+         * */
         public void bind(Restaurant restaurant) {
             detector = new GestureDetector(context, new GestureListener(restaurant));
             this.restaurant = restaurant;
@@ -85,6 +118,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
             loadImage();
         }
 
+        /** Loads the restaurant image in the image view,
+         * with a crop and rounded corners transform applied. */
         private void loadImage() {
             int imageWidth = context.getResources().getInteger(R.integer.image_width);
             int imageHeight = context.getResources().getInteger(R.integer.image_height);
@@ -93,10 +128,20 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         }
     }
 
+    /**
+     * Gesture listener to determine difference between single tap and double tap.
+     * Moves to the restaurant details fragment on single tap, and add task fragment
+     * on double tap.
+     * */
     public class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
+        /** Restaurant for which the gesture detector is set for. */
         private Restaurant restaurant;
 
+        /**
+         * Constructor to initialize the gesture detector.
+         * @param restaurant event for which gesture detector is set for
+         * */
         public GestureListener(Restaurant restaurant) {
             this.restaurant = restaurant;
         }
@@ -113,6 +158,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
             return super.onSingleTapUp(e);
         }
 
+        /** When a single tap is confirmed, replace current fragment with the restaurant
+         * details fragment to display specific restaurant information. */
         @Override
         public boolean onSingleTapConfirmed(MotionEvent e) {
             Log.i("onSingleTapConfirmed", e.getAction() + "");
@@ -127,6 +174,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
             return true;
         }
 
+        /** On a double tap, show the add task dialog fragment to prompt users to add this
+         * restaurant to their selected meetup. */
         @Override
         public boolean onDoubleTapEvent(MotionEvent e) {
             Log.i("onDoubleTapEvent", e.getAction() + "");

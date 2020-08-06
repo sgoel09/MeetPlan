@@ -38,33 +38,64 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link RestaurantFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+ * Allows user to search and display restaurants, filtered by city.
+ * For each restaurant, user can add to meetup and view details/location on map
+ * */
 public class RestaurantFragment extends Fragment {
 
-    private static final String TAG = "RestaurantFragment";
+    /** Base url for accessing the business search in the Yelp API. */
     private static final String RESTAURANT_BASE_URL = "https://api.yelp.com/v3/businesses/search?";
+
+    /** Location parameter to filter business search in the Yelp API. */
     private static final String PARAM_LOCATION = "&location=";
+
+    /** Offset parameter to filter business search in the Yelp API. */
     private static final String PARAM_OFFSET = "&offset=";
+
+    /** Bearer string to include before API key. */
     private static final String BEARER = "Bearer ";
+
+    /** Authorization key to include in header when building a request. */
     private static final String AUTHORIZATION = "Authorization";
-    private static final String BUSINESSES_FIELD = "businesses";
+
+    /** Field of the JSONArray to get business. */
+    private static final String JSON_FIELD_BUSINESSES = "businesses";
+
+    /** Key for the meetup of the task in the fragment arguments. */
     private static final String KEY_MEETUP = "meetup";
+
+    /** Key for the city of the task in the fragment arguments. */
     private static final String KEY_CITY = "city";
+
+    /** Limit of restaurants to display at a time. */
     private static final int LIMIT = 20;
+
+    /** List of restaurants for the recyclerview of restaurants. */
     private ImmutableList<Restaurant> restaurants;
+
+    /** Staggered layout manager for layout of the recyclerview of restaurants. */
     private StaggeredGridLayoutManager gridLayoutManager;
+
+    /** Restaurant adapter for the recyclerview of restaurants. */
     private RestaurantAdapter adapter;
+
+    /** Selected meetup for which restaurants are being browsed. */
     private Meetup meetup;
+
+    /** Endless scroll listener for the recyclerview of restaurants. */
     private EndlessRecyclerViewScrollListener scrollListener;
+
+    /** View binding of this fragment. */
     FragmentBrowseBinding binding;
 
-    public RestaurantFragment() {
-        // Required empty public constructor
-    }
+    /** Required empty public constructor */
+    public RestaurantFragment() {}
 
+    /**
+     * Creates a new instance of the fragment and saves meetup and city information in arguments.
+     * @param meetup selected meetup for which restaurants are being browsed
+     * @param city city for which restaurants are being browsed
+     * */
     public static RestaurantFragment newInstance(Meetup meetup, String city) {
         RestaurantFragment fragment = new RestaurantFragment();
         Bundle args = new Bundle();
@@ -86,13 +117,13 @@ public class RestaurantFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = FragmentBrowseBinding.inflate(getLayoutInflater(), container, false);
         View view = binding.getRoot();
         ((MainActivity) getActivity()).showBottomNavigation(true);
         return view;
     }
 
+    /** Get information from the arguments to set views and listeners. */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         meetup = getArguments().getParcelable(KEY_MEETUP);
@@ -118,11 +149,7 @@ public class RestaurantFragment extends Fragment {
             }
         });
 
-        gridLayoutManager = new StaggeredGridLayoutManager(getResources().getInteger(R.integer.grid_layout), StaggeredGridLayoutManager.VERTICAL);
-        restaurants = ImmutableList.of();
-        adapter = new RestaurantAdapter((Activity) getContext(), meetup, restaurants);
-        binding.itemRecyclerView.setAdapter(adapter);
-        binding.itemRecyclerView.setLayoutManager(gridLayoutManager);
+        setsUpRecyclerView();
 
         scrollListener = new EndlessRecyclerViewScrollListener(gridLayoutManager) {
             @Override
@@ -133,18 +160,33 @@ public class RestaurantFragment extends Fragment {
         binding.itemRecyclerView.addOnScrollListener(scrollListener);
     }
 
+    /** Sets of recyclerview by defining a manager, creating an adapter, and binding to the recyclerview. */
+    private void setsUpRecyclerView() {
+        gridLayoutManager = new StaggeredGridLayoutManager(getResources().getInteger(R.integer.grid_layout), StaggeredGridLayoutManager.VERTICAL);
+        restaurants = ImmutableList.of();
+        adapter = new RestaurantAdapter((Activity) getContext(), meetup, restaurants);
+        binding.itemRecyclerView.setAdapter(adapter);
+        binding.itemRecyclerView.setLayoutManager(gridLayoutManager);
+    }
+
+    /** Loads more business search data from the Ticketmaster API.
+     * @param page page of search to retrieve */
     private void loadMoreData(int page) {
         String city = binding.search.getQuery().toString();
         String url = RESTAURANT_BASE_URL + PARAM_LOCATION + city + PARAM_OFFSET + (page * LIMIT);
         populateRestaurants(url);
     }
 
+    /** Searches restaurants from the Yelp API for a given city.
+     * @param city city in which restaurants should be searched */
     private void searchByCity(String city) {
         String url = RESTAURANT_BASE_URL + PARAM_LOCATION + city;
         populateRestaurants(url);
         ((MainActivity) getActivity()).itemSelectedListener.addCity(city);
     }
 
+    /** Creates a network call to the Yelp API and updates the adapter with the new data.
+     * @param url url to access the Yelp API */
     private void populateRestaurants(String url) {
         OkHttpClient client = new OkHttpClient();
         String value = BEARER + getString(R.string.yelp_api_key);
@@ -182,8 +224,12 @@ public class RestaurantFragment extends Fragment {
         });
     }
 
+    /**
+     * Parses events from a JSONObject and updates the restaurant adapter to bind the information to its ViewHolder.
+     * @param finalJsonObject JSONObject from which information is parsed.
+     * */
     private void extractData(JSONObject finalJsonObject) throws JSONException {
-        JSONArray businesses = finalJsonObject.getJSONArray(BUSINESSES_FIELD);
+        JSONArray businesses = finalJsonObject.getJSONArray(JSON_FIELD_BUSINESSES);
         List<Restaurant> allRestaurants = restaurants;
         restaurants = ImmutableList.<Restaurant>builder().addAll(allRestaurants).addAll(Restaurant.fromJsonArray(businesses)).build();;
         adapter.updateData(restaurants);
