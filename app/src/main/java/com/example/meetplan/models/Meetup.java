@@ -22,6 +22,7 @@ public class Meetup extends ParseObject {
     public static final String KEY_PICTURES = "pictures";
     public static final String DATE_FORMAT = "EE, MMM d, y";
     public static final String TIME_FORMAT = "h:mm a";
+    private static final String KEY_NOTIFIED = "notified";
 
     public Meetup() {}
 
@@ -44,6 +45,14 @@ public class Meetup extends ParseObject {
     public Date getDate() { return getDate(KEY_DATE); }
 
     public void setDate(Date date) { put(KEY_DATE, date); }
+
+    public Boolean getNotified() {
+        return getBoolean(KEY_NOTIFIED);
+    }
+
+    public void setNotified(Boolean notified) {
+        put(KEY_NOTIFIED, notified);
+    }
 
     public Task getTask() { return (Task) getParseObject(KEY_TASK); }
 

@@ -224,8 +224,10 @@ public class MeetupsFragment extends Fragment {
     private void queryUpcomingSoon() {
         Date compareDate = new Date(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(1));
         for (Meetup meetup : acceptedMeetups) {
-            if (meetup.getDate() != null && meetup.getDate().compareTo(compareDate) < 0) {
+            if (meetup.getDate() != null && meetup.getDate().compareTo(compareDate) < 0 && meetup.getNotified() == false) {
                 createNotification(meetup.getName());
+                meetup.setNotified(true);
+                meetup.saveInBackground();
             }
         }
     }
