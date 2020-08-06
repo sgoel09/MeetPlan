@@ -1,6 +1,9 @@
 package com.example.meetplan.meetups;
 
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,10 +13,12 @@ import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.meetplan.MainActivity;
+import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentMeetupsBinding;
 import com.example.meetplan.expenses.create.SwitchChangeListener;
 import com.example.meetplan.models.Meetup;
@@ -207,5 +212,32 @@ public class MeetupsFragment extends Fragment {
                 acceptedAdapter.updateData(acceptedMeetups);
             }
         });
+    }
+
+    private void createNotificationChannel() {
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        NotificationChannel channel = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            channel = new NotificationChannel("myChannelId", "My Channel", importance);
+            channel.setDescription("Reminders");
+            NotificationManager mNotificationManager =
+                    (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            mNotificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    private void createNotification() {
+        createNotificationChannel();
+        NotificationCompat.Builder mBuilder =
+                // Builder class for devices targeting API 26+ requires a channel ID
+                new NotificationCompat.Builder(getContext(), "myChannelId")
+                        .setSmallIcon(R.drawable.defaultprofilepic)
+                        .setContentTitle("My notification")
+                        .setContentText("Hello World!");
+
+        NotificationManager mNotificationManager =
+                (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        // mId allows you to update the notification later on.
+        mNotificationManager.notify(10, mBuilder.build());
     }
 }
