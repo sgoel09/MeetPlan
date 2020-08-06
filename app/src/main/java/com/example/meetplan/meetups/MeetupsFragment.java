@@ -32,6 +32,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,6 +45,11 @@ public class MeetupsFragment extends Fragment {
     private static final String TAG = "MeetupsFragment";
     private static final String KEY_INVITED = "invites";
     private static final String KEY_DATE = "date";
+    private static final String NOTIFIACTION_TITLE = "MeetPlan";
+    private static final String NOTIFICATION_TEXT = "You have an upcoming meetup: ";
+    private static final String NOTIFICATION_CHANNEL_ID = "meetplanChannel";
+    private static final CharSequence NOTIFICATION_CHANNEL_NAME = "meetplan";
+    private static final String NOTIFICATION_CHANNEL_DESCRIPTION = "Reminders";
     private LinearLayoutManager acceptedLayoutManager;
     private LinearLayoutManager invitedLayoutManager;
     private LinearLayoutManager pastLayoutManager;
@@ -210,34 +216,42 @@ public class MeetupsFragment extends Fragment {
                 }
                 acceptedMeetups = ImmutableList.<Meetup>builder().addAll(meetups).build();
                 acceptedAdapter.updateData(acceptedMeetups);
+                queryUpcomingSoon();
             }
         });
+    }
+
+    private void queryUpcomingSoon() {
+        Date compareDate = new Date(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(1));
+        for (Meetup meetup : acceptedMeetups) {
+            if (meetup.getDate() != null && meetup.getDate().compareTo(compareDate) < 0) {
+                createNotification(meetup.getName());
+            }
+        }
     }
 
     private void createNotificationChannel() {
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
         NotificationChannel channel = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            channel = new NotificationChannel("myChannelId", "My Channel", importance);
-            channel.setDescription("Reminders");
+            channel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, NOTIFICATION_CHANNEL_NAME, importance);
+            channel.setDescription(NOTIFICATION_CHANNEL_DESCRIPTION);
             NotificationManager mNotificationManager =
                     (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
             mNotificationManager.createNotificationChannel(channel);
         }
     }
 
-    private void createNotification() {
+    private void createNotification(String name) {
         createNotificationChannel();
         NotificationCompat.Builder mBuilder =
-                // Builder class for devices targeting API 26+ requires a channel ID
-                new NotificationCompat.Builder(getContext(), "myChannelId")
+                new NotificationCompat.Builder(getContext(), NOTIFICATION_CHANNEL_ID)
                         .setSmallIcon(R.drawable.defaultprofilepic)
-                        .setContentTitle("My notification")
-                        .setContentText("Hello World!");
+                        .setContentTitle(NOTIFIACTION_TITLE)
+                        .setContentText(NOTIFICATION_TEXT + name);
 
         NotificationManager mNotificationManager =
                 (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
-        // mId allows you to update the notification later on.
         mNotificationManager.notify(10, mBuilder.build());
     }
 }
