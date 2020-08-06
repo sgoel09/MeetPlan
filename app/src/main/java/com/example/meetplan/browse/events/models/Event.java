@@ -3,6 +3,7 @@ package com.example.meetplan.browse.events.models;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,52 +12,55 @@ import java.util.List;
  * Model data class for an event.
  * Parses and stores information for an event from a JSONObject.
  * */
+@Parcel
 public class Event {
 
     /** Field of the JSONObject to get the name of the event. */
-    private static final String JSON_FIELD_NAME = "name";
+    public static final String JSON_FIELD_NAME = "name";
 
     /** Field of the JSONObject to get the id of the event. */
-    private static final String JSON_FIELD_ID = "id";
+    public static final String JSON_FIELD_ID = "id";
 
     /** Field of the JSONObject to get the url of the event. */
-    private static final String JSON_FIELD_URL = "url";
+    public static final String JSON_FIELD_URL = "url";
 
     /** Field of the JSONObject to get the date of the event. */
-    private static final String JSON_FIELD_DATES = "dates";
+    public static final String JSON_FIELD_DATES = "dates";
 
     /** Field of the JSONObject to get the start date of the event. */
-    private static final String JSON_FIELD_START = "start";
+    public static final String JSON_FIELD_START = "start";
 
     /** Field of the JSONObject to get the local date of the event. */
-    private static final String JSON_FIELD_LOCAL_DATE = "localDate";
+    public static final String JSON_FIELD_LOCAL_DATE = "localDate";
 
     /** Field of the JSONObject to get the embedded array of the event. */
-    private static final String JSON_FIELD_EMBEDDED = "_embedded";
+    public static final String JSON_FIELD_EMBEDDED = "_embedded";
 
     /** Field of the JSONObject to get the venues of the event. */
-    private static final String JSON_FIELD_VENUES = "venues";
+    public static final String JSON_FIELD_VENUES = "venues";
 
     /** Field of the JSONObject to get the images of the event. */
-    private static final String JSON_FIELD_IMAGES = "images";
+    public static final String JSON_FIELD_IMAGES = "images";
 
     /** Name of the event. */
-    private final String name;
+    public String name;
 
     /** Id of the event. */
-    private final String id;
+    public String id;
 
     /** Url of the event. */
-    private final String url;
+    public String url;
 
     /** Date of the event. */
-    private final String date;
+    public String date;
 
     /** Venue of the event. */
-    private final Venue venue;
+    public Venue venue;
 
     /** Image of the event. */
-    private String image;
+    public String image;
+
+    public Event() {}
 
     /**
      * Constructor that takes in the retrieved JSONObject and parses information.

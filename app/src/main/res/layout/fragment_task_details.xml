@@ -1,43 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".browse.events.EventDetailsFragment">
+    tools:context=".browse.restaurants.RestaurantDetailsFragment">
 
     <TextView
-        android:id="@+id/info"
+        android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_med"
+        android:layout_marginTop="@dimen/margin_med"
         android:layout_toRightOf="@id/title"
+        android:fontFamily="@font/catamaran"
+        android:textColor="@android:color/black"
         tools:text="$$$" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_med"
+        android:layout_marginTop="@dimen/margin_small"
+        android:textColor="@android:color/black"
+        android:fontFamily="@font/catamaran"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_size"
         tools:text="Title" />
 
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title"
-        tools:src="@tools:sample/avatars" />
-
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+    <fragment
         android:id="@+id/map"
-        tools:context=".MainActivity"
-        android:name="com.google.android.gms.maps.SupportMapFragment" />
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/address"
+        android:layout_marginTop="@dimen/margin_medium"
+        tools:context=".MainActivity" />
 
     <TextView
         android:id="@+id/address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/image"
+        android:layout_below="@id/url"
+        android:layout_marginLeft="@dimen/margin_med"
+        android:layout_marginTop="@dimen/margin_small"
+        android:textColor="@android:color/black"
+        android:fontFamily="@font/catamaran"
         android:text="TextView" />
+
+    <TextView
+        android:id="@+id/url"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_marginLeft="@dimen/margin_med"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginRight="@dimen/margin_med"
+        android:autoLink="all"
+        android:fontFamily="@font/catamaran"
+        android:text="@string/see_website"
+        android:textColor="@color/colorThemeAccent" />
+
 </RelativeLayout>

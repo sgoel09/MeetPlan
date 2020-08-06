@@ -1,6 +1,9 @@
 package com.example.meetplan.browse.events;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
+import com.example.meetplan.browse.events.models.Event;
 import com.example.meetplan.browse.events.models.Venue;
 import com.example.meetplan.databinding.FragmentTaskDetailsBinding;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -27,6 +31,10 @@ import org.parceler.Parcels;
  * */
 public class EventDetailsFragment extends Fragment implements OnMapReadyCallback {
 
+    private static final String KEY_VENUE = "venue";
+
+    private static final String KEY_EVENT = "event";
+
     /** View binding for this fragment. */
     private FragmentTaskDetailsBinding binding;
 
@@ -36,16 +44,20 @@ public class EventDetailsFragment extends Fragment implements OnMapReadyCallback
     /** Venue object that holds all the information related to a venue. */
     private Venue venue;
 
+    /** Event object for which the details are displayed. */
+    private Event event;
+
     /** Required empty public constructor. */
     public EventDetailsFragment() {}
 
     /** Creates a new instance of the fragment and saves the venue in arguments.
      * @param venue venue for the selected event
      * */
-    public static EventDetailsFragment newInstance(Venue venue) {
+    public static EventDetailsFragment newInstance(Venue venue, Event event) {
         EventDetailsFragment fragment = new EventDetailsFragment();
         Bundle args = new Bundle();
-        args.putParcelable("venue", Parcels.wrap(venue));
+        args.putParcelable(KEY_VENUE, Parcels.wrap(venue));
+        args.putParcelable(KEY_EVENT, Parcels.wrap(event));
         fragment.setArguments(args);
         return fragment;
     }
@@ -66,16 +78,27 @@ public class EventDetailsFragment extends Fragment implements OnMapReadyCallback
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        venue = Parcels.unwrap(getArguments().getParcelable("venue"));
-
+        venue = Parcels.unwrap(getArguments().getParcelable(KEY_VENUE));
+        event = Parcels.unwrap(getArguments().getParcelable(KEY_EVENT));
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        binding.title.setText(event.getName());
+        binding.date.setText(event.getDate());
+        binding.address.setText(venue.getFullAddress());
+        binding.url.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(event.getUrl()));
+                getContext().startActivity(browserIntent);
+            }
+        });
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.addMarker(new MarkerOptions().position(venue.getCoordinates()).title("Marker in Sydney"));
+        mMap.addMarker(new MarkerOptions().position(venue.getCoordinates()).title(venue.getName()));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(venue.getCoordinates(), 15));
     }
 }
