@@ -1,10 +1,5 @@
 package com.example.meetplan.details;
 
-import android.util.Log;
-import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.meetplan.databinding.FragmentDetailsBinding;
 import com.example.meetplan.models.Meetup;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -16,6 +11,8 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Call back after saving the new selected invites to the meetup
+ * in the Parse database. */
 public class InviteCallBack implements FindCallback<ParseUser> {
 
     private static final String NONE_STRING = "None";
@@ -29,6 +26,8 @@ public class InviteCallBack implements FindCallback<ParseUser> {
         this.invitee = invitee;
     }
 
+    /** Verifies that the selected user exists, saves the updates to the meetup,
+     * and changes the view for the list of members with the new information. */
     @Override
     public void done(List<ParseUser> users, ParseException e) {
         if (e != null) {
@@ -46,6 +45,7 @@ public class InviteCallBack implements FindCallback<ParseUser> {
         }
     }
 
+    /** Iterates through all the parse users to ensure that the new invite is an existent user. */
     private boolean userExists(List<ParseUser> users) {
         for (ParseUser user : users) {
             if (user.getUsername().equals(invitee)) {
@@ -63,6 +63,7 @@ public class InviteCallBack implements FindCallback<ParseUser> {
         return false;
     }
 
+    /** Displays the updated lists of members and invites on the views of the details fragment. */
     private void displayMembers() {
         List<String> members = meetup.getMembers();
         List<String> invites = meetup.getInvites();

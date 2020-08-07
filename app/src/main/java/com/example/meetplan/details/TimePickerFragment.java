@@ -18,13 +18,17 @@ import com.parse.SaveCallback;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * Fragment for the TimePickerDialog fragment to display a clock and input option for the
+ * user to choose a time. Saves the time to the selected meetup after one is picked.
+ * */
 public class TimePickerFragment extends DialogFragment implements android.app.TimePickerDialog.OnTimeSetListener {
 
+    /** Selected meetup for which the date is being picked for. */
     Meetup meetup;
 
-    public TimePickerFragment() {
-        // Required empty public constructor
-    }
+    /** Required empty constructor. */
+    public TimePickerFragment() {}
 
     public static TimePickerFragment newInstance(Meetup input) {
         TimePickerFragment fragment = new TimePickerFragment();
@@ -34,7 +38,8 @@ public class TimePickerFragment extends DialogFragment implements android.app.Ti
         return fragment;
     }
 
-
+    /** Set the selected time on creation of the time picker dialog fragment to
+     * be the current time. */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         meetup = getArguments().getParcelable("meetup");
@@ -45,6 +50,8 @@ public class TimePickerFragment extends DialogFragment implements android.app.Ti
         return dialog;
     }
 
+    /** Saves the time when one is selected and goes back to the details fragment, this time
+     * with the newly selected time displayed. */
     @Override
     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
         Date date = meetup.getDate();

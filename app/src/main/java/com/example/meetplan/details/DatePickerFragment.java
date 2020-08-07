@@ -18,13 +18,17 @@ import com.parse.SaveCallback;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * Fragment for the DatePickerDialog fragment to display a calendar for the
+ * user to choose a date. Saves the date to the selected meetup after one is picked.
+ * */
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
+    /** Selected meetup for which the date is being picked for. */
     private Meetup meetup;
 
-    public DatePickerFragment() {
-        // Required empty public constructor
-    }
+    /** Required empty constructor. */
+    public DatePickerFragment() {}
 
     public static DatePickerFragment newInstance(Meetup input) {
         DatePickerFragment fragment = new DatePickerFragment();
@@ -34,6 +38,8 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         return fragment;
     }
 
+    /** Set the selected date on creation of the date picker dialog fragment to
+     * be the current date. */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         meetup = getArguments().getParcelable("meetup");
@@ -46,6 +52,8 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         return  dialog;
     }
 
+    /** Saves the date when one is selected and goes back to the details fragment, this time
+     * with the newly selected date displayed. */
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
         Calendar c = Calendar.getInstance();

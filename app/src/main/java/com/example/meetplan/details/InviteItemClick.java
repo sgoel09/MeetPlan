@@ -1,8 +1,5 @@
 package com.example.meetplan.details;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.meetplan.MainActivity;
 import com.example.meetplan.databinding.FragmentDetailsBinding;
 import com.example.meetplan.models.Meetup;
 import com.parse.ParseQuery;
@@ -12,10 +9,17 @@ import java.util.ArrayList;
 
 import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
 
+/** Click listener for an item in the spinner dialog. When a user is clicked,
+ * the invite callback saves the selected user as an invitee to the meetup.*/
 public class InviteItemClick implements OnSpinerItemClick {
 
+    /** View binding of the details fragment. */
     private FragmentDetailsBinding binding;
+
+    /** List of usernames displayed on the spinner dialog. */
     private ArrayList<String> usernames;
+
+    /** Selected meetup for which users are being invited. */
     private Meetup meetup;
 
     public InviteItemClick(FragmentDetailsBinding binding, ArrayList<String> usernames, Meetup meetup) {
@@ -24,6 +28,7 @@ public class InviteItemClick implements OnSpinerItemClick {
         this.meetup = meetup;
     }
 
+    /** When an item on the spinner dialog is clicked, it calls the invite call back. */
     @Override
     public void onClick(String item, int position) {
         InviteCallBack inviteCallBack = new InviteCallBack(binding, meetup, usernames.get(position));
