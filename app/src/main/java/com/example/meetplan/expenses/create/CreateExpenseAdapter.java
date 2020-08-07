@@ -1,12 +1,10 @@
 package com.example.meetplan.expenses.create;
 
-import android.app.Activity;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,21 +12,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.ItemExpenseMemberBinding;
-import com.example.meetplan.models.Meetup;
 import com.example.meetplan.models.User;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Adapter for the recyclerview of memebers when creating an expense.
+ * Each item holds the member name and the number of people they are paying on behalf for.
+ * */
 public class CreateExpenseAdapter extends RecyclerView.Adapter<CreateExpenseAdapter.ViewHolder> {
 
+    /** Context of the recyclerview's fragment. */
     private Context context;
+
+    /** List of users the adapter holds. */
     private List<User> users;
+
+    /** Map that holds the association between each user and the number they are paying on behalf for. */
     private Map<String, Integer> splits;
+
 
     public CreateExpenseAdapter(Context context, List<User> users, Map<String, Integer> splits) {
         this.context = context;
@@ -55,13 +60,21 @@ public class CreateExpenseAdapter extends RecyclerView.Adapter<CreateExpenseAdap
         return users.size();
     }
 
+    /** Updates the data for the adapter by setting the data list to the new list and notifying the adapter.
+     * @param users new list of events with updated information
+     * */
     public void updateData(List<User> users) {
         this.users = users;
         notifyDataSetChanged();
     }
 
+    /**
+     * ViewHolder for the container of views of one member.
+     * Binds all views in the ViewHolder to the corresponding member information.
+     * */
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        /** View binding for the member item. */
         final ItemExpenseMemberBinding binding;
 
         public ViewHolder(@NonNull View itemView, ItemExpenseMemberBinding bind) {
@@ -70,6 +83,10 @@ public class CreateExpenseAdapter extends RecyclerView.Adapter<CreateExpenseAdap
             binding = bind;
         }
 
+        /** Binds the user information to the views in the ViewHolder.
+         * Sets a text changed listener of the url field to save the split number for that user.
+         * @param user user for which its data is binded to
+         * */
         public void bind(final User user) {
             binding.member.setText(user.getUsername());
             binding.numMembers.setHint(splits.get(user.getUsername()).toString());
