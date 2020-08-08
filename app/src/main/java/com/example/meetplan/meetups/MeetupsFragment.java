@@ -22,6 +22,8 @@ import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentMeetupsBinding;
 import com.example.meetplan.expenses.create.SwitchChangeListener;
 import com.example.meetplan.models.Meetup;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.common.collect.ImmutableList;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -208,8 +210,7 @@ public class MeetupsFragment extends Fragment {
             @Override
             public void done(List<Meetup> meetups, ParseException e) {
                 if (e != null) {
-                    Log.e(TAG, "Issue with getting posts", e);
-                    return;
+                    Snackbar.make(binding.getRoot(), getString(R.string.meetups_error), BaseTransientBottomBar.LENGTH_SHORT).show();                    return;
                 }
                 for (Meetup meetup : meetups) {
                     Log.i(TAG, "Meetup: " + meetup.getName());
@@ -248,7 +249,7 @@ public class MeetupsFragment extends Fragment {
         createNotificationChannel();
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(getContext(), NOTIFICATION_CHANNEL_ID)
-                        .setSmallIcon(R.drawable.defaultprofilepic)
+                        .setSmallIcon(R.drawable.logo)
                         .setContentTitle(NOTIFIACTION_TITLE)
                         .setContentText(NOTIFICATION_TEXT + name);
 

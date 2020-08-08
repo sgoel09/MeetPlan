@@ -238,7 +238,7 @@ public class DetailsFragment extends Fragment implements PassNewInfo {
             binding.description.setVisibility(View.GONE);
             binding.descriptionLabel.setVisibility(View.GONE);
         }
-        if (edit || (meetup.getDate() != null && !Meetup.getDateFormatted(meetup).isEmpty())) {
+        if (meetup.getDate() != null && !Meetup.getDateFormatted(meetup).isEmpty()) {
             binding.date.setVisibility(View.VISIBLE);
             binding.date.setText(Meetup.getDateFormatted(meetup));
             binding.dateLabel.setVisibility(View.VISIBLE);
@@ -246,7 +246,7 @@ public class DetailsFragment extends Fragment implements PassNewInfo {
             binding.date.setVisibility(View.GONE);
             binding.dateLabel.setVisibility(View.GONE);
         }
-        if (edit || (meetup.getDate() != null && !Meetup.getTimeFormatted(meetup).isEmpty())) {
+        if (meetup.getDate() != null && !Meetup.getTimeFormatted(meetup).isEmpty()) {
             binding.time.setVisibility(View.VISIBLE);
             binding.time.setText(Meetup.getTimeFormatted(meetup));
             binding.timeLabel.setVisibility(View.VISIBLE);
@@ -266,6 +266,8 @@ public class DetailsFragment extends Fragment implements PassNewInfo {
             binding.editButton.setVisibility(View.GONE);
             binding.galleryButton.setVisibility(View.GONE);
             binding.expenseButton.setVisibility(View.GONE);
+            binding.dateLabel.setVisibility(View.VISIBLE);
+            binding.timeLabel.setVisibility(View.VISIBLE);
         } else {
             binding.editButton.setVisibility(View.VISIBLE);
             binding.galleryButton.setVisibility(View.VISIBLE);
@@ -278,14 +280,8 @@ public class DetailsFragment extends Fragment implements PassNewInfo {
      * @param edit boolean or whether the changed mode is edit mode
      * @param binding view binding of the details fragment */
     protected static void changeModeTask(Meetup meetup, boolean edit, FragmentDetailsBinding binding) {
-        if (meetup.getTask() != null) {
-            binding.activity.setText(meetup.getTask().getName());
-            binding.location.setText(meetup.getTask().getPlace());
-            binding.address.setText(meetup.getTask().getAddress());
-        }
         if (edit || meetup.getTask() != null) {
             binding.location.setVisibility(View.VISIBLE);
-            binding.locationLabel.setVisibility(View.VISIBLE);
             binding.activity.setVisibility(View.VISIBLE);
             binding.activityLabel.setVisibility(View.VISIBLE);
         } else {
@@ -294,6 +290,11 @@ public class DetailsFragment extends Fragment implements PassNewInfo {
             binding.location.setVisibility(View.GONE);
             binding.locationLabel.setVisibility(View.GONE);
             binding.address.setVisibility(View.GONE);
+        }
+        if (meetup.getTask() != null) {
+            binding.activity.setText(meetup.getTask().getName());
+            binding.location.setText(meetup.getTask().getPlace());
+            binding.address.setText(meetup.getTask().getAddress());
         }
     }
 
@@ -375,7 +376,6 @@ public class DetailsFragment extends Fragment implements PassNewInfo {
         meetup.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                //changeToEdit();
                 changeMode(View.VISIBLE, meetup, true, binding);
             }
         });

@@ -77,6 +77,7 @@
     <string name="restaurant_error">Could not retrieve restaurant data</string>
     <string name="expense_error">Could not retrieve expenses</string>
     <string name="profile_pic_error">Could not load profile picture</string>
+    <string name="meetups_error">Could not retrieve meetups</string>
     <string name="take_pic_error">Picture was not taken</string>
     <string name="integer_error">Please enter a valid integer</string>
 
