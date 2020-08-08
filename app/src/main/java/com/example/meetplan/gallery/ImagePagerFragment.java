@@ -21,18 +21,20 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link ImagePagerFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Pager fragment that sets the transition animation between the small image view in the
+ * recycler view to the the enlarged image view in the image fragment.
+ * Sets a listener for the view pager to update photos when paging.
  */
 public class ImagePagerFragment extends Fragment {
 
+    /** View pager for this fragment. */
     private ViewPager viewPager;
+
+    /** View binding for this fragment. */
     private FragmentImagePagerBinding binding;
 
-    public ImagePagerFragment() {
-        // Required empty public constructor
-    }
+    /** Required empty public constructor */
+    public ImagePagerFragment() {}
 
     public static ImagePagerFragment newInstance(Meetup meetup) {
         ImagePagerFragment fragment = new ImagePagerFragment();
@@ -42,6 +44,8 @@ public class ImagePagerFragment extends Fragment {
         return fragment;
     }
 
+    /** Sets the current position of the adapter and listener to update selection coordinator
+     * while paging photos.*/
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -50,8 +54,6 @@ public class ImagePagerFragment extends Fragment {
         viewPager = binding.viewPager;
         Meetup meetup = getArguments().getParcelable("meetup");
         viewPager.setAdapter(new ImagePagerAdapter(this, meetup));
-        // Set the current position and add a listener that will update the selection coordinator when
-        // paging the images.
         viewPager.setCurrentItem(MainActivity.currentPosition);
         viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -60,12 +62,6 @@ public class ImagePagerFragment extends Fragment {
             }
         });
 
-        Transition transition =
-                TransitionInflater.from(getContext())
-                        .inflateTransition(R.transition.image_shared_element_transition);
-        double i = transition.getDuration();
-        //setSharedElementEnterTransition(transition);
-        //setEnterTransition(transition);
         prepareSharedElementTransition();
 
         if (savedInstanceState == null) {
@@ -74,13 +70,14 @@ public class ImagePagerFragment extends Fragment {
         return viewPager;
     }
 
+    /** Sets the enter transition to enlarge the shared element to an item in the recyclerview.
+     * This transition is for a shared element transaction animation. */
     private void prepareSharedElementTransition() {
         Transition transition =
                 TransitionInflater.from(getContext())
                         .inflateTransition(R.transition.image_shared_element_transition);
         setSharedElementEnterTransition(transition);
 
-        // A similar mapping is set at the GridFragment with a setExitSharedElementCallback.
         setEnterSharedElementCallback(new SharedElementCallback() {
             @Override
             public void onMapSharedElements(List<String> names, Map<String, View> sharedElements) {
@@ -91,8 +88,6 @@ public class ImagePagerFragment extends Fragment {
                 if (view == null) {
                     return;
                 }
-
-                // Map the first shared element name to the child ImageView.
                 sharedElements.put(names.get(0), view.findViewById(R.id.imageView));
             }
         });

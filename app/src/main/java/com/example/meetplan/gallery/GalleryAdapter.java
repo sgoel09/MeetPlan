@@ -1,7 +1,6 @@
 package com.example.meetplan.gallery;
 
 import android.content.Context;
-import android.transition.TransitionSet;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -13,15 +12,23 @@ import com.bumptech.glide.Glide;
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.ItemPictureBinding;
-import com.example.meetplan.details.DetailsFragment;
 import com.example.meetplan.models.Meetup;
 import com.google.common.collect.ImmutableList;
 import com.parse.ParseFile;
 
+/**
+ * Adapter for the recyclerview of photos of the selected meetup.
+ * Each item holds an image view that displays the photo.
+ * */
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
 
+    /** Context of the gallery fragment. */
     private Context context;
+
+    /** ImmutableList of pictures the adapter holds. */
     private ImmutableList<ParseFile> pictures;
+
+    /** Selected meetup for which photos are being displayed. */
     private Meetup meetup;
 
     public GalleryAdapter(Context context, ImmutableList<ParseFile> pictures, Meetup meetup) {
@@ -49,13 +56,21 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
         return pictures.size();
     }
 
+    /** Updates the data for the adapter by setting the data list to the new list and notifying the adapter.
+     * @param pictures new list of pictures with updated information
+     * */
     public void updateData(ImmutableList<ParseFile> pictures) {
         this.pictures = pictures;
         notifyDataSetChanged();
     }
 
+    /**
+     * ViewHolder for the container of views of one photo.
+     * Binds the views in the ViewHolder to the corresponding photo information.
+     * */
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        /** View binding for the photo item. */
         final ItemPictureBinding binding;
 
         public ViewHolder(@NonNull View itemView, ItemPictureBinding bind) {
@@ -65,6 +80,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
             itemView.setOnClickListener(this);
         }
 
+        /** Binds the photo to the image view of the item
+         * @param picture ParseFile that contains the photo being displayed
+         * */
         public void bind(final ParseFile picture) {
             binding.picture.setVisibility(View.GONE);
             Glide.with(context).load(picture.getUrl()).placeholder(R.drawable.camera_shadow_fill).into(binding.picture);
@@ -74,10 +92,15 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
 
         @Override
         public void onClick(View view) {
-            // Update the position.
             MainActivity.currentPosition = getAdapterPosition();
             Fragment imagePager = ImagePagerFragment.newInstance(meetup);
-            ((MainActivity) context).getSupportFragmentManager().beginTransaction().setReorderingAllowed(true).addSharedElement(binding.picture, binding.picture.getTransitionName()).addToBackStack(null).replace(R.id.flContainer, imagePager, ImagePagerFragment.class.getSimpleName()).commit();
+            ((MainActivity) context)
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .setReorderingAllowed(true)
+                    .addSharedElement(binding.picture, binding.picture.getTransitionName())
+                    .addToBackStack(null).replace(R.id.flContainer, imagePager, ImagePagerFragment.class.getSimpleName())
+                    .commit();
 
         }
     }

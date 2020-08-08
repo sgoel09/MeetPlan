@@ -6,6 +6,7 @@ import com.example.meetplan.expenses.models.Expense;
  * newly created expense to the expense fragment, in order to update the adapter. */
 public interface PassExpense {
 
-    /** Passes in a new expense upon creation. */
+    /** Passes in a new expense upon creation.
+     * @param expense expense that is being passed. */
     void passNewExpense(Expense expense);
 }

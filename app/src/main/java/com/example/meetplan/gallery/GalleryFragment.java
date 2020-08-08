@@ -1,77 +1,61 @@
 package com.example.meetplan.gallery;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.SharedElementCallback;
-import androidx.core.content.FileProvider;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Environment;
-import android.provider.MediaStore;
-import androidx.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.SharedElementCallback;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.TransitionInflater;
+
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentGalleryBinding;
-import com.example.meetplan.databinding.FragmentMeetupsBinding;
 import com.example.meetplan.models.Meetup;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.common.collect.ImmutableList;
-import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.SaveCallback;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static android.app.Activity.RESULT_OK;
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link GalleryFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+/** Fragment that displays the photos of a meetup.
+ * Has option to add a new photo to the meetup, select and view
+ * an image larger, and share the image externally. */
 public class GalleryFragment extends Fragment implements PassNewPhoto {
 
+    /** Key for the meetup in the fragment arguments. */
     private static final String KEY_MEETUP = "meetup";
-    private static final int GALLERY_REQUEST_CODE = 22;
-    private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 40;
-    private static final String IMAGE_TYPE = "image/*";
-    private static final String[] mimeTypes = {"image/jpeg", "image/png"};
-    private static final String TAG = "GalleryFragment";
-    private Meetup meetup;
-    private GalleryFragment thisFragment = this;
-    private GridLayoutManager layoutManager;
-    private GalleryAdapter adapter;
-    private ImmutableList<ParseFile> pictures;
-    private FragmentGalleryBinding binding;
-    @Nullable
-    private File file;
-    @Nullable
-    private ParseFile photoFile;
-    private String photoFileName = "photo.jpg";
 
-    public GalleryFragment() {
-        // Required empty public constructor
-    }
+    /** Selected meetup for which photos are being displayed. */
+    private Meetup meetup;
+
+    /** Pointer to this fragment. */
+    private GalleryFragment thisFragment = this;
+
+    /** Layout manager for the recyclerview of photos. */
+    private GridLayoutManager layoutManager;
+
+    /** Photo adapter for the recyclerview of photos. */
+    private GalleryAdapter adapter;
+
+    /** ImmutableList of photos for the recyclerview of photos. */
+    private ImmutableList<ParseFile> pictures;
+
+    /** View binding for this fragment. */
+    private FragmentGalleryBinding binding;
+
+    /** Required empty public constructor. */
+    public GalleryFragment() {}
 
     public static GalleryFragment newInstance(Meetup meetup) {
         GalleryFragment fragment = new GalleryFragment();
@@ -89,13 +73,13 @@ public class GalleryFragment extends Fragment implements PassNewPhoto {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = FragmentGalleryBinding.inflate(getLayoutInflater(), container, false);
         View view = binding.getRoot();
         prepareTransitions();
         return view;
     }
 
+    /** Sets up the adapter for photos and sets on the click listener for adding a new photo. */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         meetup = getArguments().getParcelable(KEY_MEETUP);
@@ -115,7 +99,9 @@ public class GalleryFragment extends Fragment implements PassNewPhoto {
         });
     }
 
-
+    /** Saves the ParseFile as a new photo for the meetup. Once saved, updates the adapter for the image
+     * to be displayed in the recyclerview.
+     * @param file ParseFile for the new photo to be added */
     private void saveNewPicture(ParseFile file) {
         final Snackbar snackbar = Snackbar.make(binding.getRoot(), getString(R.string.image_load), BaseTransientBottomBar.LENGTH_INDEFINITE);
         snackbar.show();
@@ -132,72 +118,28 @@ public class GalleryFragment extends Fragment implements PassNewPhoto {
         });
     }
 
-    private void uriToParse(Uri selectedImageUri) {
-        InputStream imageStream = null;
-        try {
-            imageStream = getContext().getContentResolver().openInputStream(selectedImageUri);
-        } catch (FileNotFoundException e) {
-            Snackbar.make(binding.getRoot(), getString(R.string.profile_pic_error), BaseTransientBottomBar.LENGTH_SHORT).show();
-            return;
-        }
-        Bitmap bmp = BitmapFactory.decodeStream(imageStream);
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        byte[] bitmapBytes = stream.toByteArray();
-        photoFile =  new ParseFile(bitmapBytes);
-        saveNewPicture(photoFile);
-    }
-
-    private void pickFromGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType(IMAGE_TYPE);
-        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-        startActivityForResult(intent, GALLERY_REQUEST_CODE);
-    }
-
-    private void onLaunchCamera() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        file = getPhotoFileUri(photoFileName);
-        photoFile = new ParseFile(file);
-
-        Uri fileProvider = FileProvider.getUriForFile(getContext(), "com.codepath.fileprovidermeetplan", file);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
-
-        if (intent.resolveActivity(getContext().getPackageManager()) != null) {
-            startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-        }
-    }
-
-    public File getPhotoFileUri(String fileName) {
-        File mediaStorageDir = new File(getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
-        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
-            Snackbar.make(binding.getRoot(), getString(R.string.profile_pic_error), BaseTransientBottomBar.LENGTH_SHORT).show();
-        }
-        return new File(mediaStorageDir.getPath() + File.separator + fileName);
-    }
-
+    /** Sets the exit transition to a fade and the shared element to an item in the recyclerview.
+     * This transition is for a shared element transaction animation. */
     private void prepareTransitions() {
         setExitTransition(TransitionInflater.from(getContext())
                 .inflateTransition(R.transition.grid_exit_transition));
 
-        // A similar mapping is set at the ImagePagerFragment with a setEnterSharedElementCallback.
         setExitSharedElementCallback(new SharedElementCallback() {
             @Override
             public void onMapSharedElements(List<String> names, Map<String, View> sharedElements) {
-                //super.onMapSharedElements(names, sharedElements);
                 RecyclerView.ViewHolder selectedViewHolder = binding.picturesRecyclerView
                         .findViewHolderForAdapterPosition(MainActivity.currentPosition);
                 if (selectedViewHolder == null) {
                     return;
                 }
-
-                // Map the first shared element name to the child ImageView.
                 sharedElements
                         .put(names.get(0), selectedViewHolder.itemView.findViewById(R.id.picture));
             }
         });
     }
 
+    /** Saves the new photo file that is passed in from the add photo dialog fragment.
+     * @param file ParseFile of the photo to be saved */
     @Override
     public void passCreatedParseFile(ParseFile file) {
         saveNewPicture(file);

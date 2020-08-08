@@ -29,6 +29,10 @@ public class ExpenseClickListener implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         ExpenseFragment fragment = ExpenseFragment.newInstance(meetup);
-        fragmentManager.beginTransaction().addToBackStack(ExpenseFragment.class.getSimpleName()).replace(R.id.flContainer, fragment).commit();
+        fragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+                .addToBackStack(ExpenseFragment.class.getSimpleName())
+                .replace(R.id.flContainer, fragment)
+                .commit();
     }
 }

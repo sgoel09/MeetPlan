@@ -39,30 +39,52 @@ import java.util.ArrayList;
 import static android.app.Activity.RESULT_OK;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link AddPhotoFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Bottom dialog sheet fragment to add a photo. Selections in the
+ * fragment include capturing an image by launching the camera or
+ * choosing a photo from the phone's photo gallery.
  */
 public class AddPhotoFragment extends BottomSheetDialogFragment {
 
+    /** Key for the meetup in the arguments. */
     private static final String KEY_MEETUP = "meetup";
+
+    /** Request code for the intent that launches the photo gallery. */
     private static final int GALLERY_REQUEST_CODE = 22;
+
+    /** Request code for the intent that launches the camera activity. */
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 40;
+
+    /** Image type of the selected or captured photo. */
     private static final String IMAGE_TYPE = "image/*";
+
+    /** Array of mime types for the selected photo. */
     private static final String[] mimeTypes = {"image/jpeg", "image/png"};
+
+    /** Tag for this fragment. */
     private static final String TAG = "GalleryFragment";
+
+    /** Selected meetup if fragment is launched for a selected meetup's gallery. */
     private Meetup meetup;
+
+    /** View binding for this fragment. */
     private FragmentAddPhotoBinding binding;
+
+    /** Pointer to this fragment. */
     private AddPhotoFragment thisFragment = this;
+
+    /** File that stores the selected or captured photo. */
     @Nullable
     private File file;
+
+    /** ParseFile that stores the selected or captured photo. */
     @Nullable
     private ParseFile photoFile;
+
+    /** Name using which the photo will be saved. */
     private String photoFileName = "photo.jpg";
 
-    public AddPhotoFragment() {
-        // Required empty public constructor
-    }
+    /** Required empty public constructor. */
+    public AddPhotoFragment() {}
 
     public static AddPhotoFragment newInstance(Meetup meetup) {
         AddPhotoFragment fragment = new AddPhotoFragment();
@@ -80,12 +102,13 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = FragmentAddPhotoBinding.inflate(getLayoutInflater(), container, false);
         View view = binding.getRoot();
         return view;
     }
 
+    /** Sets on click listeners to the views of capturing or choosing an image
+     * to launch the respective activity. */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         if (getArguments() != null) {
@@ -107,6 +130,8 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
         });
     }
 
+    /** Based on which activity is completed, prepare the photo to be saved as
+     * a ParseFile in the Parse database. */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -125,12 +150,16 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
         }
     }
 
+    /** Saves the new photo by passing it into the interface method of the target fragment
+     * and dismissing the current dialog fragment. */
     private void saveNewPicture() {
         dismiss();
         PassNewPhoto mHost = (PassNewPhoto) thisFragment.getTargetFragment();
         mHost.passCreatedParseFile(photoFile);
     }
 
+    /** Converts the given Uri to a ParseFile, in order to be saved to the Parse database.
+     * @param selectedImageUri Uri that is to be convered to a ParseFile. */
     private void uriToParse(Uri selectedImageUri) {
         InputStream imageStream = null;
         try {
@@ -146,6 +175,7 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
         photoFile =  new ParseFile(bitmapBytes);
     }
 
+    /** Creates an intent and starts the phone's photo gallery activity. */
     private void pickFromGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType(IMAGE_TYPE);
@@ -153,6 +183,7 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
         startActivityForResult(intent, GALLERY_REQUEST_CODE);
     }
 
+    /** Creates an intent and starts the camera activity. */
     private void onLaunchCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         file = getPhotoFileUri(photoFileName);
@@ -166,6 +197,7 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
         }
     }
 
+    /** Saves the captured photo as a file to fragment's instance variable. */
     public File getPhotoFileUri(String fileName) {
         File mediaStorageDir = new File(getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
         if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){

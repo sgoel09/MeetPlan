@@ -139,7 +139,8 @@ public class ExpenseFragment extends Fragment implements PassExpense {
     }
 
     /** Queries the expense object from the Parse database, in order to include the SplitExpense
-     * object of the expense that defines how the expense is split. */
+     * object of the expense that defines how the expense is split.
+     * @param expense expense that is being queried */
     private Expense queryExpenses(final Expense expense) {
         final Expense[] newExpense = {new Expense()};
         ParseQuery<Expense> query = ParseQuery.getQuery(Expense.class);
@@ -161,7 +162,8 @@ public class ExpenseFragment extends Fragment implements PassExpense {
         return newExpense[0];
     }
 
-    /** Updates the data list and adapter when a new expense is created and passed in from the dialog fragment. */
+    /** Updates the data list and adapter when a new expense is created and passed in from the dialog fragment.
+     * @param expense new expense that is being passed */
     @Override
     public void passNewExpense(Expense expense) {
         allExpenses = ImmutableList.<Expense>builder().addAll(allExpenses).add(expense).build();

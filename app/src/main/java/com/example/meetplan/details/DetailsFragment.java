@@ -137,10 +137,8 @@ public class DetailsFragment extends Fragment implements PassNewInfo {
         queryIncludes(meetup.getObjectId());
 
         if (getArguments().getBoolean("resume") == true) {
-            //changeToEdit();
             changeMode(View.VISIBLE, meetup, true, binding);
         } else {
-            //changeToView();
             changeMode(View.GONE, meetup, false, binding);
             displayMembers();
             dispalyInvites();
@@ -180,7 +178,12 @@ public class DetailsFragment extends Fragment implements PassNewInfo {
             @Override
             public void onClick(View view) {
                 GalleryFragment fragment = GalleryFragment.newInstance(meetup);
-                getParentFragmentManager().beginTransaction().addToBackStack(DetailsFragment.class.getSimpleName()).replace(R.id.flContainer, fragment).commit();
+                getParentFragmentManager()
+                        .beginTransaction()
+                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+                        .addToBackStack(DetailsFragment.class.getSimpleName())
+                        .replace(R.id.flContainer, fragment)
+                        .commit();
             }
         });
 
