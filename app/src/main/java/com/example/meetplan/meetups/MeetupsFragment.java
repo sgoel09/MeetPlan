@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
 import com.example.meetplan.databinding.FragmentMeetupsBinding;
-import com.example.meetplan.expenses.create.SwitchChangeListener;
 import com.example.meetplan.models.Meetup;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -30,50 +29,80 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link MeetupsFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Fragment to display the invited, upcoming, and if toggle on,
+ * meetups of the current user. For the upcoming meetups, user can select
+ * the meetup to view and edit details.
  */
 public class MeetupsFragment extends Fragment {
 
-    private static final String KEY_MEMBERS = "members";
+    /** Tag for this fragment. */
     private static final String TAG = "MeetupsFragment";
+
+    /** Key for the members of a meetup in the Parse database. */
+    private static final String KEY_MEMBERS = "members";
+
+    /** Key for the invites of a meetup in the Parse database. */
     private static final String KEY_INVITED = "invites";
+
+    /** Key for the dates of a meetup in the Parse database. */
     private static final String KEY_DATE = "date";
+
+    /** Title of the notifications. */
     private static final String NOTIFIACTION_TITLE = "MeetPlan";
+
+    /** Text of the notification that reminders users about an upcoming meetup. */
     private static final String NOTIFICATION_TEXT = "You have an upcoming meetup: ";
+
+    /** ID for the notification channel. */
     private static final String NOTIFICATION_CHANNEL_ID = "meetplanChannel";
+
+    /** Name for the notification channel. */
     private static final CharSequence NOTIFICATION_CHANNEL_NAME = "meetplan";
+
+    /** Description for the notification channel. */
     private static final String NOTIFICATION_CHANNEL_DESCRIPTION = "Reminders";
+
+    /** Layout manager for the recyclerview of accepted meetups. */
     private LinearLayoutManager acceptedLayoutManager;
+
+    /** Layout manager for the recyclerview of invited meetups. */
     private LinearLayoutManager invitedLayoutManager;
+
+    /** Layout manager for the recyclerview of past meetups. */
     private LinearLayoutManager pastLayoutManager;
+
+    /** Meetup adapter for the recyclerview of accepted meetups. */
     private MeetupAdapter acceptedAdapter;
+
+    /** ImmutableList of meetups for the recyclerview of accepted meetups. */
     private ImmutableList<Meetup> acceptedMeetups;
+
+    /** Meetup adapter for the recyclerview of invited meetups. */
     private MeetupAdapter invitedAdapter;
+
+    /** ImmutableList of meetups for the recyclerview of invited meetups. */
     private ImmutableList<Meetup> invitedMeetups;
+
+    /** Meetup adapter for the recyclerview of past meetups. */
     private MeetupAdapter pastAdapter;
+
+    /** ImmutableList of meetups for the recyclerview of past meetups. */
     private ImmutableList<Meetup> pastMeetups;
+
+    /** Click listener for creating a new meetup. */
     private NewClickListener newClickListener;
-    FragmentMeetupsBinding binding;
 
-    public MeetupsFragment() {
-        // Required empty public constructor
-    }
+    /** View binding for this fragment. */
+    private FragmentMeetupsBinding binding;
 
-    public static MeetupsFragment newInstance(String param1, String param2) {
-        MeetupsFragment fragment = new MeetupsFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
+    /** Required empty public constructor. */
+    public MeetupsFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,14 +117,17 @@ public class MeetupsFragment extends Fragment {
         return view;
     }
 
+    /** Sets up all the recycler views and adapters, and the listeners for the new button and switch. */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ((MainActivity) getActivity()).showBottomNavigation(false);
+
         setUpAcceptedAdapter();
         setUpInvitedAdapter();
         setUpPastAdapter();
         setPastSwitch();
+
         newClickListener = new NewClickListener(getContext());
         binding.newButton.setOnClickListener(newClickListener);
         binding.pastSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -113,12 +145,15 @@ public class MeetupsFragment extends Fragment {
         });
     }
 
+    /** Sets the past switch initially to false and hides the views associated with past meetups. */
     private void setPastSwitch() {
         binding.pastSwitch.setChecked(false);
         binding.pastLabel.setVisibility(View.GONE);
         binding.pastRecyclerView.setVisibility(View.GONE);
     }
 
+    /** Sets up the accepted meetups recyclerview by defining a layout manager, creating an adapter,
+     * and binding to the recyclerview. */
     private void setUpAcceptedAdapter() {
         acceptedLayoutManager = new LinearLayoutManager(getContext());
         acceptedMeetups = ImmutableList.of();
@@ -128,6 +163,8 @@ public class MeetupsFragment extends Fragment {
         queryAcceptedMeetups();
     }
 
+    /** Sets up the invited meetups recyclerview by defining a layout manager, creating an adapter,
+     * and binding to the recyclerview. */
     private void setUpInvitedAdapter() {
         invitedLayoutManager = new LinearLayoutManager(getContext());
         invitedMeetups = ImmutableList.of();
@@ -137,6 +174,8 @@ public class MeetupsFragment extends Fragment {
         queryInvitedMeetups();
     }
 
+    /** Sets up the past meetups recyclerview by defining a layout manager, creating an adapter,
+     * and binding to the recyclerview. */
     private void setUpPastAdapter() {
         pastLayoutManager = new LinearLayoutManager(getContext());
         pastMeetups = ImmutableList.of();
@@ -145,6 +184,8 @@ public class MeetupsFragment extends Fragment {
         binding.pastRecyclerView.setLayoutManager(pastLayoutManager);
     }
 
+    /** Queries all the past meetups of the current user by filtering meetups where the date of the meetup
+     * is before the current date. */
     private void queryPastMeetups() {
         ParseQuery<Meetup> query = ParseQuery.getQuery(Meetup.class);
         query.whereContains(KEY_MEMBERS, ParseUser.getCurrentUser().getUsername());
@@ -171,6 +212,8 @@ public class MeetupsFragment extends Fragment {
         });
     }
 
+    /** Queries all the invited meetups of the current user by filtering meetups where the user has an
+     * invite to the meetup. */
     private void queryInvitedMeetups() {
         ParseQuery<Meetup> query = ParseQuery.getQuery(Meetup.class);
         query.whereContains(KEY_INVITED, ParseUser.getCurrentUser().getUsername());
@@ -196,6 +239,8 @@ public class MeetupsFragment extends Fragment {
         });
     }
 
+    /** Queries all the past meetups of the current user by filtering meetups where the date of the meetup
+     * is later the current date. */
     private void queryAcceptedMeetups() {
         ParseQuery<Meetup> firstQuery = ParseQuery.getQuery(Meetup.class);
         firstQuery.whereContains(KEY_MEMBERS, ParseUser.getCurrentUser().getUsername());
@@ -222,6 +267,8 @@ public class MeetupsFragment extends Fragment {
         });
     }
 
+    /** Determines if any upcoming meetup for the current user is within the next hour, and if so,
+     * notifies the user by creating a new notification. */
     private void queryUpcomingSoon() {
         Date compareDate = new Date(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(1));
         for (Meetup meetup : acceptedMeetups) {
@@ -233,6 +280,7 @@ public class MeetupsFragment extends Fragment {
         }
     }
 
+    /** Creates a notification channel for a notification to be added to the notification manager. */
     private void createNotificationChannel() {
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
         NotificationChannel channel = null;
@@ -245,6 +293,8 @@ public class MeetupsFragment extends Fragment {
         }
     }
 
+    /** Creates a notification for an upcoming meetup and notifies the notification manager.
+     * @param name name of the upcoming meetup that is being notified about */
     private void createNotification(String name) {
         createNotificationChannel();
         NotificationCompat.Builder mBuilder =

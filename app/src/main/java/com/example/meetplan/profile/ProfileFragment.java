@@ -1,56 +1,32 @@
 package com.example.meetplan.profile;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
-import androidx.core.content.FileProvider;
-import androidx.fragment.app.Fragment;
-
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.example.meetplan.LoginActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
+import androidx.fragment.app.Fragment;
+
 import com.example.meetplan.MainActivity;
 import com.example.meetplan.R;
-import com.example.meetplan.databinding.FragmentDetailsBinding;
 import com.example.meetplan.databinding.FragmentProfileBinding;
 import com.example.meetplan.gallery.AddPhotoFragment;
 import com.example.meetplan.gallery.PassNewPhoto;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
-import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.List;
 
-import static android.app.Activity.RESULT_OK;
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ProfileFragment extends Fragment implements PassNewPhoto {
 
     private FragmentProfileBinding binding;

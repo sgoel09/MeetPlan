@@ -9,8 +9,11 @@ import com.example.meetplan.models.Task;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
+/** Application for the Parse databse used to store information in this
+ * mobile app. Registers the models in this project used as classes in the database. */
 public class MeetApplication extends Application {
 
+    /** Sets the application id and server based on the values in the Heroku settings of the Parse database. */
     @Override
     public void onCreate() {
         super.onCreate();
@@ -20,12 +23,9 @@ public class MeetApplication extends Application {
         ParseObject.registerSubclass(Expense.class);
         ParseObject.registerSubclass(SplitExpense.class);
 
-        // set applicationId, and server server based on the values in the Heroku settings.
-        // clientKey is not needed unless explicitly configured
-        // any network interceptors must be added with the Configuration Builder given this syntax
         Parse.initialize(new Parse.Configuration.Builder(this)
-                .applicationId("shefali-meetplan") // should correspond to APP_ID env variable
-                .clientKey(null)  // set explicitly unless clientKey is explicitly configured on Parse server
+                .applicationId("shefali-meetplan")
+                .clientKey(null)
                 .server("https://shefali-meetplan.herokuapp.com/parse").build());
     }
 }
