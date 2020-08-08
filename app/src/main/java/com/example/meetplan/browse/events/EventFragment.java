@@ -154,7 +154,7 @@ public class EventFragment extends Fragment {
         binding.itemRecyclerView.addOnScrollListener(scrollListener);
     }
 
-    /** Sets of recyclerview by defining a manager, creating an adapter, and binding to the recyclerview. */
+    /** Sets up the recyclerview by defining a layout manager, creating an adapter, and binding to the recyclerview. */
     private void setUpRecyclerview() {
         gridLayoutManager = new StaggeredGridLayoutManager(getResources().getInteger(R.integer.grid_layout), StaggeredGridLayoutManager.VERTICAL);
         events = ImmutableList.of();

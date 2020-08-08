@@ -31,9 +31,11 @@ import org.parceler.Parcels;
  * */
 public class EventDetailsFragment extends Fragment implements OnMapReadyCallback {
 
-    private static final String KEY_VENUE = "venue";
-
+    /** Key for the event in the fragment arguments. */
     private static final String KEY_EVENT = "event";
+
+    /** Key for the venue of the event in the fragment arguments. */
+    private static final String KEY_VENUE = "venue";
 
     /** View binding for this fragment. */
     private FragmentTaskDetailsBinding binding;

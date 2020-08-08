@@ -26,26 +26,53 @@ import com.parse.ParseQuery;
 
 import java.util.List;
 
+/** Fragment that displays the expenses and includes button to
+ * create a new expense. When the user clicks on the calculate button,
+ * the optimized transactions are calculated and displayed on the right side. */
 public class ExpenseFragment extends Fragment implements PassExpense {
 
+    /** Key for the meetup in the fragment arguments. */
     private static final String KEY_MEETUP = "meetup";
+
+    /** Key for the object id of the expense in the Parse databse. */
     private static final String KEY_OBJECT_ID = "objectId";
+
+    /** Key for the SplitExpense of the expense in the Parse databse. */
     private static final String KEY_SPLIT_EXPENSE = "splitexpense";
+
+    /** Limit of the parse querry when only looking for one item. */
     private static final int UNIQUE_LIMIT = 1;
+
+    /** View binding for this fragment. */
     private FragmentExpenseBinding binding;
+
+    /** Selected meetup for which expenses are displayed. */
     private Meetup meetup;
+
+    /** Layout manager for the recyclerview of expenses. */
     private LinearLayoutManager layoutManager;
+
+    /** Layout manager for the recyclerview of transactions. */
     private LinearLayoutManager transactionLayoutManager;
+
+    /** Transaction adapter for the recyclerview of transactions. */
     private TransactionAdapter transactionAdapter;
+
+    /** Expense adapter for the recyclerview of expenses. */
     private ExpenseAdapter expenseAdapter;
+
+    /** ImmutableList of transactions for the recyclerview of transactions. */
     private ImmutableList<Transaction> allTransactions;
+
+    /** ImmutableList of expenses for the recyclerview of expenses. */
     private ImmutableList<Expense> allExpenses;
+
+    /** Click listener for the . */
     private CreateClickListener createClickListener;
     private ExpenseManager expenseManager;
 
-    public ExpenseFragment() {
-        // Required empty public constructor
-    }
+    /** Required empty public constructor. */
+    public ExpenseFragment() {}
 
     public static ExpenseFragment newInstance(Meetup meetup) {
         ExpenseFragment fragment = new ExpenseFragment();
@@ -63,11 +90,11 @@ public class ExpenseFragment extends Fragment implements PassExpense {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = FragmentExpenseBinding.inflate(getLayoutInflater(), container, false);
         return binding.getRoot();
     }
 
+    /** Set up the adapter for expenses and transactions and sets on click listeners for the views. */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         meetup = getArguments().getParcelable(KEY_MEETUP);
@@ -86,6 +113,7 @@ public class ExpenseFragment extends Fragment implements PassExpense {
         });
     }
 
+    /** Query each expenses when the fragment is resumed, in order to include the SplitExpense object. */
     @Override
     public void onResume() {
         super.onResume();
@@ -95,6 +123,7 @@ public class ExpenseFragment extends Fragment implements PassExpense {
         }
     }
 
+    /** Sets up the recyclerview by defining a layout manager, creating an adapter, and binding to the recyclerview. */
     private void setUpAdapters() {
         layoutManager = new LinearLayoutManager(getContext());
         allExpenses = ImmutableList.of();
@@ -109,6 +138,8 @@ public class ExpenseFragment extends Fragment implements PassExpense {
         binding.transactionsRecyclerView.setLayoutManager(transactionLayoutManager);
     }
 
+    /** Queries the expense object from the Parse database, in order to include the SplitExpense
+     * object of the expense that defines how the expense is split. */
     private Expense queryExpenses(final Expense expense) {
         final Expense[] newExpense = {new Expense()};
         ParseQuery<Expense> query = ParseQuery.getQuery(Expense.class);
@@ -130,6 +161,7 @@ public class ExpenseFragment extends Fragment implements PassExpense {
         return newExpense[0];
     }
 
+    /** Updates the data list and adapter when a new expense is created and passed in from the dialog fragment. */
     @Override
     public void passNewExpense(Expense expense) {
         allExpenses = ImmutableList.<Expense>builder().addAll(allExpenses).add(expense).build();

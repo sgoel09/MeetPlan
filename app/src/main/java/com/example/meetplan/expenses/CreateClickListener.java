@@ -9,10 +9,17 @@ import com.example.meetplan.MainActivity;
 import com.example.meetplan.expenses.create.CreateExpenseFragment;
 import com.example.meetplan.models.Meetup;
 
+/** Click listener to make a create expense fragment to enter
+ * information about a new expense. */
 public class CreateClickListener implements View.OnClickListener {
 
+    /** Context of the expense fragment. */
     private Context context;
+
+    /** Selected meetup for which an expense will be created. */
     private Meetup meetup;
+
+    /** Previous expense fragment of the meetup. */
     private ExpenseFragment expenseFragment;
 
     public CreateClickListener(Context context, Meetup meetup, ExpenseFragment fragment) {
@@ -21,6 +28,7 @@ public class CreateClickListener implements View.OnClickListener {
         this.expenseFragment = fragment;
     }
 
+    /** Shows the create expense dialog fragment when the create button is clicked. */
     @Override
     public void onClick(View view) {
         FragmentManager fm = ((MainActivity) context).getSupportFragmentManager();
