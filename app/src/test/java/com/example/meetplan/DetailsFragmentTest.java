@@ -3,6 +3,7 @@ package com.example.meetplan;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentFactory;
@@ -72,7 +73,7 @@ public class DetailsFragmentTest {
 
     private static class ButtonViews implements FragmentScenario.FragmentAction<DetailsFragment> {
         private Button submitButton;
-        private Button editButton;
+        private ImageView editButton;
 
         @Override
         public void perform(@NonNull DetailsFragment fragment) {
@@ -100,9 +101,9 @@ public class DetailsFragmentTest {
 
     private static class OptionButtons implements FragmentScenario.FragmentAction<DetailsFragment> {
 
-        private Button timeButton;
-        private Button dateButton;
-        private Button inviteButton;
+        private ImageView timeButton;
+        private ImageView dateButton;
+        private ImageView inviteButton;
 
         @Override
         public void perform(@NonNull DetailsFragment fragment) {
@@ -115,7 +116,7 @@ public class DetailsFragmentTest {
             checkValidity(inviteButton);
         }
 
-        private void checkValidity(Button button) {
+        private void checkValidity(ImageView button) {
             assertNotNull(button);
             assertEquals(View.VISIBLE, button.getVisibility());
             button.performClick();

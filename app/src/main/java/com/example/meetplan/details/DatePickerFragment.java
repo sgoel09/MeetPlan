@@ -66,7 +66,12 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
             public void done(ParseException e) {
                 dismiss();
                 Fragment fragment = DetailsFragment.newInstance(meetup, true);
-                ((MainActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+                ((MainActivity) context)
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(DetailsFragment.class.getSimpleName())
+                        .replace(R.id.flContainer, fragment)
+                        .commit();
             }
         });
     }

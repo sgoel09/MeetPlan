@@ -25,38 +25,45 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
-import java.io.File;
-
+/** Fragment for the profile of the current user that displays
+ * account information including name, username, and email.
+ * Allows users to change their profile picture. */
 public class ProfileFragment extends Fragment implements PassNewPhoto {
 
-    private FragmentProfileBinding binding;
-    private static final int GALLERY_REQUEST_CODE = 20;
-    private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
+    /** Key for the name of the current user in the Parse database. */
     private static final String KEY_NAME = "name";
+
+    /** Key for the profile picture of the current user in the Parse database. */
     private static final String KEY_PROFILE_PIC = "profilepic";
+
+    /** Key for the object ID of the current user in the Parse database. */
     private static final String KEY_OBJECT_ID = "objectId";
+
+    /** Tag of this fragment. */
     private static final String TAG = "ProfileFragment";
-    private static final String IMAGE_TYPE = "image/*";
-    private static final String[] mimeTypes = {"image/jpeg", "image/png"};
+
+    /** Find callback for retrieving custom information of the current user. */
     private ProfilePicCallBack profilePicCallBack;
-    private ProfileFragment thisFragment = this;
+
+    /** View binding of this fragment. */
+    private FragmentProfileBinding binding;
+
+    /** Click listener to logout of the current account. */
     private LogoutClickListener logoutClickListener;
+
+    /** Click listener to save inputted changes to the current account information. */
+    private ChangeInfoClickListener changeInfoClickListener;
+
+    private NewProfilePicCallBack newProfilePicCallBack;
+
+    /** Snackbar to notify the user that a new profile picture is loading. */
     private Snackbar snackbar;
-    @Nullable
-    private File file;
-    @Nullable
-    private ParseFile photoFile;
-    private String photoFileName = "photo.jpg";
 
-    public ProfileFragment() {
-        // Required empty public constructor
-    }
+    /** Pointer of this fragment. */
+    private ProfileFragment thisFragment = this;
 
-    public static ProfileFragment newInstance(String param1, String param2) {
-        ProfileFragment fragment = new ProfileFragment();
-        Bundle args = new Bundle();
-        return fragment;
-    }
+    /** Required empty public constructor */
+    public ProfileFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,6 +79,7 @@ public class ProfileFragment extends Fragment implements PassNewPhoto {
         return view;
     }
 
+    /** Sets user information and click listeners for the respective views. */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         loadProfilePic();
@@ -84,39 +92,17 @@ public class ProfileFragment extends Fragment implements PassNewPhoto {
         logoutClickListener = new LogoutClickListener(getContext());
         binding.logoutButton.setOnClickListener(logoutClickListener);
 
-        binding.changeInfoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setUserInfo();
-            }
-        });
+        changeInfoClickListener = new ChangeInfoClickListener(binding, getContext());
+        binding.changeInfoButton.setOnClickListener(changeInfoClickListener);
 
         binding.profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AddPhotoFragment addPhotoBottomDialogFragment = new AddPhotoFragment();
                 addPhotoBottomDialogFragment.setTargetFragment(thisFragment, 0);
-                addPhotoBottomDialogFragment.show(((MainActivity) getContext()).getSupportFragmentManager(), "add_photo_dialog_fragment");
+                addPhotoBottomDialogFragment.show(((MainActivity) getContext()).getSupportFragmentManager(), TAG);
             }
         });
-    }
-
-    private void setUserInfo() {
-        String username = binding.username.getText().toString();
-        String email = binding.email.getText().toString();
-        String name = binding.name.getText().toString();
-        ParseUser user = ParseUser.getCurrentUser();
-        if (!username.isEmpty()) {
-            user.setUsername(username);
-        }
-        if (!email.isEmpty()) {
-            user.setEmail(email);
-        }
-        if (!name.isEmpty()) {
-            user.put(KEY_NAME, name);
-        }
-        user.saveInBackground();
-        Snackbar.make(binding.getRoot(), getString(R.string.info_saved),BaseTransientBottomBar.LENGTH_SHORT).show();
     }
 
     @Override
@@ -125,6 +111,8 @@ public class ProfileFragment extends Fragment implements PassNewPhoto {
         menu.clear();
     }
 
+    /** Loads custom information of a ParseUser, including profile picture and name,
+     * from the database by querying the current ParseUser to include that information. */
     public void loadProfilePic() {
         if (ParseUser.getCurrentUser() != null) {
             ParseQuery<ParseUser> query = ParseQuery.getQuery(ParseUser.class);
@@ -137,23 +125,22 @@ public class ProfileFragment extends Fragment implements PassNewPhoto {
         }
     }
 
+    /** @return the view binding of this fragment, which is made available for unit testing. */
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     public FragmentProfileBinding getBinding() {
         return binding;
     }
 
+    /** Updates the new photo file that is passed in from the add photo dialog fragment to the user.
+     * Saves the user in the Parse database and displays the new profile picture.
+     * @param file ParseFile of the photo to be saved */
     @Override
     public void passCreatedParseFile(ParseFile file) {
         snackbar = Snackbar.make(binding.getRoot(), R.string.image_load, BaseTransientBottomBar.LENGTH_INDEFINITE);
         snackbar.show();
         ParseUser user = ParseUser.getCurrentUser();
         user.put(KEY_PROFILE_PIC, file);
-        user.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                loadProfilePic();
-                snackbar.dismiss();
-            }
-        });
+        newProfilePicCallBack = new NewProfilePicCallBack(binding, getContext(), snackbar);
+        user.saveInBackground(newProfilePicCallBack);
     }
 }

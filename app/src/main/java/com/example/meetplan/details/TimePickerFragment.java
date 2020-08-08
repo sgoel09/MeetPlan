@@ -70,7 +70,12 @@ public class TimePickerFragment extends DialogFragment implements android.app.Ti
             public void done(ParseException e) {
                 dismiss();
                 Fragment fragment = DetailsFragment.newInstance(meetup, true);
-                ((MainActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+                ((MainActivity) context)
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(DetailsFragment.class.getSimpleName())
+                        .replace(R.id.flContainer, fragment)
+                        .commit();
             }
         });
     }

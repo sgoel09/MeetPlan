@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /** Queries information about current user to update drawer navigation header. */
-    private void setUserInfo() {
+    protected void setUserInfo() {
         ParseUser user = ParseUser.getCurrentUser();
         navHeaderBinding.usernameLabel2.setText(user.getUsername());
         ParseQuery<ParseUser> query = ParseQuery.getQuery(ParseUser.class);
