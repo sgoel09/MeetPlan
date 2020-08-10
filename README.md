@@ -11,12 +11,12 @@ Original App Design Project - README
 
 ## Overview
 ### Description
-This app is designed to easily create and organize meetups among friends from start to finish - scheduling a time, deciding on an activity, place or event, transportation, and common expense settlement. It makes it a one-stop shop for all the components required to have a smooth and easy time with a group of friends without having to visit multiple applications or websites.
+This app is designed to easily create and organize meeting among friends from start to finish - scheduling a time, deciding on an activity, place or event, transportation, and common expense settlement. It makes it a one-stop shop for all the components required to have a smooth and easy time with a group of friends without having to visit multiple applications or websites.
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
 - **Category:** Social Networking, Lifestyle, Entertainment
-- **Mobile:** This is a mobile application with a listview to easily see the meetups you are invited to or create your own.
+- **Mobile:** This is a mobile application with a listview to easily see the meeting you are invited to or create your own.
 - **Story:** Figurig out logistics for a group meetup or a day out can be difficult and overwhelming. This will simplify the process for users and be a resource to access in order to coordinate and keeping everyone in sync.
 - **Market:** Groups that are planning a meetup.
 - **Habit:** When individuals decide that they want to meet or hang out, they can use this application to make the process easier. It allows for easy and visual communication for the important parts of a meetup, as well as browsing places and activities to do.
@@ -41,10 +41,10 @@ This app is designed to easily create and organize meetups among friends from st
 - Pick a meetup activity - Restaurant
   - [x] Propose a restaurant to meet at by browsing different restaurants (pulled through an API)
   - [x] Include a double tap gesture to select restaurant
-- View Meetup
-  - [x] View existing meetups that user is part of
-  - [x] View meetups the user is invited to attend
-  - [x] Accept/decline meetups that user is invited to attend
+- View Meetings
+  - [x] View existing meetings that user is part of
+  - [x] View meetings the user is invited to attend
+  - [x] Accept/decline meetings that user is invited to attend
 - [x] Implement the material design library to add visual polish
 - [x] Animate views for transitioning between different fragments 
 
@@ -62,7 +62,7 @@ This app is designed to easily create and organize meetups among friends from st
 - User profile
   - [x] Users can edit account information
   - [X] Users can upload a profile picture from gallery
-- [x] View meetups that have completed
+- [x] View meetings that have completed
 - [x] Include a details page for each activity to see more information (such as address, rating, phone etc.)
 - [x] Use Google Maps to see location of activity on map
 - [x] Photo gallery where members can upload photos shared with the rest of the group
@@ -76,10 +76,10 @@ This app is designed to easily create and organize meetups among friends from st
    * Login into an existing account
 * Signup
    * Be able to sign up for an account
-* List of meetups
-   * View meetups that user is part of
+* List of meetings
+   * View meetings that user is part of
    * Accept meetup that user is invited to attend
-   * View meetups that have finished
+   * View meetings that have finished
    * Create a new meetup
 * Meetup details
    * Invite other memebers to the meetup
@@ -98,16 +98,16 @@ This app is designed to easily create and organize meetups among friends from st
 **Tab Navigation** (Tab to Screen)
 
 * Profile
-* List of meetups
+* List of meetings
 
 **Flow Navigation** (Screen to Screen)
 
 * Login
    * -> Signup
-   * -> Home (List of meetups)
+   * -> Home (List of meetings)
 * Signup
-   * -> Home (List of meetups)
-* Home (List of meetups)
+   * -> Home (List of meetings)
+* Home (List of meetings)
    * -> Meetup details
    * -> Profile
 * Meetup details
@@ -118,7 +118,7 @@ This app is designed to easily create and organize meetups among friends from st
 * Expense splitting
    *  -> Meetup details
 * Profile
-   *  -> Home (List of meetups)
+   *  -> Home (List of meetings)
    *  -> Login
 
 ## Wireframes
