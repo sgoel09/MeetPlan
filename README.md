@@ -17,10 +17,10 @@ This app is designed to easily create and organize meeting among friends from st
 [Evaluation of your app across the following attributes]
 - **Category:** Social Networking, Lifestyle, Entertainment
 - **Mobile:** This is a mobile application with a listview to easily see the meeting you are invited to or create your own.
-- **Story:** Figurig out logistics for a group meetup or a day out can be difficult and overwhelming. This will simplify the process for users and be a resource to access in order to coordinate and keeping everyone in sync.
-- **Market:** Groups that are planning a meetup.
-- **Habit:** When individuals decide that they want to meet or hang out, they can use this application to make the process easier. It allows for easy and visual communication for the important parts of a meetup, as well as browsing places and activities to do.
-- **Scope:** Initially, the following features of the meetup will be implemented: creating a meetup having a fixed day/time, inviting friends to join, deciding on a place/event/activity, and expense splitting. Once completed, find the best time to meet, having a photo gallery for the meetup and finding tranportation are features that will follow.
+- **Story:** Figurig out logistics for a group meeting or a day out can be difficult and overwhelming. This will simplify the process for users and be a resource to access in order to coordinate and keeping everyone in sync.
+- **Market:** Groups that are planning a meeting.
+- **Habit:** When individuals decide that they want to meet or hang out, they can use this application to make the process easier. It allows for easy and visual communication for the important parts of a meeting, as well as browsing places and activities to do.
+- **Scope:** Initially, the following features of the meeting will be implemented: creating a meeting having a fixed day/time, inviting friends to join, deciding on a place/event/activity, and expense splitting. Once completed, find the best time to meet, having a photo gallery for the meeting and finding tranportation are features that will follow.
 
 ## Product Spec
 
@@ -33,12 +33,12 @@ This app is designed to easily create and organize meeting among friends from st
   - [x] Launch and use camera to add a profile picture
   - [x] Login into an existing account
   - [x] Logout of an account
-- Create Meetup
-  - [x] Create a new meetup
-  - [x] Pick a date for the meetup
-  - [x] Pick a time for the meetup
-  - [x] Invite other memebers to the meetup
-- Pick a meetup activity - Restaurant
+- Create Meeting
+  - [x] Create a new meeting
+  - [x] Pick a date for the meeting
+  - [x] Pick a time for the meeting
+  - [x] Invite other memebers to the meeting
+- Pick a meeting activity - Restaurant
   - [x] Propose a restaurant to meet at by browsing different restaurants (pulled through an API)
   - [x] Include a double tap gesture to select restaurant
 - View Meetings
@@ -51,12 +51,12 @@ This app is designed to easily create and organize meeting among friends from st
 **Optional Nice-to-have Stories**
 - Expense sharing
   - [x] Allow members to enter their expenses
-  - [x] Tag all meetup members to an expense
-  - [x] Tag specific meetup member(s) to an expense
+  - [x] Tag all meeting members to an expense
+  - [x] Tag specific meeting member(s) to an expense
   - [x] Allow members to pay on behalf of others for uneven splitting
   - [x] Compute and display optimal transactions between members to settle expenses
 - [x] Implement unit testing for some fragments and activities
-- Additional meetup activities
+- Additional meeting activities
   - [x] Browse and select from an additional activity category (events, movies, parks etc.)
   - [x] Filter activities displayed to user via search by city
 - User profile
@@ -78,12 +78,12 @@ This app is designed to easily create and organize meeting among friends from st
    * Be able to sign up for an account
 * List of meetings
    * View meetings that user is part of
-   * Accept meetup that user is invited to attend
+   * Accept meeting that user is invited to attend
    * View meetings that have finished
-   * Create a new meetup
-* Meetup details
-   * Invite other memebers to the meetup
-   * Pick a time for the meetup
+   * Create a new meeting
+* Meeting details
+   * Invite other memebers to the meeting
+   * Pick a time for the meeting
 * Browse places
     * Browse and select an activity from different categories - restaurants, parks, events, and movies
    * Include a pinch gesture for exploring places on a map
@@ -108,15 +108,15 @@ This app is designed to easily create and organize meeting among friends from st
 * Signup
    * -> Home (List of meetings)
 * Home (List of meetings)
-   * -> Meetup details
+   * -> Meeting details
    * -> Profile
-* Meetup details
+* Meeting details
    * -> Browse activity
    * -> Expense splitting
 * Browse activity
-   *  -> Meetup details
+   *  -> Meeting details
 * Expense splitting
-   *  -> Meetup details
+   *  -> Meeting details
 * Profile
    *  -> Home (List of meetings)
    *  -> Login
@@ -164,14 +164,14 @@ https://www.figma.com/file/wbtXcnmbOgcEc8YFaXuypk/FBU-App-Design?node-id=0%3A1
    * (Read/GET) Query user to log into the account
 * Signup
    * (Create/POST) Publish new user to database
-* Home (List of meetups)
-   * (Read/GET) Query all meetups that the user has been invited to
-   * (Read/GET) Query all meetups that the user has accepted
-* Meetup details
-   * (Read/GET) Query the scheduled time for the meetup (if set)
-   * (Read/GET) Query the location for the meetup (if set)
-   * (Read/GET) Query all members in the meetup
-   * (Create/POST) Publish members to the meetup
+* Home (List of meeting)
+   * (Read/GET) Query all meeting that the user has been invited to
+   * (Read/GET) Query all meeting that the user has accepted
+* Meeting details
+   * (Read/GET) Query the scheduled time for the meeting (if set)
+   * (Read/GET) Query the location for the meeting (if set)
+   * (Read/GET) Query all members in the meeting
+   * (Create/POST) Publish members to the meeting
 * Browse activity
    *  (Read/GET) Query restarants to display
    *  (Read/GET) Query local events to display
