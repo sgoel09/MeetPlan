@@ -140,11 +140,12 @@ public class DetailsFragment extends Fragment implements PassNewInfo {
             changeMode(View.VISIBLE, meetup, true, binding);
         } else {
             changeMode(View.GONE, meetup, false, binding);
-            displayMembers();
-            dispalyInvites();
-            setDateTime();
-            updateInviteUsernames();
         }
+
+        displayMembers();
+        dispalyInvites();
+        setDateTime();
+        updateInviteUsernames();
 
         spinnerDialog = new SpinnerDialog(getActivity(), inviteUsernames, getString(R.string.invite_title), getString(R.string.cancel));
         spinnerDialog.setCancellable(true);
@@ -308,6 +309,7 @@ public class DetailsFragment extends Fragment implements PassNewInfo {
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> objects, ParseException e) {
+                inviteUsernames.clear();
                 for (ParseUser user : objects) {
                     inviteUsernames.add(user.getUsername());
                 }

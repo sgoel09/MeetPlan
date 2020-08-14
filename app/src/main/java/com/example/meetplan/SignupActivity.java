@@ -18,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
 import java.io.ByteArrayOutputStream;
@@ -50,6 +51,8 @@ public class SignupActivity extends AppCompatActivity {
 
     /** View binding for this activity. */
     ActivitySignupBinding binding;
+
+    private String name;
 
     /**
      * Sets the click listener on the sign up button.
@@ -87,6 +90,7 @@ public class SignupActivity extends AppCompatActivity {
         user.setPassword(password);
         user.setEmail(email);
         signupCallBack = new SignupCallBack();
+        this.name = name;
         user.signUpInBackground(signupCallBack);
         Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.defaultprofilepic);
         user.put(KEY_PROFILE_PIC, convertToParseFile(imageBitmap));
@@ -138,10 +142,10 @@ public class SignupActivity extends AppCompatActivity {
         public void done(ParseException e) {
             if (e != null) {
                 Log.e(TAG, "Issue with signup", e);
+                goMainActivity();
+                Snackbar.make(binding.getRoot(), "Success", BaseTransientBottomBar.LENGTH_SHORT).show();
                 return;
             }
-            goMainActivity();
-            Snackbar.make(binding.getRoot(), "Success", BaseTransientBottomBar.LENGTH_SHORT).show();
         }
     }
 }

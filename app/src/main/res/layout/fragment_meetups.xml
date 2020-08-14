@@ -24,7 +24,7 @@
                 android:layout_marginTop="@dimen/margin_small"
                 android:layout_marginEnd="@dimen/margin_small"
                 android:layout_marginBottom="@dimen/margin_small"
-                android:text="Upcoming Meetups"
+                android:text="Upcoming Meetings"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/label_size"
                 android:textStyle="bold" />
@@ -37,7 +37,7 @@
                 android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_small"
                 android:layout_marginEnd="@dimen/margin_small"
-                android:text="Past Meetups"
+                android:text="Past Meetings"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/label_size"
                 android:textStyle="bold" />
@@ -64,7 +64,7 @@
                 android:layout_marginTop="@dimen/margin_small"
                 android:layout_marginEnd="@dimen/margin_small"
                 android:layout_marginBottom="@dimen/margin_small"
-                android:text="@string/invited_meetups"
+                android:text="Invited Meetings"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/label_size"
                 android:textStyle="bold" />
@@ -82,7 +82,7 @@
                 android:layout_below="@id/meetupsRecyclerView"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="@dimen/margin_small"
-                android:text="See Past Meetups" />
+                android:text="See Past Meetings" />
 
         </RelativeLayout>
     </ScrollView>

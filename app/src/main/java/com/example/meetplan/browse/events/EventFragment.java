@@ -121,7 +121,7 @@ public class EventFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         meetup = getArguments().getParcelable(KEY_MEETUP);
-        ((MainActivity) getActivity()).itemSelectedListener.addMeetup(meetup);
+        //((MainActivity) getActivity()).itemSelectedListener.addMeetup(meetup);
 
         setUpRecyclerview();
 
@@ -175,8 +175,8 @@ public class EventFragment extends Fragment {
      * @param city city in which events should be searched */
     private void searchByCity(String city) {
         String url = EVENT_BASE_URL + getString(R.string.tm_api_key) + PARAM_CITY + city;
-        populateEvents(url);
         ((MainActivity) getActivity()).itemSelectedListener.addCity(city);
+        populateEvents(url);
     }
 
     /** Creates a network call to the Ticketmaster API and updates the adapter with the new data.

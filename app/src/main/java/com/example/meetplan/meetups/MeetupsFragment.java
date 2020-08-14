@@ -246,6 +246,7 @@ public class MeetupsFragment extends Fragment {
         firstQuery.whereContains(KEY_MEMBERS, ParseUser.getCurrentUser().getUsername());
         firstQuery.whereGreaterThanOrEqualTo(KEY_DATE, new Date());
         ParseQuery<Meetup> secondQuerry = ParseQuery.getQuery(Meetup.class);
+        secondQuerry.whereContains(KEY_MEMBERS, ParseUser.getCurrentUser().getUsername());
         secondQuerry.whereEqualTo(KEY_DATE, null);
         List<ParseQuery<Meetup>> queries = new ArrayList<>();
         queries.add(firstQuery);
